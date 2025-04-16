@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  //output   = "../generated/prisma"
+  output   = "./generated/prisma"
 }
 
 datasource db {
@@ -31,13 +31,19 @@ model Tenant {
   channels Channel[]
 }
 
+enum UserRole {
+  admin
+  manager
+  agent
+}
+
 model User {
   id         String   @id @default(uuid())
   tenantId   String
   tenant     Tenant   @relation(fields: [tenantId], references: [id])
   name       String
   email      String   @unique
-  role       String   @default("agent")
+  role       UserRole   @default(agent)
   isActive   Boolean  @default(true)
   isVerified Boolean  @default(false)
   createdAt  DateTime @default(now())
@@ -60,10 +66,15 @@ model Team {
   conversations  Conversation[]
 }
 
+enum TeamRole {
+  admin
+  member
+}
+
 model TeamMember {
   userId    String
   teamId    String
-  role      String   @default("member")
+  role      TeamRole   @default(member)
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id])
@@ -88,12 +99,19 @@ model Contact {
   conversations Conversation[]
 }
 
+enum ChannelType {
+  whatsapp
+  instagram
+  facebook
+  telegram
+}
+
 model Channel {
   id         String   @id @default(uuid())
   tenantId   String
   tenant     Tenant?   @relation(fields: [tenantId], references: [id])
   name       String
-  type       String   // 'whatsapp', 'instagram', 'facebook', etc.
+  type       ChannelType   // 'whatsapp', 'instagram', 'facebook', etc.
   provider   String?  // ex: '360dialog', 'meta', 'z-api'
   externalId String?  // ID da API externa
   token      String?  // Token de autenticação (pode ser encriptado)
@@ -105,6 +123,13 @@ model Channel {
 }
 
 
+enum ConversationStatus {
+  open
+  in_queue
+  closed
+  bot
+}
+
 model Conversation {
   id               String   @id @default(uuid())
   tenantId         String
@@ -115,7 +140,7 @@ model Conversation {
   channel          Channel @relation(fields: [channelId], references: [id])
   provider         String // 'whatsapp', 'instagram', 'facebook' 
   externalId       String? // ID da conversa na API externa
-  status           String  //'open', 'in_queue', 'closed', 'bot'
+  status           ConversationStatus @default(in_queue)  //'open', 'in_queue', 'closed', 'bot'
   assignedUserId   String?
   assignedUser     User?    @relation("AssignedUser", fields: [assignedUserId], references: [id])
   teamId           String?
@@ -127,13 +152,34 @@ model Conversation {
   labels           ConversationLabel[]
 }
 
+enum MessageType {
+  text
+  image
+  video
+  audio
+  document
+  sticker
+  location
+  contact
+  button
+  template
+  component
+}
+
+enum SenderType {
+  user
+  bot
+  system
+  agent
+}
 model Message {
   id                String   @id @default(uuid())
   conversationId    String
   conversation      Conversation @relation(fields: [conversationId], references: [id])
-  senderType        String //'text', 'image', 'video', 'audio', 'document', 'sticker', 'location', 'contact', 'button', 'template', 'component'
+  senderType        SenderType
   senderId          String?
-  messageType       String   @default("text")
+  senderName        String?
+  messageType       MessageType  @default(text)
   content           String?
   mediaUrl          String?
   mediaCaption      String?
@@ -149,8 +195,6 @@ model Message {
   createdAt         DateTime @default(now())
 
   mentions          Mention[]
-  
-
 }
 
 model Label {
