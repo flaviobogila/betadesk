@@ -22,15 +22,15 @@ export class AuthService {
       email,
       password,
       user_metadata: {
-        fullName,
-        tenant_id: tenantId,
+        name: fullName,
+        tenant_id: tenantId || 'anonymous',
         role: "admin",
       },
       email_confirm: true,
     });
 
     if (error) {
-      throw new Error(`Erro ao registrar usuário: ${error.message}`);
+      throw new Error(`${error.message}`);
     }
 
     return data;
@@ -51,8 +51,8 @@ export class AuthService {
     return data; // Contém session e user
   }
 
-  async update(userId: string, dto: UpdateDto) {
-    const { tenantId, role } = dto;
+  async update(userId: string, tenantId: string, role: string) {
+    
     const { data, error } = await this.supabase.auth.admin.updateUserById(userId, {
         user_metadata: {
           tenant_id: tenantId,
@@ -71,6 +71,16 @@ export class AuthService {
 
     if (error) {
       throw new Error(`Erro ao obter usuário: ${error.message}`);
+    }
+
+    return data.user;
+  }
+
+  async delete(id: string) {
+    const { data, error } = await this.supabase.auth.admin.deleteUser(id);
+
+    if (error) {
+      throw new Error(`Erro ao deletar usuário: ${error.message}`);
     }
 
     return data.user;

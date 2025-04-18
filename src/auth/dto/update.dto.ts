@@ -1,5 +1,5 @@
 import { IsString, IsUUID, IsEnum, IsOptional } from 'class-validator';
-import { UserRole } from 'src/common/enums/user-role.enum';
+import { UserRole } from 'src/users/dto/create-user.dto';
 
 export class UpdateDto {
 
