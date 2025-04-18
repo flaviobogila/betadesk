@@ -10,10 +10,14 @@ import { UsersService } from './users/users.service';
 import { TenantsService } from './tenants/tenants.service';
 import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
+import { WhatsappService } from './messages/whatsapp.service';
+import { MessageFactoryService } from './messages/message-factory.service';
+import { ChannelService } from './channels/channel.service';
+import { ChannelsModule } from './channels/channels.module';
 
 @Module({
-  imports: [PrismaModule, UsersModule, TenantsModule],
+  imports: [PrismaModule, UsersModule, TenantsModule, ChannelsModule],
   controllers: [AppController, UsersController, TenantsController, AuthController],
-  providers: [AppService, UsersService, TenantsService, AuthService],
+  providers: [AppService, UsersService, TenantsService, AuthService, WhatsappService, MessageFactoryService, ChannelService],
 })
 export class AppModule {}
