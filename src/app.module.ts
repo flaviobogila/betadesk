@@ -12,12 +12,12 @@ import { AuthService } from './auth/auth.service';
 import { AuthController } from './auth/auth.controller';
 import { WhatsappService } from './messages/whatsapp.service';
 import { MessageFactoryService } from './messages/message-factory.service';
-import { ChannelService } from './channels/channel.service';
 import { ChannelsModule } from './channels/channels.module';
+import { ChannelsService } from './channels/channels.service';
 
 @Module({
   imports: [PrismaModule, UsersModule, TenantsModule, ChannelsModule],
   controllers: [AppController, UsersController, TenantsController, AuthController],
-  providers: [AppService, UsersService, TenantsService, AuthService, WhatsappService, MessageFactoryService, ChannelService],
+  providers: [AppService, UsersService, TenantsService, AuthService, WhatsappService, MessageFactoryService, ChannelsService],
 })
 export class AppModule {}

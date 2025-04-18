@@ -15,7 +15,7 @@ import { ChannelsService } from './channels.service';
 
 @Controller('channels')
 @UseGuards(SupabaseAuthGuard)
-export class ChannelController {
+export class ChannelsController {
   constructor(private readonly channelService: ChannelsService) {}
 
   @Post()
