@@ -136,6 +136,17 @@ export const SenderType: {
 
 export type SenderType = (typeof SenderType)[keyof typeof SenderType]
 
+
+export const MessageStatus: {
+  pending: 'pending',
+  sent: 'sent',
+  failed: 'failed',
+  delivered: 'delivered',
+  read: 'read'
+};
+
+export type MessageStatus = (typeof MessageStatus)[keyof typeof MessageStatus]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -161,6 +172,10 @@ export const MessageType: typeof $Enums.MessageType
 export type SenderType = $Enums.SenderType
 
 export const SenderType: typeof $Enums.SenderType
+
+export type MessageStatus = $Enums.MessageStatus
+
+export const MessageStatus: typeof $Enums.MessageStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -10487,6 +10502,7 @@ export namespace Prisma {
     componentFooter: string | null
     reaction: string | null
     isPrivate: boolean | null
+    status: $Enums.MessageStatus | null
     createdAt: Date | null
   }
 
@@ -10507,6 +10523,7 @@ export namespace Prisma {
     componentFooter: string | null
     reaction: string | null
     isPrivate: boolean | null
+    status: $Enums.MessageStatus | null
     createdAt: Date | null
   }
 
@@ -10529,6 +10546,7 @@ export namespace Prisma {
     metadata: number
     reaction: number
     isPrivate: number
+    status: number
     createdAt: number
     _all: number
   }
@@ -10561,6 +10579,7 @@ export namespace Prisma {
     componentFooter?: true
     reaction?: true
     isPrivate?: true
+    status?: true
     createdAt?: true
   }
 
@@ -10581,6 +10600,7 @@ export namespace Prisma {
     componentFooter?: true
     reaction?: true
     isPrivate?: true
+    status?: true
     createdAt?: true
   }
 
@@ -10603,6 +10623,7 @@ export namespace Prisma {
     metadata?: true
     reaction?: true
     isPrivate?: true
+    status?: true
     createdAt?: true
     _all?: true
   }
@@ -10712,6 +10733,7 @@ export namespace Prisma {
     metadata: JsonValue | null
     reaction: string | null
     isPrivate: boolean
+    status: $Enums.MessageStatus
     createdAt: Date
     _count: MessageCountAggregateOutputType | null
     _avg: MessageAvgAggregateOutputType | null
@@ -10753,6 +10775,7 @@ export namespace Prisma {
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
+    status?: boolean
     createdAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     mentions?: boolean | Message$mentionsArgs<ExtArgs>
@@ -10778,6 +10801,7 @@ export namespace Prisma {
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
+    status?: boolean
     createdAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -10801,6 +10825,7 @@ export namespace Prisma {
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
+    status?: boolean
     createdAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -10824,10 +10849,11 @@ export namespace Prisma {
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
+    status?: boolean
     createdAt?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "createdAt", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "status" | "createdAt", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     mentions?: boolean | Message$mentionsArgs<ExtArgs>
@@ -10865,6 +10891,7 @@ export namespace Prisma {
       metadata: Prisma.JsonValue | null
       reaction: string | null
       isPrivate: boolean
+      status: $Enums.MessageStatus
       createdAt: Date
     }, ExtArgs["result"]["message"]>
     composites: {}
@@ -11309,6 +11336,7 @@ export namespace Prisma {
     readonly metadata: FieldRef<"Message", 'Json'>
     readonly reaction: FieldRef<"Message", 'String'>
     readonly isPrivate: FieldRef<"Message", 'Boolean'>
+    readonly status: FieldRef<"Message", 'MessageStatus'>
     readonly createdAt: FieldRef<"Message", 'DateTime'>
   }
     
@@ -15097,6 +15125,7 @@ export namespace Prisma {
     metadata: 'metadata',
     reaction: 'reaction',
     isPrivate: 'isPrivate',
+    status: 'status',
     createdAt: 'createdAt'
   };
 
@@ -15324,6 +15353,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MessageStatus'
+   */
+  export type EnumMessageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MessageStatus[]'
+   */
+  export type ListEnumMessageStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MessageStatus[]'>
     
 
 
@@ -15908,6 +15951,7 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"Message">
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
+    status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
     createdAt?: DateTimeFilter<"Message"> | Date | string
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
     mentions?: MentionListRelationFilter
@@ -15932,6 +15976,7 @@ export namespace Prisma {
     metadata?: SortOrderInput | SortOrder
     reaction?: SortOrderInput | SortOrder
     isPrivate?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     conversation?: ConversationOrderByWithRelationInput
     mentions?: MentionOrderByRelationAggregateInput
@@ -15959,6 +16004,7 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"Message">
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
+    status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
     createdAt?: DateTimeFilter<"Message"> | Date | string
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
     mentions?: MentionListRelationFilter
@@ -15983,6 +16029,7 @@ export namespace Prisma {
     metadata?: SortOrderInput | SortOrder
     reaction?: SortOrderInput | SortOrder
     isPrivate?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     _count?: MessageCountOrderByAggregateInput
     _avg?: MessageAvgOrderByAggregateInput
@@ -16013,6 +16060,7 @@ export namespace Prisma {
     metadata?: JsonNullableWithAggregatesFilter<"Message">
     reaction?: StringNullableWithAggregatesFilter<"Message"> | string | null
     isPrivate?: BoolWithAggregatesFilter<"Message"> | boolean
+    status?: EnumMessageStatusWithAggregatesFilter<"Message"> | $Enums.MessageStatus
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
@@ -16776,6 +16824,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    status?: $Enums.MessageStatus
     createdAt?: Date | string
     conversation: ConversationCreateNestedOneWithoutMessagesInput
     mentions?: MentionCreateNestedManyWithoutMessageInput
@@ -16800,6 +16849,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    status?: $Enums.MessageStatus
     createdAt?: Date | string
     mentions?: MentionUncheckedCreateNestedManyWithoutMessageInput
   }
@@ -16822,6 +16872,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
     mentions?: MentionUpdateManyWithoutMessageNestedInput
@@ -16846,6 +16897,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUncheckedUpdateManyWithoutMessageNestedInput
   }
@@ -16869,6 +16921,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    status?: $Enums.MessageStatus
     createdAt?: Date | string
   }
 
@@ -16890,6 +16943,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16912,6 +16966,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17708,6 +17763,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumMessageStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageStatus | EnumMessageStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageStatus[] | ListEnumMessageStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageStatus[] | ListEnumMessageStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageStatusFilter<$PrismaModel> | $Enums.MessageStatus
+  }
+
   export type ConversationScalarRelationFilter = {
     is?: ConversationWhereInput
     isNot?: ConversationWhereInput
@@ -17732,6 +17794,7 @@ export namespace Prisma {
     metadata?: SortOrder
     reaction?: SortOrder
     isPrivate?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17757,6 +17820,7 @@ export namespace Prisma {
     componentFooter?: SortOrder
     reaction?: SortOrder
     isPrivate?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17777,6 +17841,7 @@ export namespace Prisma {
     componentFooter?: SortOrder
     reaction?: SortOrder
     isPrivate?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17819,6 +17884,16 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumMessageStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageStatus | EnumMessageStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageStatus[] | ListEnumMessageStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageStatus[] | ListEnumMessageStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageStatusWithAggregatesFilter<$PrismaModel> | $Enums.MessageStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageStatusFilter<$PrismaModel>
+    _max?: NestedEnumMessageStatusFilter<$PrismaModel>
   }
 
   export type LabelCountOrderByAggregateInput = {
@@ -18864,6 +18939,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type EnumMessageStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MessageStatus
+  }
+
   export type ConversationUpdateOneRequiredWithoutMessagesNestedInput = {
     create?: XOR<ConversationCreateWithoutMessagesInput, ConversationUncheckedCreateWithoutMessagesInput>
     connectOrCreate?: ConversationCreateOrConnectWithoutMessagesInput
@@ -19280,6 +19359,13 @@ export namespace Prisma {
     not?: NestedEnumMessageTypeFilter<$PrismaModel> | $Enums.MessageType
   }
 
+  export type NestedEnumMessageStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageStatus | EnumMessageStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageStatus[] | ListEnumMessageStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageStatus[] | ListEnumMessageStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageStatusFilter<$PrismaModel> | $Enums.MessageStatus
+  }
+
   export type NestedEnumSenderTypeWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.SenderType | EnumSenderTypeFieldRefInput<$PrismaModel>
     in?: $Enums.SenderType[] | ListEnumSenderTypeFieldRefInput<$PrismaModel>
@@ -19325,6 +19411,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumMessageStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MessageStatus | EnumMessageStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MessageStatus[] | ListEnumMessageStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MessageStatus[] | ListEnumMessageStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMessageStatusWithAggregatesFilter<$PrismaModel> | $Enums.MessageStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMessageStatusFilter<$PrismaModel>
+    _max?: NestedEnumMessageStatusFilter<$PrismaModel>
   }
 
   export type UserCreateWithoutTenantInput = {
@@ -20836,6 +20932,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    status?: $Enums.MessageStatus
     createdAt?: Date | string
     mentions?: MentionCreateNestedManyWithoutMessageInput
   }
@@ -20858,6 +20955,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    status?: $Enums.MessageStatus
     createdAt?: Date | string
     mentions?: MentionUncheckedCreateNestedManyWithoutMessageInput
   }
@@ -21111,6 +21209,7 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"Message">
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
+    status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
     createdAt?: DateTimeFilter<"Message"> | Date | string
   }
 
@@ -21587,6 +21686,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    status?: $Enums.MessageStatus
     createdAt?: Date | string
     conversation: ConversationCreateNestedOneWithoutMessagesInput
   }
@@ -21610,6 +21710,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    status?: $Enums.MessageStatus
     createdAt?: Date | string
   }
 
@@ -21682,6 +21783,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
   }
@@ -21705,6 +21807,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -22407,6 +22510,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    status?: $Enums.MessageStatus
     createdAt?: Date | string
   }
 
@@ -22433,6 +22537,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUpdateManyWithoutMessageNestedInput
   }
@@ -22455,6 +22560,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUncheckedUpdateManyWithoutMessageNestedInput
   }
@@ -22477,6 +22583,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

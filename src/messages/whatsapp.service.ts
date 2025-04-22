@@ -68,7 +68,7 @@ export class WhatsappService {
     };
   }
 
-  // 📤 Envia a requisição para a API da Meta
+  //Envia a requisição para a API da Meta
   private async sendRequest(token: string, phoneNumberId: string, payload: any) {
     const url = `https://graph.facebook.com/v19.0/${phoneNumberId}/messages`;
 

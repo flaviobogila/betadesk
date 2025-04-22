@@ -23,6 +23,9 @@ export class SendTemplateMessageDto {
   @IsUUID()
   channelId: string;
 
+  @IsUUID()
+  conversationId: string;
+
   @IsString()
   @IsNotEmpty()
   to: string;

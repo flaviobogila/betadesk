@@ -1,12 +1,7 @@
 // src/users/dto/create-user.dto.ts
 
 import { IsEmail, IsEnum, IsOptional, IsString, IsUUID, IsBoolean } from 'class-validator';
-
-export enum UserRole {
-  admin = 'admin',
-  manager = 'manager',
-  agent = 'agent',
-}
+import { UserRole } from 'src/common/enums/user-role.enum';
 
 export class CreateUserDto {
   @IsUUID()

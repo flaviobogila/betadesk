@@ -20,6 +20,13 @@ export class ChannelsService {
       },
     });
   }
+
+  async update(id: string, data: UpdateChannelDto) {
+      return this.prisma.channel.update({
+        where: { id },
+        data,
+      });
+    }
   
   async getAllChannels(tenantId: string) {
     return this.prisma.channel.findMany({

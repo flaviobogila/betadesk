@@ -14,10 +14,12 @@ import { WhatsappService } from './messages/whatsapp.service';
 import { MessageFactoryService } from './messages/message-factory.service';
 import { ChannelsModule } from './channels/channels.module';
 import { ChannelsService } from './channels/channels.service';
+import { MessagesModule } from './messages/messages.module';
+import { MessageService } from './messages/message.service';
 
 @Module({
-  imports: [PrismaModule, UsersModule, TenantsModule, ChannelsModule],
+  imports: [PrismaModule, UsersModule, TenantsModule, ChannelsModule, MessagesModule],
   controllers: [AppController, UsersController, TenantsController, AuthController],
-  providers: [AppService, UsersService, TenantsService, AuthService, WhatsappService, MessageFactoryService, ChannelsService],
+  providers: [AppService, UsersService, TenantsService, AuthService, WhatsappService, MessageFactoryService, ChannelsService, MessageService],
 })
 export class AppModule {}

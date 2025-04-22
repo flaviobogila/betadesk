@@ -172,6 +172,14 @@ enum SenderType {
   system
   agent
 }
+enum MessageStatus {
+  pending
+  sent
+  failed
+  delivered
+  read
+}
+
 model Message {
   id                String   @id @default(uuid())
   conversationId    String
@@ -192,8 +200,8 @@ model Message {
   metadata          Json?
   reaction          String?
   isPrivate        Boolean  @default(false)
+  status           MessageStatus @default(pending) // 'pending', 'sent', 'failed', 'delivered', 'read'
   createdAt         DateTime @default(now())
-
   mentions          Mention[]
 }
 

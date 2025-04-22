@@ -210,6 +210,7 @@ exports.Prisma.MessageScalarFieldEnum = {
   metadata: 'metadata',
   reaction: 'reaction',
   isPrivate: 'isPrivate',
+  status: 'status',
   createdAt: 'createdAt'
 };
 
@@ -304,6 +305,14 @@ exports.MessageType = exports.$Enums.MessageType = {
   button: 'button',
   template: 'template',
   component: 'component'
+};
+
+exports.MessageStatus = exports.$Enums.MessageStatus = {
+  pending: 'pending',
+  sent: 'sent',
+  failed: 'failed',
+  delivered: 'delivered',
+  read: 'read'
 };
 
 exports.Prisma.ModelName = {

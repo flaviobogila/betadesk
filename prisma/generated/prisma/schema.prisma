@@ -172,14 +172,22 @@ enum SenderType {
   agent
 }
 
+enum MessageStatus {
+  pending
+  sent
+  failed
+  delivered
+  read
+}
+
 model Message {
-  id               String       @id @default(uuid())
+  id               String        @id @default(uuid())
   conversationId   String
-  conversation     Conversation @relation(fields: [conversationId], references: [id])
+  conversation     Conversation  @relation(fields: [conversationId], references: [id])
   senderType       SenderType
   senderId         String?
   senderName       String?
-  messageType      MessageType  @default(text)
+  messageType      MessageType   @default(text)
   content          String?
   mediaUrl         String?
   mediaCaption     String?
@@ -191,10 +199,10 @@ model Message {
   componentButtons Json?
   metadata         Json?
   reaction         String?
-  isPrivate        Boolean      @default(false)
-  createdAt        DateTime     @default(now())
-
-  mentions Mention[]
+  isPrivate        Boolean       @default(false)
+  status           MessageStatus @default(pending) // 'pending', 'sent', 'failed', 'delivered', 'read'
+  createdAt        DateTime      @default(now())
+  mentions         Mention[]
 }
 
 model Label {

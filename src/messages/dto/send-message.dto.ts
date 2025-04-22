@@ -1,25 +1,41 @@
-import { IsEnum, IsNotEmpty, IsString, IsOptional, IsUUID } from 'class-validator';
+// src/messages/dto/send-message-base.dto.ts
+import { IsUUID, IsEnum, IsNotEmpty, IsOptional, ValidateIf, IsString, IsUrl } from 'class-validator';
 import { MessageType } from './message-type.enum';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class SendMessageDto {
-  @IsUUID()
+export class SendMessageBaseDto {
+  @ApiProperty({ example: 'uuid-do-canal' })
+  @IsUUID(undefined, { message: 'channelId precisa ser um UUID válido.' })
   channelId: string;
 
-  @IsString()
-  to: string; // número de telefone do destinatário (ex: 5511999999999)
+  @ApiProperty({ example: 'uuid-da-conversa' })
+  @IsNotEmpty({ message: 'conversationId não pode estar vazio.' })
+  @IsUUID(undefined, { message: 'conversationId precisa ser um UUID válido.' })
+  conversationId: string;
 
-  @IsEnum(MessageType)
+  @ApiProperty({ enum: MessageType })
+  @IsEnum(MessageType, { message: 'messageType deve ser um tipo válido (text, image, template, etc).' })
   messageType: MessageType;
 
-  @IsString()
-  @IsNotEmpty()
-  content: string;
+  @ApiProperty()
+  @IsNotEmpty({ message: 'to não pode estar vazio.' })
+  to: string;
 
-  @IsOptional()
-  @IsString()
-  caption?: string;
+  @ApiProperty({example: 'oi, tudo bem?'})
+  @ValidateIf((o) => o.messageType === MessageType.text)
+  @IsNotEmpty({ message: 'O campo content não pode estar vazio para mensagens de texto.' })
+  content?: string;
 
-  @IsOptional()
-  @IsString()
+  @ApiProperty({example: 'https://example.com/image.jpg'})
+  @ValidateIf((o) => [MessageType.image, MessageType.video, MessageType.audio, MessageType.document].includes(o.messageType))
+  @IsNotEmpty({ message: 'O campo mediaUrl é obrigatório para mensagens de mídia.' })
+  @IsUrl({}, { message: 'mediaUrl deve ser uma URL válida.' })
   mediaUrl?: string;
+
+  @ApiProperty({example: 'essa é uma imagem de exemplo'})
+  @ValidateIf((o) => o.messageType === MessageType.image)
+  @IsString({ message: 'caption deve ser uma string.' })
+  @IsOptional()
+  caption?: string;
 }
+

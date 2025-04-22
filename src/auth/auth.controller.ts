@@ -3,7 +3,8 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { UsersService } from 'src/users/users.service';
-import { UserRole } from 'src/users/dto/create-user.dto';
+import { UpdateUserDto } from 'src/users/dto/update-user.dto';
+import { UserRole } from 'src/common/enums/user-role.enum';
 
 @Controller('auth')
 export class AuthController {
@@ -28,9 +29,9 @@ export class AuthController {
   }
 
   @Patch(':userId')
-  update(@Param('userId') userId: string, @Body() dto: { tenantId: string, role: string }) {
+  update(@Param('userId') userId: string, @Body() dto: UpdateUserDto) {
     const { tenantId, role } = dto;
-    return this.authService.update(userId, tenantId, role);
+    return this.authService.update(userId, tenantId!, role!);
   }
 
   @Post('login')
