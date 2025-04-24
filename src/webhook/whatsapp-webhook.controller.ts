@@ -14,7 +14,6 @@ import { WebhookService } from './webhook.service';
   export class WhatsappWebhookController {
     constructor(private readonly webhookService: WebhookService) {}
   
-    // ✅ GET para verificação do webhook (usado no setup da Meta)
     @Get()
     @HttpCode(HttpStatus.OK)
     verifyWebhook(
@@ -31,7 +30,6 @@ import { WebhookService } from './webhook.service';
       }
     }
   
-    // ✅ POST para receber mensagens reais da Meta
     @Post()
     @HttpCode(HttpStatus.OK)
     async handleIncomingMessage(@Body() payload: any, @Headers() headers: any) {
