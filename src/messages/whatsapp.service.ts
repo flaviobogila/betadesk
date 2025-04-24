@@ -4,6 +4,13 @@ import { SendTextMessageDto } from './dto/send-text-message.dto';
 import { SendImageMessageDto } from './dto/send-image-message.dto';
 import { SendTemplateMessageDto } from './dto/send-template-message.dto';
 import { ChannelsService } from 'src/channels/channels.service';
+import { SendAudioMessageDto } from './dto/send-audio-message.dto';
+import { SendVideoMessageDto } from './dto/send-video-message.dto';
+import { SendDocumentMessageDto } from './dto/send-document-message.dto';
+import { SendStickerMessageDto } from './dto/send-sticker-message.dto';
+import { SendLocationMessageDto } from './dto/send-location-message.dto';
+import { SendButtonMessageDto } from './dto/send-button-message.dto';
+import { SendComponentMessageDto } from './dto/send-component-message.dto';
 
 @Injectable()
 export class WhatsappService {
@@ -53,6 +60,136 @@ export class WhatsappService {
       },
     });
   }
+
+  async sendAudioMessage(dto: SendAudioMessageDto) {
+    const { to, audioUrl, channelId } = dto;
+    const { externalId, token } = await this.getChannelAuth(channelId);
+  
+    return this.sendRequest(token, externalId, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'audio',
+      audio: {
+        link: audioUrl,
+      },
+    });
+  }
+
+  async sendVideoMessage(dto: SendVideoMessageDto) {
+    const { to, videoUrl, caption, channelId } = dto;
+    const { externalId, token } = await this.getChannelAuth(channelId);
+  
+    return this.sendRequest(token, externalId, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'video',
+      video: {
+        link: videoUrl,
+        ...(caption ? { caption } : {}),
+      },
+    });
+  }
+
+  async sendDocumentMessage(dto: SendDocumentMessageDto) {
+    const { to, documentUrl, filename, channelId } = dto;
+    const { externalId, token } = await this.getChannelAuth(channelId);
+  
+    return this.sendRequest(token, externalId, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'document',
+      document: {
+        link: documentUrl,
+        filename,
+      },
+    });
+  }
+  
+  async sendStickerMessage(dto: SendStickerMessageDto) {
+    const { to, stickerUrl, channelId } = dto;
+    const { externalId, token } = await this.getChannelAuth(channelId);
+  
+    return this.sendRequest(token, externalId, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'sticker',
+      sticker: {
+        link: stickerUrl,
+      },
+    });
+  }
+
+  async sendLocationMessage(dto: SendLocationMessageDto) {
+    const { to, latitude, longitude, name, address, channelId } = dto;
+    const { externalId, token } = await this.getChannelAuth(channelId);
+  
+    return this.sendRequest(token, externalId, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'location',
+      location: {
+        latitude,
+        longitude,
+        ...(name ? { name } : {}),
+        ...(address ? { address } : {}),
+      },
+    });
+  }
+
+  async sendButtonMessage(dto: SendButtonMessageDto) {
+    const { to, text, buttons, channelId } = dto;
+    const { externalId, token } = await this.getChannelAuth(channelId);
+  
+    return this.sendRequest(token, externalId, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'interactive',
+      interactive: {
+        type: 'button',
+        body: { text },
+        action: {
+          buttons: buttons.map((b) => ({
+            type: b.type,
+            reply: {
+              id: b.payload,
+              title: b.text,
+            },
+          })),
+        },
+      },
+    });
+  }
+  
+  async sendComponentMessage(dto: SendComponentMessageDto) {
+    const { to, body, header, footer, buttons, channelId } = dto;
+    const { externalId, token } = await this.getChannelAuth(channelId);
+  
+    return this.sendRequest(token, externalId, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'template',
+      template: {
+        name: 'custom_component_template', // pode ser genérico ou fixo
+        language: { code: 'pt_BR' }, // pode ser parametrizado
+        components: [
+          ...(header ? [{ type: 'header', parameters: [{ type: 'text', text: header }] }] : []),
+          { type: 'body', parameters: [{ type: 'text', text: body }] },
+          ...(footer ? [{ type: 'footer', parameters: [{ type: 'text', text: footer }] }] : []),
+          ...(buttons?.length
+            ? [{
+                type: 'button',
+                sub_type: 'quick_reply',
+                index: '0',
+                parameters: buttons.map((b) => ({
+                  type: 'payload',
+                  payload: b.payload,
+                })),
+              }]
+            : []),
+        ],
+      },
+    });
+  }  
 
   // 🔒 Recupera os dados de autenticação do canal
   private async getChannelAuth(channelId: string) {

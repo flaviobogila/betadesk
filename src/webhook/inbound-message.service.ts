@@ -1,4 +1,3 @@
-import { PrismaService } from "src/prisma/prisma.service";
 import { Injectable } from "@nestjs/common";
 import { WhatsAppChangeValue, WhatsAppMessage, WhatsAppMessageStatus } from "./dto/whatsapp-webhook.dto";
 import { ChannelsService } from "src/channels/channels.service";
@@ -24,7 +23,7 @@ export class InboundMessageService {
   async process({ change, message }: { change: WhatsAppChangeValue, message: WhatsAppMessage }) {
     const { phone_number_id } = change.metadata;
     const from = message.from;
-    const name = message?.contacts?.[0]?.profile?.name
+    const name = change.contacts?.[0]?.profile?.name
   
     let conversation = await this.conversationService.findOneActive(from, phone_number_id);
   
@@ -34,14 +33,10 @@ export class InboundMessageService {
       conversation = await this.conversationService.create(contact, channel, from);
     }
   
-    const messageData: Partial<Prisma.MessageCreateInput> = this.messageMapper.map(message);
+    const messageData = this.messageMapper.map(message) as any;
 
-    await this.messageService.createMessage({
-        ...messageData as any,
-        conversationId: conversation.id,
-      },
-    )
-  
+    await this.messageService.createIfNotExists(messageData, conversation.id);
+
     await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
   }
 

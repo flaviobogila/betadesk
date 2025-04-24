@@ -207,7 +207,8 @@ model Message {
   isPrivate        Boolean  @default(false)
   status           MessageStatus @default(pending) // 'pending', 'sent', 'failed', 'delivered', 'read'
   externalId        String? // ID da mensagem na API externa
-  createdAt         DateTime @default(now())
+  createdAt         DateTime @default(now()) //timestamp do provedor ou data de criação
+  receivedAt        DateTime @default(now()) //data de recebimento da mensagem
   mentions          Mention[]
 }
 

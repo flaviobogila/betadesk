@@ -213,7 +213,8 @@ exports.Prisma.MessageScalarFieldEnum = {
   isPrivate: 'isPrivate',
   status: 'status',
   externalId: 'externalId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  receivedAt: 'receivedAt'
 };
 
 exports.Prisma.LabelScalarFieldEnum = {

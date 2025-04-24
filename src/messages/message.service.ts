@@ -6,8 +6,22 @@ import { Prisma } from 'prisma/generated/prisma/client';
 export class MessageService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createMessage(data: Prisma.MessageCreateInput) {
-    return this.prisma.message.create({ data });
+  async createIfNotExists(input: Prisma.MessageCreateInput, conversationId: string) {
+    const existing = await this.prisma.message.findFirst({
+      where: {
+        conversationId: conversationId,
+        senderType: 'user',
+        externalId: input.externalId,
+      },
+    });
+
+    if (existing) {
+      return existing;
+    }
+
+    return this.prisma.message.create({ data: {...input, conversation: {
+      connect: { id: conversationId },
+    } } });
   }
   
   async updateMessageStatus(

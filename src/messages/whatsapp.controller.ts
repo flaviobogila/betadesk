@@ -18,17 +18,16 @@ import { MessageService } from './message.service';
 @Controller('whatsapp/messages')
 @UseGuards(SupabaseAuthGuard)
 export class WhatsappController {
-  constructor(private readonly factory: MessageFactoryService, private readonly messageService: MessageService) { }
+  constructor(private readonly messageFactoryService: MessageFactoryService, private readonly messageService: MessageService) { }
 
   @Post()
   @HttpCode(HttpStatus.OK)
   async sendMessage(@Body() body: SendMessageBaseDto, @CurrentUser() user: SupabaseUser) {
     const tenantId = user.tenantId
     const dto = { ...body, tenantId }
+    const messageType = dto.messageType as MessageType;
 
-    const message = await this.factory.store(dto.messageType as MessageType, dto, user );
-    const messangeSent = await this.factory.send(dto.messageType as MessageType, dto);
-    await this.messageService.updateMessageStatus(message.id, 'sent', { metadata: messangeSent });
+    const message = await this.messageFactoryService.storeAndSendToWhatsapp(messageType, dto, user );
 
     return message;
 

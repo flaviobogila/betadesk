@@ -10518,6 +10518,7 @@ export namespace Prisma {
     status: $Enums.MessageStatus | null
     externalId: string | null
     createdAt: Date | null
+    receivedAt: Date | null
   }
 
   export type MessageMaxAggregateOutputType = {
@@ -10540,6 +10541,7 @@ export namespace Prisma {
     status: $Enums.MessageStatus | null
     externalId: string | null
     createdAt: Date | null
+    receivedAt: Date | null
   }
 
   export type MessageCountAggregateOutputType = {
@@ -10564,6 +10566,7 @@ export namespace Prisma {
     status: number
     externalId: number
     createdAt: number
+    receivedAt: number
     _all: number
   }
 
@@ -10598,6 +10601,7 @@ export namespace Prisma {
     status?: true
     externalId?: true
     createdAt?: true
+    receivedAt?: true
   }
 
   export type MessageMaxAggregateInputType = {
@@ -10620,6 +10624,7 @@ export namespace Prisma {
     status?: true
     externalId?: true
     createdAt?: true
+    receivedAt?: true
   }
 
   export type MessageCountAggregateInputType = {
@@ -10644,6 +10649,7 @@ export namespace Prisma {
     status?: true
     externalId?: true
     createdAt?: true
+    receivedAt?: true
     _all?: true
   }
 
@@ -10755,6 +10761,7 @@ export namespace Prisma {
     status: $Enums.MessageStatus
     externalId: string | null
     createdAt: Date
+    receivedAt: Date
     _count: MessageCountAggregateOutputType | null
     _avg: MessageAvgAggregateOutputType | null
     _sum: MessageSumAggregateOutputType | null
@@ -10798,6 +10805,7 @@ export namespace Prisma {
     status?: boolean
     externalId?: boolean
     createdAt?: boolean
+    receivedAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     mentions?: boolean | Message$mentionsArgs<ExtArgs>
     _count?: boolean | MessageCountOutputTypeDefaultArgs<ExtArgs>
@@ -10825,6 +10833,7 @@ export namespace Prisma {
     status?: boolean
     externalId?: boolean
     createdAt?: boolean
+    receivedAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
@@ -10850,6 +10859,7 @@ export namespace Prisma {
     status?: boolean
     externalId?: boolean
     createdAt?: boolean
+    receivedAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
@@ -10875,9 +10885,10 @@ export namespace Prisma {
     status?: boolean
     externalId?: boolean
     createdAt?: boolean
+    receivedAt?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "status" | "externalId" | "createdAt", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "status" | "externalId" | "createdAt" | "receivedAt", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     mentions?: boolean | Message$mentionsArgs<ExtArgs>
@@ -10918,6 +10929,7 @@ export namespace Prisma {
       status: $Enums.MessageStatus
       externalId: string | null
       createdAt: Date
+      receivedAt: Date
     }, ExtArgs["result"]["message"]>
     composites: {}
   }
@@ -11364,6 +11376,7 @@ export namespace Prisma {
     readonly status: FieldRef<"Message", 'MessageStatus'>
     readonly externalId: FieldRef<"Message", 'String'>
     readonly createdAt: FieldRef<"Message", 'DateTime'>
+    readonly receivedAt: FieldRef<"Message", 'DateTime'>
   }
     
 
@@ -15154,7 +15167,8 @@ export namespace Prisma {
     isPrivate: 'isPrivate',
     status: 'status',
     externalId: 'externalId',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    receivedAt: 'receivedAt'
   };
 
   export type MessageScalarFieldEnum = (typeof MessageScalarFieldEnum)[keyof typeof MessageScalarFieldEnum]
@@ -15988,6 +16002,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
     externalId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
+    receivedAt?: DateTimeFilter<"Message"> | Date | string
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
     mentions?: MentionListRelationFilter
   }
@@ -16014,6 +16029,7 @@ export namespace Prisma {
     status?: SortOrder
     externalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    receivedAt?: SortOrder
     conversation?: ConversationOrderByWithRelationInput
     mentions?: MentionOrderByRelationAggregateInput
   }
@@ -16043,6 +16059,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
     externalId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
+    receivedAt?: DateTimeFilter<"Message"> | Date | string
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
     mentions?: MentionListRelationFilter
   }, "id">
@@ -16069,6 +16086,7 @@ export namespace Prisma {
     status?: SortOrder
     externalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
+    receivedAt?: SortOrder
     _count?: MessageCountOrderByAggregateInput
     _avg?: MessageAvgOrderByAggregateInput
     _max?: MessageMaxOrderByAggregateInput
@@ -16101,6 +16119,7 @@ export namespace Prisma {
     status?: EnumMessageStatusWithAggregatesFilter<"Message"> | $Enums.MessageStatus
     externalId?: StringNullableWithAggregatesFilter<"Message"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
+    receivedAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
   export type LabelWhereInput = {
@@ -16873,6 +16892,7 @@ export namespace Prisma {
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
+    receivedAt?: Date | string
     conversation: ConversationCreateNestedOneWithoutMessagesInput
     mentions?: MentionCreateNestedManyWithoutMessageInput
   }
@@ -16899,6 +16919,7 @@ export namespace Prisma {
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
+    receivedAt?: Date | string
     mentions?: MentionUncheckedCreateNestedManyWithoutMessageInput
   }
 
@@ -16923,6 +16944,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
     mentions?: MentionUpdateManyWithoutMessageNestedInput
   }
@@ -16949,6 +16971,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUncheckedUpdateManyWithoutMessageNestedInput
   }
 
@@ -16974,6 +16997,7 @@ export namespace Prisma {
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
+    receivedAt?: Date | string
   }
 
   export type MessageUpdateManyMutationInput = {
@@ -16997,6 +17021,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageUncheckedUpdateManyInput = {
@@ -17021,6 +17046,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LabelCreateInput = {
@@ -17858,6 +17884,7 @@ export namespace Prisma {
     status?: SortOrder
     externalId?: SortOrder
     createdAt?: SortOrder
+    receivedAt?: SortOrder
   }
 
   export type MessageAvgOrderByAggregateInput = {
@@ -17885,6 +17912,7 @@ export namespace Prisma {
     status?: SortOrder
     externalId?: SortOrder
     createdAt?: SortOrder
+    receivedAt?: SortOrder
   }
 
   export type MessageMinOrderByAggregateInput = {
@@ -17907,6 +17935,7 @@ export namespace Prisma {
     status?: SortOrder
     externalId?: SortOrder
     createdAt?: SortOrder
+    receivedAt?: SortOrder
   }
 
   export type MessageSumOrderByAggregateInput = {
@@ -21010,6 +21039,7 @@ export namespace Prisma {
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
+    receivedAt?: Date | string
     mentions?: MentionCreateNestedManyWithoutMessageInput
   }
 
@@ -21034,6 +21064,7 @@ export namespace Prisma {
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
+    receivedAt?: Date | string
     mentions?: MentionUncheckedCreateNestedManyWithoutMessageInput
   }
 
@@ -21289,6 +21320,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
     externalId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
+    receivedAt?: DateTimeFilter<"Message"> | Date | string
   }
 
   export type ConversationLabelUpsertWithWhereUniqueWithoutConversationInput = {
@@ -21775,6 +21807,7 @@ export namespace Prisma {
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
+    receivedAt?: Date | string
     conversation: ConversationCreateNestedOneWithoutMessagesInput
   }
 
@@ -21800,6 +21833,7 @@ export namespace Prisma {
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
+    receivedAt?: Date | string
   }
 
   export type MessageCreateOrConnectWithoutMentionsInput = {
@@ -21874,6 +21908,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
   }
 
@@ -21899,6 +21934,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUpsertWithoutMentionsInput = {
@@ -22623,6 +22659,7 @@ export namespace Prisma {
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
+    receivedAt?: Date | string
   }
 
   export type ConversationLabelCreateManyConversationInput = {
@@ -22651,6 +22688,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUpdateManyWithoutMessageNestedInput
   }
 
@@ -22675,6 +22713,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUncheckedUpdateManyWithoutMessageNestedInput
   }
 
@@ -22699,6 +22738,7 @@ export namespace Prisma {
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ConversationLabelUpdateWithoutConversationInput = {

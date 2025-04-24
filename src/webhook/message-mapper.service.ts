@@ -34,7 +34,6 @@ export class MessageWhatsAppMapperService {
             case 'audio':
                 return {
                     ...common,
-                    messageType: 'audio',
                     mediaUrl: msg.audio!.id,
                     mediaMimeType: msg.audio!.mime_type,
                 };
