@@ -9216,6 +9216,7 @@ export namespace Prisma {
     channelId: string | null
     provider: string | null
     externalId: string | null
+    externalChannelId: string | null
     status: $Enums.ConversationStatus | null
     assignedUserId: string | null
     teamId: string | null
@@ -9230,6 +9231,7 @@ export namespace Prisma {
     channelId: string | null
     provider: string | null
     externalId: string | null
+    externalChannelId: string | null
     status: $Enums.ConversationStatus | null
     assignedUserId: string | null
     teamId: string | null
@@ -9244,6 +9246,7 @@ export namespace Prisma {
     channelId: number
     provider: number
     externalId: number
+    externalChannelId: number
     status: number
     assignedUserId: number
     teamId: number
@@ -9260,6 +9263,7 @@ export namespace Prisma {
     channelId?: true
     provider?: true
     externalId?: true
+    externalChannelId?: true
     status?: true
     assignedUserId?: true
     teamId?: true
@@ -9274,6 +9278,7 @@ export namespace Prisma {
     channelId?: true
     provider?: true
     externalId?: true
+    externalChannelId?: true
     status?: true
     assignedUserId?: true
     teamId?: true
@@ -9288,6 +9293,7 @@ export namespace Prisma {
     channelId?: true
     provider?: true
     externalId?: true
+    externalChannelId?: true
     status?: true
     assignedUserId?: true
     teamId?: true
@@ -9374,7 +9380,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId: string | null
+    externalId: string
+    externalChannelId: string
     status: $Enums.ConversationStatus
     assignedUserId: string | null
     teamId: string | null
@@ -9406,6 +9413,7 @@ export namespace Prisma {
     channelId?: boolean
     provider?: boolean
     externalId?: boolean
+    externalChannelId?: boolean
     status?: boolean
     assignedUserId?: boolean
     teamId?: boolean
@@ -9428,6 +9436,7 @@ export namespace Prisma {
     channelId?: boolean
     provider?: boolean
     externalId?: boolean
+    externalChannelId?: boolean
     status?: boolean
     assignedUserId?: boolean
     teamId?: boolean
@@ -9447,6 +9456,7 @@ export namespace Prisma {
     channelId?: boolean
     provider?: boolean
     externalId?: boolean
+    externalChannelId?: boolean
     status?: boolean
     assignedUserId?: boolean
     teamId?: boolean
@@ -9466,6 +9476,7 @@ export namespace Prisma {
     channelId?: boolean
     provider?: boolean
     externalId?: boolean
+    externalChannelId?: boolean
     status?: boolean
     assignedUserId?: boolean
     teamId?: boolean
@@ -9473,7 +9484,7 @@ export namespace Prisma {
     createdAt?: boolean
   }
 
-  export type ConversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "contactId" | "channelId" | "provider" | "externalId" | "status" | "assignedUserId" | "teamId" | "lastMessageAt" | "createdAt", ExtArgs["result"]["conversation"]>
+  export type ConversationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "contactId" | "channelId" | "provider" | "externalId" | "externalChannelId" | "status" | "assignedUserId" | "teamId" | "lastMessageAt" | "createdAt", ExtArgs["result"]["conversation"]>
   export type ConversationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     contact?: boolean | ContactDefaultArgs<ExtArgs>
@@ -9516,7 +9527,8 @@ export namespace Prisma {
       contactId: string
       channelId: string
       provider: string
-      externalId: string | null
+      externalId: string
+      externalChannelId: string
       status: $Enums.ConversationStatus
       assignedUserId: string | null
       teamId: string | null
@@ -9958,6 +9970,7 @@ export namespace Prisma {
     readonly channelId: FieldRef<"Conversation", 'String'>
     readonly provider: FieldRef<"Conversation", 'String'>
     readonly externalId: FieldRef<"Conversation", 'String'>
+    readonly externalChannelId: FieldRef<"Conversation", 'String'>
     readonly status: FieldRef<"Conversation", 'ConversationStatus'>
     readonly assignedUserId: FieldRef<"Conversation", 'String'>
     readonly teamId: FieldRef<"Conversation", 'String'>
@@ -10503,6 +10516,7 @@ export namespace Prisma {
     reaction: string | null
     isPrivate: boolean | null
     status: $Enums.MessageStatus | null
+    externalId: string | null
     createdAt: Date | null
   }
 
@@ -10524,6 +10538,7 @@ export namespace Prisma {
     reaction: string | null
     isPrivate: boolean | null
     status: $Enums.MessageStatus | null
+    externalId: string | null
     createdAt: Date | null
   }
 
@@ -10547,6 +10562,7 @@ export namespace Prisma {
     reaction: number
     isPrivate: number
     status: number
+    externalId: number
     createdAt: number
     _all: number
   }
@@ -10580,6 +10596,7 @@ export namespace Prisma {
     reaction?: true
     isPrivate?: true
     status?: true
+    externalId?: true
     createdAt?: true
   }
 
@@ -10601,6 +10618,7 @@ export namespace Prisma {
     reaction?: true
     isPrivate?: true
     status?: true
+    externalId?: true
     createdAt?: true
   }
 
@@ -10624,6 +10642,7 @@ export namespace Prisma {
     reaction?: true
     isPrivate?: true
     status?: true
+    externalId?: true
     createdAt?: true
     _all?: true
   }
@@ -10734,6 +10753,7 @@ export namespace Prisma {
     reaction: string | null
     isPrivate: boolean
     status: $Enums.MessageStatus
+    externalId: string | null
     createdAt: Date
     _count: MessageCountAggregateOutputType | null
     _avg: MessageAvgAggregateOutputType | null
@@ -10776,6 +10796,7 @@ export namespace Prisma {
     reaction?: boolean
     isPrivate?: boolean
     status?: boolean
+    externalId?: boolean
     createdAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     mentions?: boolean | Message$mentionsArgs<ExtArgs>
@@ -10802,6 +10823,7 @@ export namespace Prisma {
     reaction?: boolean
     isPrivate?: boolean
     status?: boolean
+    externalId?: boolean
     createdAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -10826,6 +10848,7 @@ export namespace Prisma {
     reaction?: boolean
     isPrivate?: boolean
     status?: boolean
+    externalId?: boolean
     createdAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -10850,10 +10873,11 @@ export namespace Prisma {
     reaction?: boolean
     isPrivate?: boolean
     status?: boolean
+    externalId?: boolean
     createdAt?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "status" | "createdAt", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "status" | "externalId" | "createdAt", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     mentions?: boolean | Message$mentionsArgs<ExtArgs>
@@ -10892,6 +10916,7 @@ export namespace Prisma {
       reaction: string | null
       isPrivate: boolean
       status: $Enums.MessageStatus
+      externalId: string | null
       createdAt: Date
     }, ExtArgs["result"]["message"]>
     composites: {}
@@ -11337,6 +11362,7 @@ export namespace Prisma {
     readonly reaction: FieldRef<"Message", 'String'>
     readonly isPrivate: FieldRef<"Message", 'Boolean'>
     readonly status: FieldRef<"Message", 'MessageStatus'>
+    readonly externalId: FieldRef<"Message", 'String'>
     readonly createdAt: FieldRef<"Message", 'DateTime'>
   }
     
@@ -15096,6 +15122,7 @@ export namespace Prisma {
     channelId: 'channelId',
     provider: 'provider',
     externalId: 'externalId',
+    externalChannelId: 'externalChannelId',
     status: 'status',
     assignedUserId: 'assignedUserId',
     teamId: 'teamId',
@@ -15126,6 +15153,7 @@ export namespace Prisma {
     reaction: 'reaction',
     isPrivate: 'isPrivate',
     status: 'status',
+    externalId: 'externalId',
     createdAt: 'createdAt'
   };
 
@@ -15697,6 +15725,7 @@ export namespace Prisma {
 
   export type ContactWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    phone_tenant_unique?: ContactPhone_tenant_uniqueCompoundUniqueInput
     AND?: ContactWhereInput | ContactWhereInput[]
     OR?: ContactWhereInput[]
     NOT?: ContactWhereInput | ContactWhereInput[]
@@ -15711,7 +15740,7 @@ export namespace Prisma {
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     conversations?: ConversationListRelationFilter
-  }, "id">
+  }, "id" | "phone_tenant_unique">
 
   export type ContactOrderByWithAggregationInput = {
     id?: SortOrder
@@ -15835,7 +15864,8 @@ export namespace Prisma {
     contactId?: StringFilter<"Conversation"> | string
     channelId?: StringFilter<"Conversation"> | string
     provider?: StringFilter<"Conversation"> | string
-    externalId?: StringNullableFilter<"Conversation"> | string | null
+    externalId?: StringFilter<"Conversation"> | string
+    externalChannelId?: StringFilter<"Conversation"> | string
     status?: EnumConversationStatusFilter<"Conversation"> | $Enums.ConversationStatus
     assignedUserId?: StringNullableFilter<"Conversation"> | string | null
     teamId?: StringNullableFilter<"Conversation"> | string | null
@@ -15856,7 +15886,8 @@ export namespace Prisma {
     contactId?: SortOrder
     channelId?: SortOrder
     provider?: SortOrder
-    externalId?: SortOrderInput | SortOrder
+    externalId?: SortOrder
+    externalChannelId?: SortOrder
     status?: SortOrder
     assignedUserId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
@@ -15880,7 +15911,8 @@ export namespace Prisma {
     contactId?: StringFilter<"Conversation"> | string
     channelId?: StringFilter<"Conversation"> | string
     provider?: StringFilter<"Conversation"> | string
-    externalId?: StringNullableFilter<"Conversation"> | string | null
+    externalId?: StringFilter<"Conversation"> | string
+    externalChannelId?: StringFilter<"Conversation"> | string
     status?: EnumConversationStatusFilter<"Conversation"> | $Enums.ConversationStatus
     assignedUserId?: StringNullableFilter<"Conversation"> | string | null
     teamId?: StringNullableFilter<"Conversation"> | string | null
@@ -15901,7 +15933,8 @@ export namespace Prisma {
     contactId?: SortOrder
     channelId?: SortOrder
     provider?: SortOrder
-    externalId?: SortOrderInput | SortOrder
+    externalId?: SortOrder
+    externalChannelId?: SortOrder
     status?: SortOrder
     assignedUserId?: SortOrderInput | SortOrder
     teamId?: SortOrderInput | SortOrder
@@ -15921,7 +15954,8 @@ export namespace Prisma {
     contactId?: StringWithAggregatesFilter<"Conversation"> | string
     channelId?: StringWithAggregatesFilter<"Conversation"> | string
     provider?: StringWithAggregatesFilter<"Conversation"> | string
-    externalId?: StringNullableWithAggregatesFilter<"Conversation"> | string | null
+    externalId?: StringWithAggregatesFilter<"Conversation"> | string
+    externalChannelId?: StringWithAggregatesFilter<"Conversation"> | string
     status?: EnumConversationStatusWithAggregatesFilter<"Conversation"> | $Enums.ConversationStatus
     assignedUserId?: StringNullableWithAggregatesFilter<"Conversation"> | string | null
     teamId?: StringNullableWithAggregatesFilter<"Conversation"> | string | null
@@ -15952,6 +15986,7 @@ export namespace Prisma {
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
     status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
+    externalId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
     mentions?: MentionListRelationFilter
@@ -15977,6 +16012,7 @@ export namespace Prisma {
     reaction?: SortOrderInput | SortOrder
     isPrivate?: SortOrder
     status?: SortOrder
+    externalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     conversation?: ConversationOrderByWithRelationInput
     mentions?: MentionOrderByRelationAggregateInput
@@ -16005,6 +16041,7 @@ export namespace Prisma {
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
     status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
+    externalId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
     mentions?: MentionListRelationFilter
@@ -16030,6 +16067,7 @@ export namespace Prisma {
     reaction?: SortOrderInput | SortOrder
     isPrivate?: SortOrder
     status?: SortOrder
+    externalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: MessageCountOrderByAggregateInput
     _avg?: MessageAvgOrderByAggregateInput
@@ -16061,6 +16099,7 @@ export namespace Prisma {
     reaction?: StringNullableWithAggregatesFilter<"Message"> | string | null
     isPrivate?: BoolWithAggregatesFilter<"Message"> | boolean
     status?: EnumMessageStatusWithAggregatesFilter<"Message"> | $Enums.MessageStatus
+    externalId?: StringNullableWithAggregatesFilter<"Message"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
   }
 
@@ -16708,7 +16747,8 @@ export namespace Prisma {
   export type ConversationCreateInput = {
     id?: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     lastMessageAt?: Date | string | null
     createdAt?: Date | string
@@ -16727,7 +16767,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     teamId?: string | null
@@ -16740,7 +16781,8 @@ export namespace Prisma {
   export type ConversationUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16759,7 +16801,8 @@ export namespace Prisma {
     contactId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16775,7 +16818,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     teamId?: string | null
@@ -16786,7 +16830,8 @@ export namespace Prisma {
   export type ConversationUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -16798,7 +16843,8 @@ export namespace Prisma {
     contactId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16825,6 +16871,7 @@ export namespace Prisma {
     reaction?: string | null
     isPrivate?: boolean
     status?: $Enums.MessageStatus
+    externalId?: string | null
     createdAt?: Date | string
     conversation: ConversationCreateNestedOneWithoutMessagesInput
     mentions?: MentionCreateNestedManyWithoutMessageInput
@@ -16850,6 +16897,7 @@ export namespace Prisma {
     reaction?: string | null
     isPrivate?: boolean
     status?: $Enums.MessageStatus
+    externalId?: string | null
     createdAt?: Date | string
     mentions?: MentionUncheckedCreateNestedManyWithoutMessageInput
   }
@@ -16873,6 +16921,7 @@ export namespace Prisma {
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
     mentions?: MentionUpdateManyWithoutMessageNestedInput
@@ -16898,6 +16947,7 @@ export namespace Prisma {
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUncheckedUpdateManyWithoutMessageNestedInput
   }
@@ -16922,6 +16972,7 @@ export namespace Prisma {
     reaction?: string | null
     isPrivate?: boolean
     status?: $Enums.MessageStatus
+    externalId?: string | null
     createdAt?: Date | string
   }
 
@@ -16944,6 +16995,7 @@ export namespace Prisma {
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -16967,6 +17019,7 @@ export namespace Prisma {
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -17475,6 +17528,11 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
+  export type ContactPhone_tenant_uniqueCompoundUniqueInput = {
+    phone: string
+    tenantId: string
+  }
+
   export type ContactCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
@@ -17679,6 +17737,7 @@ export namespace Prisma {
     channelId?: SortOrder
     provider?: SortOrder
     externalId?: SortOrder
+    externalChannelId?: SortOrder
     status?: SortOrder
     assignedUserId?: SortOrder
     teamId?: SortOrder
@@ -17693,6 +17752,7 @@ export namespace Prisma {
     channelId?: SortOrder
     provider?: SortOrder
     externalId?: SortOrder
+    externalChannelId?: SortOrder
     status?: SortOrder
     assignedUserId?: SortOrder
     teamId?: SortOrder
@@ -17707,6 +17767,7 @@ export namespace Prisma {
     channelId?: SortOrder
     provider?: SortOrder
     externalId?: SortOrder
+    externalChannelId?: SortOrder
     status?: SortOrder
     assignedUserId?: SortOrder
     teamId?: SortOrder
@@ -17795,6 +17856,7 @@ export namespace Prisma {
     reaction?: SortOrder
     isPrivate?: SortOrder
     status?: SortOrder
+    externalId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17821,6 +17883,7 @@ export namespace Prisma {
     reaction?: SortOrder
     isPrivate?: SortOrder
     status?: SortOrder
+    externalId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -17842,6 +17905,7 @@ export namespace Prisma {
     reaction?: SortOrder
     isPrivate?: SortOrder
     status?: SortOrder
+    externalId?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -19526,7 +19590,8 @@ export namespace Prisma {
   export type ConversationCreateWithoutTenantInput = {
     id?: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     lastMessageAt?: Date | string | null
     createdAt?: Date | string
@@ -19543,7 +19608,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     teamId?: string | null
@@ -19739,7 +19805,8 @@ export namespace Prisma {
     contactId?: StringFilter<"Conversation"> | string
     channelId?: StringFilter<"Conversation"> | string
     provider?: StringFilter<"Conversation"> | string
-    externalId?: StringNullableFilter<"Conversation"> | string | null
+    externalId?: StringFilter<"Conversation"> | string
+    externalChannelId?: StringFilter<"Conversation"> | string
     status?: EnumConversationStatusFilter<"Conversation"> | $Enums.ConversationStatus
     assignedUserId?: StringNullableFilter<"Conversation"> | string | null
     teamId?: StringNullableFilter<"Conversation"> | string | null
@@ -19901,7 +19968,8 @@ export namespace Prisma {
   export type ConversationCreateWithoutAssignedUserInput = {
     id?: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     lastMessageAt?: Date | string | null
     createdAt?: Date | string
@@ -19919,7 +19987,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     teamId?: string | null
     lastMessageAt?: Date | string | null
@@ -20189,7 +20258,8 @@ export namespace Prisma {
   export type ConversationCreateWithoutTeamInput = {
     id?: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     lastMessageAt?: Date | string | null
     createdAt?: Date | string
@@ -20207,7 +20277,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     lastMessageAt?: Date | string | null
@@ -20496,7 +20567,8 @@ export namespace Prisma {
   export type ConversationCreateWithoutContactInput = {
     id?: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     lastMessageAt?: Date | string | null
     createdAt?: Date | string
@@ -20513,7 +20585,8 @@ export namespace Prisma {
     tenantId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     teamId?: string | null
@@ -20669,7 +20742,8 @@ export namespace Prisma {
   export type ConversationCreateWithoutChannelInput = {
     id?: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     lastMessageAt?: Date | string | null
     createdAt?: Date | string
@@ -20686,7 +20760,8 @@ export namespace Prisma {
     tenantId: string
     contactId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     teamId?: string | null
@@ -20933,6 +21008,7 @@ export namespace Prisma {
     reaction?: string | null
     isPrivate?: boolean
     status?: $Enums.MessageStatus
+    externalId?: string | null
     createdAt?: Date | string
     mentions?: MentionCreateNestedManyWithoutMessageInput
   }
@@ -20956,6 +21032,7 @@ export namespace Prisma {
     reaction?: string | null
     isPrivate?: boolean
     status?: $Enums.MessageStatus
+    externalId?: string | null
     createdAt?: Date | string
     mentions?: MentionUncheckedCreateNestedManyWithoutMessageInput
   }
@@ -21210,6 +21287,7 @@ export namespace Prisma {
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
     status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
+    externalId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
   }
 
@@ -21241,7 +21319,8 @@ export namespace Prisma {
   export type ConversationCreateWithoutMessagesInput = {
     id?: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     lastMessageAt?: Date | string | null
     createdAt?: Date | string
@@ -21259,7 +21338,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     teamId?: string | null
@@ -21309,7 +21389,8 @@ export namespace Prisma {
   export type ConversationUpdateWithoutMessagesInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21327,7 +21408,8 @@ export namespace Prisma {
     contactId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21543,7 +21625,8 @@ export namespace Prisma {
   export type ConversationCreateWithoutLabelsInput = {
     id?: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     lastMessageAt?: Date | string | null
     createdAt?: Date | string
@@ -21561,7 +21644,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     teamId?: string | null
@@ -21612,7 +21696,8 @@ export namespace Prisma {
   export type ConversationUpdateWithoutLabelsInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -21630,7 +21715,8 @@ export namespace Prisma {
     contactId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -21687,6 +21773,7 @@ export namespace Prisma {
     reaction?: string | null
     isPrivate?: boolean
     status?: $Enums.MessageStatus
+    externalId?: string | null
     createdAt?: Date | string
     conversation: ConversationCreateNestedOneWithoutMessagesInput
   }
@@ -21711,6 +21798,7 @@ export namespace Prisma {
     reaction?: string | null
     isPrivate?: boolean
     status?: $Enums.MessageStatus
+    externalId?: string | null
     createdAt?: Date | string
   }
 
@@ -21784,6 +21872,7 @@ export namespace Prisma {
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
   }
@@ -21808,6 +21897,7 @@ export namespace Prisma {
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21884,7 +21974,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     teamId?: string | null
@@ -22012,7 +22103,8 @@ export namespace Prisma {
   export type ConversationUpdateWithoutTenantInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22029,7 +22121,8 @@ export namespace Prisma {
     contactId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22044,7 +22137,8 @@ export namespace Prisma {
     contactId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22139,7 +22233,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     teamId?: string | null
     lastMessageAt?: Date | string | null
@@ -22216,7 +22311,8 @@ export namespace Prisma {
   export type ConversationUpdateWithoutAssignedUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22234,7 +22330,8 @@ export namespace Prisma {
     contactId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22249,7 +22346,8 @@ export namespace Prisma {
     contactId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22312,7 +22410,8 @@ export namespace Prisma {
     contactId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     lastMessageAt?: Date | string | null
@@ -22340,7 +22439,8 @@ export namespace Prisma {
   export type ConversationUpdateWithoutTeamInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22358,7 +22458,8 @@ export namespace Prisma {
     contactId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22373,7 +22474,8 @@ export namespace Prisma {
     contactId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -22385,7 +22487,8 @@ export namespace Prisma {
     tenantId: string
     channelId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     teamId?: string | null
@@ -22396,7 +22499,8 @@ export namespace Prisma {
   export type ConversationUpdateWithoutContactInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22413,7 +22517,8 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22428,7 +22533,8 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     channelId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22441,7 +22547,8 @@ export namespace Prisma {
     tenantId: string
     contactId: string
     provider: string
-    externalId?: string | null
+    externalId: string
+    externalChannelId: string
     status?: $Enums.ConversationStatus
     assignedUserId?: string | null
     teamId?: string | null
@@ -22452,7 +22559,8 @@ export namespace Prisma {
   export type ConversationUpdateWithoutChannelInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22469,7 +22577,8 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     contactId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22484,7 +22593,8 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     contactId?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
-    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: StringFieldUpdateOperationsInput | string
+    externalChannelId?: StringFieldUpdateOperationsInput | string
     status?: EnumConversationStatusFieldUpdateOperationsInput | $Enums.ConversationStatus
     assignedUserId?: NullableStringFieldUpdateOperationsInput | string | null
     teamId?: NullableStringFieldUpdateOperationsInput | string | null
@@ -22511,6 +22621,7 @@ export namespace Prisma {
     reaction?: string | null
     isPrivate?: boolean
     status?: $Enums.MessageStatus
+    externalId?: string | null
     createdAt?: Date | string
   }
 
@@ -22538,6 +22649,7 @@ export namespace Prisma {
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUpdateManyWithoutMessageNestedInput
   }
@@ -22561,6 +22673,7 @@ export namespace Prisma {
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUncheckedUpdateManyWithoutMessageNestedInput
   }
@@ -22584,6 +22697,7 @@ export namespace Prisma {
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

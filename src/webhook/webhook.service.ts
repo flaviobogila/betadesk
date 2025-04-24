@@ -1,31 +1,50 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { HttpException, Injectable, Logger } from '@nestjs/common';
+import { WhatsAppChangeValue, WhatsAppMessage, WhatsAppMessageStatus, WhatsAppWebhookDto } from './dto/whatsapp-webhook.dto';
+import { HttpStatusCode } from 'axios';
+import { InboundMessageService } from './inbound-message.service';
 
 @Injectable()
 export class WebhookService {
+
+  constructor(
+    private readonly inboundMessageService: InboundMessageService) {  }
+
   private readonly logger = new Logger(WebhookService.name);
 
-  async handleWhatsAppWebhook(payload: any) {
+  async handleWhatsAppWebhook(payload: WhatsAppWebhookDto) {
     this.logger.log('Recebendo webhook do WhatsApp...');
 
     try {
-      const entry = payload?.entry?.[0];
-      const change = entry?.changes?.[0]?.value;
 
-      const phoneNumberId = change?.metadata?.phone_number_id;
-      const messages = change?.messages;
+      const entries = payload?.entry ?? [];
 
-      if (!phoneNumberId || !messages?.length) return;
+      for (const entry of entries) {
+        for (const change of entry?.changes ?? []) {
+          const value = change.value;
 
-      for (const message of messages) {
-        // Aqui você chamaria:
-        // - verificar canal (channel)
-        // - criar ou encontrar contato
-        // - criar ou encontrar conversa
-        // - salvar a mensagem recebida
-        this.logger.log(`Mensagem recebida: ${message.text?.body || '[não textual]'}`);
+          // 🎯 Lida com mensagens (conteúdo)
+          if (value?.messages?.length) {
+            for (const message of value.messages) {
+              this.logger.log(`Processando mensagem`, message);
+              await this.inboundMessageService.process({ change:value, message });
+              this.logger.log(`Mensagem processada`);
+            }
+          }
+
+          // 🎯 Lida com atualizações de status
+          if (value?.statuses?.length) {
+            for (const status of value.statuses) {
+              this.logger.log(`Processando mensagem de status`, status);
+              await this.inboundMessageService.updateStatus({ change:value, status });
+              this.logger.log(`Mensagem de status processada`);
+            }
+          }
+        }
       }
     } catch (err) {
       this.logger.error('Erro ao processar webhook:', err);
+      throw new HttpException("Houve um erro ao processar a mensagem", HttpStatusCode.InternalServerError);
     }
   }
+
 }

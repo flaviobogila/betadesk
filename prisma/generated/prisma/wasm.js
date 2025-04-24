@@ -184,6 +184,7 @@ exports.Prisma.ConversationScalarFieldEnum = {
   channelId: 'channelId',
   provider: 'provider',
   externalId: 'externalId',
+  externalChannelId: 'externalChannelId',
   status: 'status',
   assignedUserId: 'assignedUserId',
   teamId: 'teamId',
@@ -211,6 +212,7 @@ exports.Prisma.MessageScalarFieldEnum = {
   reaction: 'reaction',
   isPrivate: 'isPrivate',
   status: 'status',
+  externalId: 'externalId',
   createdAt: 'createdAt'
 };
 

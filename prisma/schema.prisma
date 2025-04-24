@@ -97,6 +97,8 @@ model Contact {
   createdAt    DateTime @default(now())
 
   conversations Conversation[]
+
+  @@unique([phone, tenantId], name: "phone_tenant_unique")
 }
 
 enum ChannelType {
@@ -139,7 +141,8 @@ model Conversation {
   channelId        String
   channel          Channel @relation(fields: [channelId], references: [id])
   provider         String // 'whatsapp', 'instagram', 'facebook' 
-  externalId       String? // ID da conversa na API externa
+  externalId       String // ID da conversa na API externa
+  externalChannelId String // ID do canal na API externa
   status           ConversationStatus @default(in_queue)  //'open', 'in_queue', 'closed', 'bot'
   assignedUserId   String?
   assignedUser     User?    @relation("AssignedUser", fields: [assignedUserId], references: [id])
@@ -150,6 +153,8 @@ model Conversation {
 
   messages         Message[]
   labels           ConversationLabel[]
+
+  @@index([externalId, externalChannelId])
 }
 
 enum MessageType {
@@ -201,6 +206,7 @@ model Message {
   reaction          String?
   isPrivate        Boolean  @default(false)
   status           MessageStatus @default(pending) // 'pending', 'sent', 'failed', 'delivered', 'read'
+  externalId        String? // ID da mensagem na API externa
   createdAt         DateTime @default(now())
   mentions          Mention[]
 }
