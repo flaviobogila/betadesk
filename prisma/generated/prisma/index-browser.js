@@ -200,11 +200,13 @@ exports.Prisma.MessageScalarFieldEnum = {
   senderName: 'senderName',
   messageType: 'messageType',
   content: 'content',
+  mediaId: 'mediaId',
   mediaUrl: 'mediaUrl',
   mediaCaption: 'mediaCaption',
   mediaMimeType: 'mediaMimeType',
   mediaSize: 'mediaSize',
   mediaDuration: 'mediaDuration',
+  mediaStatus: 'mediaStatus',
   componentHeader: 'componentHeader',
   componentFooter: 'componentFooter',
   componentButtons: 'componentButtons',
@@ -308,6 +310,13 @@ exports.MessageType = exports.$Enums.MessageType = {
   button: 'button',
   template: 'template',
   component: 'component'
+};
+
+exports.MediaStatus = exports.$Enums.MediaStatus = {
+  pending: 'pending',
+  downloading: 'downloading',
+  downloaded: 'downloaded',
+  failed: 'failed'
 };
 
 exports.MessageStatus = exports.$Enums.MessageStatus = {

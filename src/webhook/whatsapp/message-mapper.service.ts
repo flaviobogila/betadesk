@@ -26,7 +26,7 @@ export class MessageWhatsAppMapperService {
             case 'image':
                 return {
                     ...common,
-                    mediaUrl: msg.image!.id, // OBS: precisa baixar com token, isso é só o ID
+                    mediaId: msg.image!.id, // OBS: precisa baixar com token, isso é só o ID
                     mediaMimeType: msg.image!.mime_type,
                     mediaCaption: msg.image!.caption
                 };
@@ -34,14 +34,14 @@ export class MessageWhatsAppMapperService {
             case 'audio':
                 return {
                     ...common,
-                    mediaUrl: msg.audio!.id,
+                    mediaId: msg.audio!.id,
                     mediaMimeType: msg.audio!.mime_type,
                 };
 
             case 'video':
                 return {
                     ...common,
-                    mediaUrl: msg.video!.id,
+                    mediaId: msg.video!.id,
                     mediaMimeType: msg.video!.mime_type,
                     mediaCaption: msg.video!.caption,
                 };
@@ -49,7 +49,7 @@ export class MessageWhatsAppMapperService {
             case 'document':
                 return {
                     ...common,
-                    mediaUrl: msg.document!.id,
+                    mediaId: msg.document!.id,
                     mediaMimeType: msg.document!.mime_type,
                     metadata: {
                         filename: msg.document?.filename,
@@ -59,7 +59,7 @@ export class MessageWhatsAppMapperService {
             case 'sticker':
                 return {
                     ...common,
-                    mediaUrl: msg.sticker!.id,
+                    mediaId: msg.sticker!.id,
                     mediaMimeType: msg.sticker!.mime_type,
                 };
 

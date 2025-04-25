@@ -147,6 +147,16 @@ export const MessageStatus: {
 
 export type MessageStatus = (typeof MessageStatus)[keyof typeof MessageStatus]
 
+
+export const MediaStatus: {
+  pending: 'pending',
+  downloading: 'downloading',
+  downloaded: 'downloaded',
+  failed: 'failed'
+};
+
+export type MediaStatus = (typeof MediaStatus)[keyof typeof MediaStatus]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -176,6 +186,10 @@ export const SenderType: typeof $Enums.SenderType
 export type MessageStatus = $Enums.MessageStatus
 
 export const MessageStatus: typeof $Enums.MessageStatus
+
+export type MediaStatus = $Enums.MediaStatus
+
+export const MediaStatus: typeof $Enums.MediaStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -10506,11 +10520,13 @@ export namespace Prisma {
     senderName: string | null
     messageType: $Enums.MessageType | null
     content: string | null
+    mediaId: string | null
     mediaUrl: string | null
     mediaCaption: string | null
     mediaMimeType: string | null
     mediaSize: number | null
     mediaDuration: number | null
+    mediaStatus: $Enums.MediaStatus | null
     componentHeader: string | null
     componentFooter: string | null
     reaction: string | null
@@ -10529,11 +10545,13 @@ export namespace Prisma {
     senderName: string | null
     messageType: $Enums.MessageType | null
     content: string | null
+    mediaId: string | null
     mediaUrl: string | null
     mediaCaption: string | null
     mediaMimeType: string | null
     mediaSize: number | null
     mediaDuration: number | null
+    mediaStatus: $Enums.MediaStatus | null
     componentHeader: string | null
     componentFooter: string | null
     reaction: string | null
@@ -10552,11 +10570,13 @@ export namespace Prisma {
     senderName: number
     messageType: number
     content: number
+    mediaId: number
     mediaUrl: number
     mediaCaption: number
     mediaMimeType: number
     mediaSize: number
     mediaDuration: number
+    mediaStatus: number
     componentHeader: number
     componentFooter: number
     componentButtons: number
@@ -10589,11 +10609,13 @@ export namespace Prisma {
     senderName?: true
     messageType?: true
     content?: true
+    mediaId?: true
     mediaUrl?: true
     mediaCaption?: true
     mediaMimeType?: true
     mediaSize?: true
     mediaDuration?: true
+    mediaStatus?: true
     componentHeader?: true
     componentFooter?: true
     reaction?: true
@@ -10612,11 +10634,13 @@ export namespace Prisma {
     senderName?: true
     messageType?: true
     content?: true
+    mediaId?: true
     mediaUrl?: true
     mediaCaption?: true
     mediaMimeType?: true
     mediaSize?: true
     mediaDuration?: true
+    mediaStatus?: true
     componentHeader?: true
     componentFooter?: true
     reaction?: true
@@ -10635,11 +10659,13 @@ export namespace Prisma {
     senderName?: true
     messageType?: true
     content?: true
+    mediaId?: true
     mediaUrl?: true
     mediaCaption?: true
     mediaMimeType?: true
     mediaSize?: true
     mediaDuration?: true
+    mediaStatus?: true
     componentHeader?: true
     componentFooter?: true
     componentButtons?: true
@@ -10747,11 +10773,13 @@ export namespace Prisma {
     senderName: string | null
     messageType: $Enums.MessageType
     content: string | null
+    mediaId: string | null
     mediaUrl: string | null
     mediaCaption: string | null
     mediaMimeType: string | null
     mediaSize: number | null
     mediaDuration: number | null
+    mediaStatus: $Enums.MediaStatus
     componentHeader: string | null
     componentFooter: string | null
     componentButtons: JsonValue | null
@@ -10791,11 +10819,13 @@ export namespace Prisma {
     senderName?: boolean
     messageType?: boolean
     content?: boolean
+    mediaId?: boolean
     mediaUrl?: boolean
     mediaCaption?: boolean
     mediaMimeType?: boolean
     mediaSize?: boolean
     mediaDuration?: boolean
+    mediaStatus?: boolean
     componentHeader?: boolean
     componentFooter?: boolean
     componentButtons?: boolean
@@ -10819,11 +10849,13 @@ export namespace Prisma {
     senderName?: boolean
     messageType?: boolean
     content?: boolean
+    mediaId?: boolean
     mediaUrl?: boolean
     mediaCaption?: boolean
     mediaMimeType?: boolean
     mediaSize?: boolean
     mediaDuration?: boolean
+    mediaStatus?: boolean
     componentHeader?: boolean
     componentFooter?: boolean
     componentButtons?: boolean
@@ -10845,11 +10877,13 @@ export namespace Prisma {
     senderName?: boolean
     messageType?: boolean
     content?: boolean
+    mediaId?: boolean
     mediaUrl?: boolean
     mediaCaption?: boolean
     mediaMimeType?: boolean
     mediaSize?: boolean
     mediaDuration?: boolean
+    mediaStatus?: boolean
     componentHeader?: boolean
     componentFooter?: boolean
     componentButtons?: boolean
@@ -10871,11 +10905,13 @@ export namespace Prisma {
     senderName?: boolean
     messageType?: boolean
     content?: boolean
+    mediaId?: boolean
     mediaUrl?: boolean
     mediaCaption?: boolean
     mediaMimeType?: boolean
     mediaSize?: boolean
     mediaDuration?: boolean
+    mediaStatus?: boolean
     componentHeader?: boolean
     componentFooter?: boolean
     componentButtons?: boolean
@@ -10888,7 +10924,7 @@ export namespace Prisma {
     receivedAt?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "status" | "externalId" | "createdAt" | "receivedAt", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaId" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "mediaStatus" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "status" | "externalId" | "createdAt" | "receivedAt", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     mentions?: boolean | Message$mentionsArgs<ExtArgs>
@@ -10915,11 +10951,13 @@ export namespace Prisma {
       senderName: string | null
       messageType: $Enums.MessageType
       content: string | null
+      mediaId: string | null
       mediaUrl: string | null
       mediaCaption: string | null
       mediaMimeType: string | null
       mediaSize: number | null
       mediaDuration: number | null
+      mediaStatus: $Enums.MediaStatus
       componentHeader: string | null
       componentFooter: string | null
       componentButtons: Prisma.JsonValue | null
@@ -11362,11 +11400,13 @@ export namespace Prisma {
     readonly senderName: FieldRef<"Message", 'String'>
     readonly messageType: FieldRef<"Message", 'MessageType'>
     readonly content: FieldRef<"Message", 'String'>
+    readonly mediaId: FieldRef<"Message", 'String'>
     readonly mediaUrl: FieldRef<"Message", 'String'>
     readonly mediaCaption: FieldRef<"Message", 'String'>
     readonly mediaMimeType: FieldRef<"Message", 'String'>
     readonly mediaSize: FieldRef<"Message", 'Int'>
     readonly mediaDuration: FieldRef<"Message", 'Int'>
+    readonly mediaStatus: FieldRef<"Message", 'MediaStatus'>
     readonly componentHeader: FieldRef<"Message", 'String'>
     readonly componentFooter: FieldRef<"Message", 'String'>
     readonly componentButtons: FieldRef<"Message", 'Json'>
@@ -15154,11 +15194,13 @@ export namespace Prisma {
     senderName: 'senderName',
     messageType: 'messageType',
     content: 'content',
+    mediaId: 'mediaId',
     mediaUrl: 'mediaUrl',
     mediaCaption: 'mediaCaption',
     mediaMimeType: 'mediaMimeType',
     mediaSize: 'mediaSize',
     mediaDuration: 'mediaDuration',
+    mediaStatus: 'mediaStatus',
     componentHeader: 'componentHeader',
     componentFooter: 'componentFooter',
     componentButtons: 'componentButtons',
@@ -15395,6 +15437,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'MediaStatus'
+   */
+  export type EnumMediaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'MediaStatus[]'
+   */
+  export type ListEnumMediaStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'MediaStatus[]'>
     
 
 
@@ -15988,11 +16044,13 @@ export namespace Prisma {
     senderName?: StringNullableFilter<"Message"> | string | null
     messageType?: EnumMessageTypeFilter<"Message"> | $Enums.MessageType
     content?: StringNullableFilter<"Message"> | string | null
+    mediaId?: StringNullableFilter<"Message"> | string | null
     mediaUrl?: StringNullableFilter<"Message"> | string | null
     mediaCaption?: StringNullableFilter<"Message"> | string | null
     mediaMimeType?: StringNullableFilter<"Message"> | string | null
     mediaSize?: IntNullableFilter<"Message"> | number | null
     mediaDuration?: IntNullableFilter<"Message"> | number | null
+    mediaStatus?: EnumMediaStatusFilter<"Message"> | $Enums.MediaStatus
     componentHeader?: StringNullableFilter<"Message"> | string | null
     componentFooter?: StringNullableFilter<"Message"> | string | null
     componentButtons?: JsonNullableFilter<"Message">
@@ -16015,11 +16073,13 @@ export namespace Prisma {
     senderName?: SortOrderInput | SortOrder
     messageType?: SortOrder
     content?: SortOrderInput | SortOrder
+    mediaId?: SortOrderInput | SortOrder
     mediaUrl?: SortOrderInput | SortOrder
     mediaCaption?: SortOrderInput | SortOrder
     mediaMimeType?: SortOrderInput | SortOrder
     mediaSize?: SortOrderInput | SortOrder
     mediaDuration?: SortOrderInput | SortOrder
+    mediaStatus?: SortOrder
     componentHeader?: SortOrderInput | SortOrder
     componentFooter?: SortOrderInput | SortOrder
     componentButtons?: SortOrderInput | SortOrder
@@ -16045,11 +16105,13 @@ export namespace Prisma {
     senderName?: StringNullableFilter<"Message"> | string | null
     messageType?: EnumMessageTypeFilter<"Message"> | $Enums.MessageType
     content?: StringNullableFilter<"Message"> | string | null
+    mediaId?: StringNullableFilter<"Message"> | string | null
     mediaUrl?: StringNullableFilter<"Message"> | string | null
     mediaCaption?: StringNullableFilter<"Message"> | string | null
     mediaMimeType?: StringNullableFilter<"Message"> | string | null
     mediaSize?: IntNullableFilter<"Message"> | number | null
     mediaDuration?: IntNullableFilter<"Message"> | number | null
+    mediaStatus?: EnumMediaStatusFilter<"Message"> | $Enums.MediaStatus
     componentHeader?: StringNullableFilter<"Message"> | string | null
     componentFooter?: StringNullableFilter<"Message"> | string | null
     componentButtons?: JsonNullableFilter<"Message">
@@ -16072,11 +16134,13 @@ export namespace Prisma {
     senderName?: SortOrderInput | SortOrder
     messageType?: SortOrder
     content?: SortOrderInput | SortOrder
+    mediaId?: SortOrderInput | SortOrder
     mediaUrl?: SortOrderInput | SortOrder
     mediaCaption?: SortOrderInput | SortOrder
     mediaMimeType?: SortOrderInput | SortOrder
     mediaSize?: SortOrderInput | SortOrder
     mediaDuration?: SortOrderInput | SortOrder
+    mediaStatus?: SortOrder
     componentHeader?: SortOrderInput | SortOrder
     componentFooter?: SortOrderInput | SortOrder
     componentButtons?: SortOrderInput | SortOrder
@@ -16105,11 +16169,13 @@ export namespace Prisma {
     senderName?: StringNullableWithAggregatesFilter<"Message"> | string | null
     messageType?: EnumMessageTypeWithAggregatesFilter<"Message"> | $Enums.MessageType
     content?: StringNullableWithAggregatesFilter<"Message"> | string | null
+    mediaId?: StringNullableWithAggregatesFilter<"Message"> | string | null
     mediaUrl?: StringNullableWithAggregatesFilter<"Message"> | string | null
     mediaCaption?: StringNullableWithAggregatesFilter<"Message"> | string | null
     mediaMimeType?: StringNullableWithAggregatesFilter<"Message"> | string | null
     mediaSize?: IntNullableWithAggregatesFilter<"Message"> | number | null
     mediaDuration?: IntNullableWithAggregatesFilter<"Message"> | number | null
+    mediaStatus?: EnumMediaStatusWithAggregatesFilter<"Message"> | $Enums.MediaStatus
     componentHeader?: StringNullableWithAggregatesFilter<"Message"> | string | null
     componentFooter?: StringNullableWithAggregatesFilter<"Message"> | string | null
     componentButtons?: JsonNullableWithAggregatesFilter<"Message">
@@ -16878,11 +16944,13 @@ export namespace Prisma {
     senderName?: string | null
     messageType?: $Enums.MessageType
     content?: string | null
+    mediaId?: string | null
     mediaUrl?: string | null
     mediaCaption?: string | null
     mediaMimeType?: string | null
     mediaSize?: number | null
     mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
     componentHeader?: string | null
     componentFooter?: string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -16905,11 +16973,13 @@ export namespace Prisma {
     senderName?: string | null
     messageType?: $Enums.MessageType
     content?: string | null
+    mediaId?: string | null
     mediaUrl?: string | null
     mediaCaption?: string | null
     mediaMimeType?: string | null
     mediaSize?: number | null
     mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
     componentHeader?: string | null
     componentFooter?: string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -16930,11 +17000,13 @@ export namespace Prisma {
     senderName?: NullableStringFieldUpdateOperationsInput | string | null
     messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
     mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
     componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
     componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -16957,11 +17029,13 @@ export namespace Prisma {
     senderName?: NullableStringFieldUpdateOperationsInput | string | null
     messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
     mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
     componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
     componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -16983,11 +17057,13 @@ export namespace Prisma {
     senderName?: string | null
     messageType?: $Enums.MessageType
     content?: string | null
+    mediaId?: string | null
     mediaUrl?: string | null
     mediaCaption?: string | null
     mediaMimeType?: string | null
     mediaSize?: number | null
     mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
     componentHeader?: string | null
     componentFooter?: string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -17007,11 +17083,13 @@ export namespace Prisma {
     senderName?: NullableStringFieldUpdateOperationsInput | string | null
     messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
     mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
     componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
     componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -17032,11 +17110,13 @@ export namespace Prisma {
     senderName?: NullableStringFieldUpdateOperationsInput | string | null
     messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
     mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
     componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
     componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -17850,6 +17930,13 @@ export namespace Prisma {
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
   }
 
+  export type EnumMediaStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaStatus | EnumMediaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaStatusFilter<$PrismaModel> | $Enums.MediaStatus
+  }
+
   export type EnumMessageStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.MessageStatus | EnumMessageStatusFieldRefInput<$PrismaModel>
     in?: $Enums.MessageStatus[] | ListEnumMessageStatusFieldRefInput<$PrismaModel>
@@ -17870,11 +17957,13 @@ export namespace Prisma {
     senderName?: SortOrder
     messageType?: SortOrder
     content?: SortOrder
+    mediaId?: SortOrder
     mediaUrl?: SortOrder
     mediaCaption?: SortOrder
     mediaMimeType?: SortOrder
     mediaSize?: SortOrder
     mediaDuration?: SortOrder
+    mediaStatus?: SortOrder
     componentHeader?: SortOrder
     componentFooter?: SortOrder
     componentButtons?: SortOrder
@@ -17900,11 +17989,13 @@ export namespace Prisma {
     senderName?: SortOrder
     messageType?: SortOrder
     content?: SortOrder
+    mediaId?: SortOrder
     mediaUrl?: SortOrder
     mediaCaption?: SortOrder
     mediaMimeType?: SortOrder
     mediaSize?: SortOrder
     mediaDuration?: SortOrder
+    mediaStatus?: SortOrder
     componentHeader?: SortOrder
     componentFooter?: SortOrder
     reaction?: SortOrder
@@ -17923,11 +18014,13 @@ export namespace Prisma {
     senderName?: SortOrder
     messageType?: SortOrder
     content?: SortOrder
+    mediaId?: SortOrder
     mediaUrl?: SortOrder
     mediaCaption?: SortOrder
     mediaMimeType?: SortOrder
     mediaSize?: SortOrder
     mediaDuration?: SortOrder
+    mediaStatus?: SortOrder
     componentHeader?: SortOrder
     componentFooter?: SortOrder
     reaction?: SortOrder
@@ -17977,6 +18070,16 @@ export namespace Prisma {
     _sum?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedIntNullableFilter<$PrismaModel>
     _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type EnumMediaStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaStatus | EnumMediaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaStatusWithAggregatesFilter<$PrismaModel> | $Enums.MediaStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaStatusFilter<$PrismaModel>
+    _max?: NestedEnumMediaStatusFilter<$PrismaModel>
   }
 
   export type EnumMessageStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -19032,6 +19135,10 @@ export namespace Prisma {
     divide?: number
   }
 
+  export type EnumMediaStatusFieldUpdateOperationsInput = {
+    set?: $Enums.MediaStatus
+  }
+
   export type EnumMessageStatusFieldUpdateOperationsInput = {
     set?: $Enums.MessageStatus
   }
@@ -19452,6 +19559,13 @@ export namespace Prisma {
     not?: NestedEnumMessageTypeFilter<$PrismaModel> | $Enums.MessageType
   }
 
+  export type NestedEnumMediaStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaStatus | EnumMediaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaStatusFilter<$PrismaModel> | $Enums.MediaStatus
+  }
+
   export type NestedEnumMessageStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.MessageStatus | EnumMessageStatusFieldRefInput<$PrismaModel>
     in?: $Enums.MessageStatus[] | ListEnumMessageStatusFieldRefInput<$PrismaModel>
@@ -19504,6 +19618,16 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumMediaStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.MediaStatus | EnumMediaStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.MediaStatus[] | ListEnumMediaStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumMediaStatusWithAggregatesFilter<$PrismaModel> | $Enums.MediaStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumMediaStatusFilter<$PrismaModel>
+    _max?: NestedEnumMediaStatusFilter<$PrismaModel>
   }
 
   export type NestedEnumMessageStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -21025,11 +21149,13 @@ export namespace Prisma {
     senderName?: string | null
     messageType?: $Enums.MessageType
     content?: string | null
+    mediaId?: string | null
     mediaUrl?: string | null
     mediaCaption?: string | null
     mediaMimeType?: string | null
     mediaSize?: number | null
     mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
     componentHeader?: string | null
     componentFooter?: string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -21050,11 +21176,13 @@ export namespace Prisma {
     senderName?: string | null
     messageType?: $Enums.MessageType
     content?: string | null
+    mediaId?: string | null
     mediaUrl?: string | null
     mediaCaption?: string | null
     mediaMimeType?: string | null
     mediaSize?: number | null
     mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
     componentHeader?: string | null
     componentFooter?: string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -21306,11 +21434,13 @@ export namespace Prisma {
     senderName?: StringNullableFilter<"Message"> | string | null
     messageType?: EnumMessageTypeFilter<"Message"> | $Enums.MessageType
     content?: StringNullableFilter<"Message"> | string | null
+    mediaId?: StringNullableFilter<"Message"> | string | null
     mediaUrl?: StringNullableFilter<"Message"> | string | null
     mediaCaption?: StringNullableFilter<"Message"> | string | null
     mediaMimeType?: StringNullableFilter<"Message"> | string | null
     mediaSize?: IntNullableFilter<"Message"> | number | null
     mediaDuration?: IntNullableFilter<"Message"> | number | null
+    mediaStatus?: EnumMediaStatusFilter<"Message"> | $Enums.MediaStatus
     componentHeader?: StringNullableFilter<"Message"> | string | null
     componentFooter?: StringNullableFilter<"Message"> | string | null
     componentButtons?: JsonNullableFilter<"Message">
@@ -21793,11 +21923,13 @@ export namespace Prisma {
     senderName?: string | null
     messageType?: $Enums.MessageType
     content?: string | null
+    mediaId?: string | null
     mediaUrl?: string | null
     mediaCaption?: string | null
     mediaMimeType?: string | null
     mediaSize?: number | null
     mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
     componentHeader?: string | null
     componentFooter?: string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -21819,11 +21951,13 @@ export namespace Prisma {
     senderName?: string | null
     messageType?: $Enums.MessageType
     content?: string | null
+    mediaId?: string | null
     mediaUrl?: string | null
     mediaCaption?: string | null
     mediaMimeType?: string | null
     mediaSize?: number | null
     mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
     componentHeader?: string | null
     componentFooter?: string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -21894,11 +22028,13 @@ export namespace Prisma {
     senderName?: NullableStringFieldUpdateOperationsInput | string | null
     messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
     mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
     componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
     componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -21920,11 +22056,13 @@ export namespace Prisma {
     senderName?: NullableStringFieldUpdateOperationsInput | string | null
     messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
     mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
     componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
     componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -22645,11 +22783,13 @@ export namespace Prisma {
     senderName?: string | null
     messageType?: $Enums.MessageType
     content?: string | null
+    mediaId?: string | null
     mediaUrl?: string | null
     mediaCaption?: string | null
     mediaMimeType?: string | null
     mediaSize?: number | null
     mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
     componentHeader?: string | null
     componentFooter?: string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -22674,11 +22814,13 @@ export namespace Prisma {
     senderName?: NullableStringFieldUpdateOperationsInput | string | null
     messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
     mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
     componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
     componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -22699,11 +22841,13 @@ export namespace Prisma {
     senderName?: NullableStringFieldUpdateOperationsInput | string | null
     messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
     mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
     componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
     componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue
@@ -22724,11 +22868,13 @@ export namespace Prisma {
     senderName?: NullableStringFieldUpdateOperationsInput | string | null
     messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
     content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
     mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
     mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
     mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
     componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
     componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
     componentButtons?: NullableJsonNullValueInput | InputJsonValue

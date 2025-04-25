@@ -185,6 +185,13 @@ enum MessageStatus {
   read
 }
 
+enum MediaStatus {
+  pending
+  downloading
+  downloaded
+  failed
+}
+
 model Message {
   id                String   @id @default(uuid())
   conversationId    String
@@ -194,18 +201,20 @@ model Message {
   senderName        String?
   messageType       MessageType  @default(text)
   content           String?
+  mediaId           String?
   mediaUrl          String?
   mediaCaption      String?
   mediaMimeType     String?
   mediaSize         Int?
   mediaDuration     Int?
+  mediaStatus       MediaStatus @default(pending) // 'pending', 'downloading', 'downloaded', 'failed'
   componentHeader   String?
   componentFooter   String?
   componentButtons  Json?
   metadata          Json?
   reaction          String?
-  isPrivate        Boolean  @default(false)
-  status           MessageStatus @default(pending) // 'pending', 'sent', 'failed', 'delivered', 'read'
+  isPrivate         Boolean  @default(false)
+  status            MessageStatus @default(pending) // 'pending', 'sent', 'failed', 'delivered', 'read'
   externalId        String? // ID da mensagem na API externa
   createdAt         DateTime @default(now()) //timestamp do provedor ou data de criação
   receivedAt        DateTime @default(now()) //data de recebimento da mensagem

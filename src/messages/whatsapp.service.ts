@@ -189,7 +189,37 @@ export class WhatsappService {
         ],
       },
     });
-  }  
+  }
+
+  async downloadMediaFromMeta(mediaId: string, token: string): Promise<Buffer> {
+    try {
+      // 1. Buscar a URL temporária da mídia
+      const mediaMetaUrl = `https://graph.facebook.com/v19.0/${mediaId}`;
+      const mediaMetaResponse = await axios.get(mediaMetaUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const mediaUrl = mediaMetaResponse.data?.url;
+      if (!mediaUrl) {
+        throw new HttpException('URL da mídia não encontrada.', HttpStatus.NOT_FOUND);
+      }
+
+      // 2. Fazer o download da mídia em si
+      const mediaResponse = await axios.get(mediaUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        responseType: 'arraybuffer', // importante para binários
+      });
+
+      return Buffer.from(mediaResponse.data);
+    } catch (error) {
+      console.error('Erro ao baixar mídia:', error?.response?.data || error);
+      throw new HttpException('Erro ao baixar mídia do WhatsApp.', HttpStatus.BAD_GATEWAY);
+    }
+  }
 
   // 🔒 Recupera os dados de autenticação do canal
   private async getChannelAuth(channelId: string) {

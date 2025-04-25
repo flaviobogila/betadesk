@@ -16,7 +16,7 @@ export class InboundMessageService {
     private readonly conversationService: ConversationsService,
     private readonly messageService: MessageService,
     private readonly messageWhatsappMapper: MessageWhatsAppMapperService,
-    
+
   ) { }
 
   async process({ change, message }: { change: WhatsAppChangeValue, message: WhatsAppMessage }) {
