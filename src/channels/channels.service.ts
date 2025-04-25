@@ -35,7 +35,7 @@ export class ChannelsService {
   }
 
   async getById(channelId: string) {
-    const channel = await this.prisma.channel.findUnique({
+    const channel = await this.prisma.channel.findFirst({
       where: { id: channelId },
     });
 

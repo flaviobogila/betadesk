@@ -1,7 +1,7 @@
 import { HttpException, Injectable, Logger } from '@nestjs/common';
-import { WhatsAppChangeValue, WhatsAppMessage, WhatsAppMessageStatus, WhatsAppWebhookDto } from './dto/whatsapp-webhook.dto';
+import { WhatsAppWebhookDto } from './dto/whatsapp-webhook.dto';
 import { HttpStatusCode } from 'axios';
-import { InboundMessageService } from './inbound-message.service';
+import { InboundMessageService } from './whatsapp/inbound-message.service';
 
 @Injectable()
 export class WebhookService {

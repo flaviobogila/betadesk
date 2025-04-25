@@ -1,11 +1,10 @@
 import { Injectable } from "@nestjs/common";
-import { WhatsAppChangeValue, WhatsAppMessage, WhatsAppMessageStatus } from "./dto/whatsapp-webhook.dto";
 import { ChannelsService } from "src/channels/channels.service";
 import { ContactsService } from "src/contacts/contacts.service";
 import { ConversationsService } from "src/conversations/conversations.service";
-import { MessageWhatsAppMapperService } from "./message-mapper.service";
-import { Prisma } from "prisma/generated/prisma";
 import { MessageService } from "src/messages/message.service";
+import { MessageWhatsAppMapperService } from "./message-mapper.service";
+import { WhatsAppChangeValue, WhatsAppMessage, WhatsAppMessageStatus } from "../dto/whatsapp-webhook.dto";
 
 
 @Injectable()
@@ -16,7 +15,7 @@ export class InboundMessageService {
     private readonly contactService: ContactsService,
     private readonly conversationService: ConversationsService,
     private readonly messageService: MessageService,
-    private readonly messageMapper: MessageWhatsAppMapperService,
+    private readonly messageWhatsappMapper: MessageWhatsAppMapperService,
     
   ) { }
 
@@ -30,14 +29,21 @@ export class InboundMessageService {
     if (!conversation) {
       const channel = await this.channelService.findByExternalId(phone_number_id);
       const contact = await this.contactService.findOrCreate(from, channel.tenantId, name);
-      conversation = await this.conversationService.create(contact, channel, from);
+      conversation = await this.conversationService.create(contact, channel);
     }
   
-    const messageData = this.messageMapper.map(message) as any;
+    //converte whatsapp message para o formato do sistema
+    const messageData = this.messageWhatsappMapper.map(message) as any;
+    //configura o id do contato e o nome do remetente
+    const senderData = { senderId: conversation.contactId, senderName: name };
+    //concatenando os dados da mensagem com os dados do remetente
+    const data = { ...messageData, ...senderData };
 
-    await this.messageService.createIfNotExists(messageData, conversation.id);
+    const stored = await this.messageService.createIfNotExists(data, conversation.id);
+    if (stored != null) {
+      await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
+    }
 
-    await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
   }
 
   async updateStatus({ change, status }: { change: WhatsAppChangeValue, status: WhatsAppMessageStatus }) {

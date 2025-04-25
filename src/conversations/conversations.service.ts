@@ -17,7 +17,7 @@ export class ConversationsService {
     });
   }
 
-  create(contact: Contact, channel: Channel, from: string) {
+  create(contact: Contact, channel: Channel) {
     return this.prisma.conversation.create({
       data: {
         channelId: channel.id,

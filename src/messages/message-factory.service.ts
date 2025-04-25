@@ -3,10 +3,8 @@ import { MessageType } from './dto/message-type.enum';
 import { SendImageMessageDto } from './dto/send-image-message.dto';
 import { SendTemplateMessageDto } from './dto/send-template-message.dto';
 import { SendTextMessageDto } from './dto/send-text-message.dto';
-import { WhatsappService } from './whatsapp.service';
 import { Prisma } from 'prisma/generated/prisma/client';
 import { InputJsonValue } from 'prisma/generated/prisma/runtime/library';
-import { MessageService } from './message.service';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
 import { SendAudioMessageDto } from './dto/send-audio-message.dto';
 import { SendVideoMessageDto } from './dto/send-video-message.dto';
@@ -18,126 +16,47 @@ import { SendComponentMessageDto } from './dto/send-component-message.dto';
 
 @Injectable()
 export class MessageFactoryService {
-  constructor(private readonly messageService: MessageService, private readonly whatsappService: WhatsappService) {}
 
-  async storeAndSendToWhatsapp(
+  buildMessage(
     messageType: MessageType,
     dto: any,
     sender: SupabaseUser
-  ) {
-    const message = await this.store(messageType, dto, sender);
-    const messageSent = await this.sendToWhatsapp(messageType, dto);
-    await this.messageService.updateMessageStatus(message.id, 'sent', { metadata: messageSent });
-    return { ...message, status: 'sent', metadata: messageSent };
-  }
-
-  store(
-    messageType: MessageType,
-    dto: any,
-    sender: SupabaseUser
-  ){
+  ): Prisma.MessageCreateInput {
     switch (messageType) {
       case MessageType.text:
-        return this.messageService.createIfNotExists(
-          this.buildTextMessage(dto as SendTextMessageDto, sender),
-          dto.conversationId
-        );
+        return this.buildTextMessage(dto as SendTextMessageDto, sender)
     
       case MessageType.image:
-        return this.messageService.createIfNotExists(
-          this.buildImageMessage(dto as SendImageMessageDto, sender),
-          dto.conversationId
-        );
+        return this.buildImageMessage(dto as SendImageMessageDto, sender)
     
       case MessageType.audio:
-        return this.messageService.createIfNotExists(
-          this.buildAudioMessage(dto as SendAudioMessageDto, sender),
-          dto.conversationId
-        );
+        return this.buildAudioMessage(dto as SendAudioMessageDto, sender)
     
       case MessageType.video:
-        return this.messageService.createIfNotExists(
-          this.buildVideoMessage(dto as SendVideoMessageDto, sender),
-          dto.conversationId
-        );
+        return this.buildVideoMessage(dto as SendVideoMessageDto, sender)
     
       case MessageType.document:
-        return this.messageService.createIfNotExists(
-          this.buildDocumentMessage(dto as SendDocumentMessageDto, sender),
-          dto.conversationId
-        );
+        return this.buildDocumentMessage(dto as SendDocumentMessageDto, sender)
     
       case MessageType.sticker:
-        return this.messageService.createIfNotExists(
-          this.buildStickerMessage(dto as SendStickerMessageDto, sender),
-          dto.conversationId
-        );
+        return this.buildStickerMessage(dto as SendStickerMessageDto, sender)
     
       case MessageType.location:
-        return this.messageService.createIfNotExists(
-          this.buildLocationMessage(dto as SendLocationMessageDto, sender),
-          dto.conversationId
-        );
+        return this.buildLocationMessage(dto as SendLocationMessageDto, sender)
     
       case MessageType.button:
-        return this.messageService.createIfNotExists(
-          this.buildButtonMessage(dto as SendButtonMessageDto, sender),
-          dto.conversationId
-        );
+        return this.buildButtonMessage(dto as SendButtonMessageDto, sender);
     
       case MessageType.template:
-        return this.messageService.createIfNotExists(
-          this.buildTemplateMessage(dto as SendTemplateMessageDto, sender),
-          dto.conversationId
-        );
+        return this.buildTemplateMessage(dto as SendTemplateMessageDto, sender)
     
       case MessageType.component:
-        return this.messageService.createIfNotExists(
-          this.buildComponentMessage(dto as SendComponentMessageDto, sender),
-          dto.conversationId
-        );
+        return this.buildComponentMessage(dto as SendComponentMessageDto, sender)
     
       default:
         throw new BadRequestException(`Tipo de mensagem não suportado: ${messageType}`);
     }
     
-  }
-
-  sendToWhatsapp(messageType: MessageType, dto: any) {
-    switch (messageType) {
-      case MessageType.text:
-        return this.whatsappService.sendTextMessage(dto as SendTextMessageDto);
-    
-      case MessageType.image:
-        return this.whatsappService.sendImageMessage(dto as SendImageMessageDto);
-    
-      case MessageType.audio:
-        return this.whatsappService.sendAudioMessage(dto as SendAudioMessageDto);
-    
-      case MessageType.video:
-        return this.whatsappService.sendVideoMessage(dto as SendVideoMessageDto);
-    
-      case MessageType.document:
-        return this.whatsappService.sendDocumentMessage(dto as SendDocumentMessageDto);
-    
-      case MessageType.sticker:
-        return this.whatsappService.sendStickerMessage(dto as SendStickerMessageDto);
-    
-      case MessageType.location:
-        return this.whatsappService.sendLocationMessage(dto as SendLocationMessageDto);
-    
-      case MessageType.button:
-        return this.whatsappService.sendButtonMessage(dto as SendButtonMessageDto);
-    
-      case MessageType.template:
-        return this.whatsappService.sendTemplateMessage(dto as SendTemplateMessageDto);
-    
-      case MessageType.component:
-        return this.whatsappService.sendComponentMessage(dto as SendComponentMessageDto);
-    
-      default:
-        throw new BadRequestException(`Tipo de mensagem '${messageType}' não suportado.`);
-    }    
   }
 
   private buildTextMessage(dto: SendTextMessageDto, sender: SupabaseUser): Prisma.MessageCreateInput {
