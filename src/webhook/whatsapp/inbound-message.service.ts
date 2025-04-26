@@ -58,7 +58,7 @@ export class InboundMessageService {
     const type = message.messageType as MessageType as any;
     if ([MessageType.image, MessageType.audio, MessageType.video, MessageType.document].includes(type)) {
       const buffer = await this.whatsappService.downloadMediaFromMeta(message.channelId, message.mediaId!);
-      return buffer;
+      return { buffer, mimeType: message.mediaMimeType, url: "https://www.google.com" };
     }
   }
 
