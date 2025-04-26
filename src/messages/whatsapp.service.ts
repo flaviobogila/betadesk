@@ -191,8 +191,10 @@ export class WhatsappService {
     });
   }
 
-  async downloadMediaFromMeta(mediaId: string, token: string): Promise<Buffer> {
+  async downloadMediaFromMeta(mediaId: string, channelId: string): Promise<Buffer> {
     try {
+      const { externalId, token } = await this.getChannelAuth(channelId);
+      
       // 1. Buscar a URL temporária da mídia
       const mediaMetaUrl = `https://graph.facebook.com/v19.0/${mediaId}`;
       const mediaMetaResponse = await axios.get(mediaMetaUrl, {

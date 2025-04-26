@@ -5,6 +5,10 @@ import { ConversationsService } from "src/conversations/conversations.service";
 import { MessageService } from "src/messages/message.service";
 import { MessageWhatsAppMapperService } from "./message-mapper.service";
 import { WhatsAppChangeValue, WhatsAppMessage, WhatsAppMessageStatus } from "../dto/whatsapp-webhook.dto";
+import { MessageEntity } from "src/messages/entities/message.entity";
+import { MessageType } from "prisma/generated/prisma/client";
+import { WhatsappService } from "src/messages/whatsapp.service";
+import { plainToInstance } from "class-transformer";
 
 
 @Injectable()
@@ -16,6 +20,7 @@ export class InboundMessageService {
     private readonly conversationService: ConversationsService,
     private readonly messageService: MessageService,
     private readonly messageWhatsappMapper: MessageWhatsAppMapperService,
+    private readonly whatsappService: WhatsappService,
 
   ) { }
 
@@ -42,8 +47,19 @@ export class InboundMessageService {
     const stored = await this.messageService.createIfNotExists(data, conversation.id);
     if (stored != null) {
       await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
+      //baixando media do whatsapp caso seja do tipo media
+      await this.downloadMedia(plainToInstance(MessageEntity, {...stored, channelId: conversation.channelId}));
     }
 
+  }
+
+  //TODO: refatorar para salvar em um storage na cloud
+  async downloadMedia(message: MessageEntity) {
+    const type = message.messageType as MessageType as any;
+    if ([MessageType.image, MessageType.audio, MessageType.video, MessageType.document].includes(type)) {
+      const buffer = await this.whatsappService.downloadMediaFromMeta(message.channelId, message.mediaId!);
+      return buffer;
+    }
   }
 
   async updateStatus({ change, status }: { change: WhatsAppChangeValue, status: WhatsAppMessageStatus }) {
