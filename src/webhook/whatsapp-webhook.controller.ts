@@ -12,7 +12,7 @@ import { WebhookService } from './webhook.service';
 import { MessageEntity } from 'src/messages/entities/message.entity';
 import { InboundMessageService } from './whatsapp/inbound-message.service';
 
-@Controller('webhook/whatsapp')
+@Controller('whatsapp/webhook')
 export class WhatsappWebhookController {
   constructor(private readonly webhookService: WebhookService, private readonly inboundService: InboundMessageService) { }
 

@@ -309,7 +309,8 @@ exports.MessageType = exports.$Enums.MessageType = {
   contact: 'contact',
   button: 'button',
   template: 'template',
-  component: 'component'
+  component: 'component',
+  list: 'list'
 };
 
 exports.MediaStatus = exports.$Enums.MediaStatus = {

@@ -169,6 +169,7 @@ enum MessageType {
   button
   template
   component
+  list
 }
 
 enum SenderType {

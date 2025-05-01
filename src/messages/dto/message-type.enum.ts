@@ -10,4 +10,5 @@ export enum MessageType {
   template = 'template',
   component = 'component',
   contact = 'contact',
+  list = 'list',
 }

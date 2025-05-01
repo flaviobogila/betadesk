@@ -25,9 +25,8 @@ export class WhatsappController {
     const tenantId = user.tenantId
     const messageDto = { ...body, tenantId }
     const messageType = messageDto.messageType as MessageType;
-
     const message = await this.messageService.buildAndCreate(messageDto, user);
-
+    
     //TODO: refatorar usando fila
     const dispatchedMessage = await this.whatsappMessageDispatcher.dispatch(messageType, messageDto);
     const externalId = dispatchedMessage?.messages[0]?.id

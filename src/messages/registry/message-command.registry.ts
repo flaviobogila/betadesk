@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { IMessageCommand } from '../interfaces/message-command.interface';
-import { MessageType } from '@prisma/client';
+import { MessageType } from 'prisma/generated/prisma';
 
 @Injectable()
 export class MessageCommandRegistry {

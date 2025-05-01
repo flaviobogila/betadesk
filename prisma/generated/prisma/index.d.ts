@@ -121,7 +121,8 @@ export const MessageType: {
   contact: 'contact',
   button: 'button',
   template: 'template',
-  component: 'component'
+  component: 'component',
+  list: 'list'
 };
 
 export type MessageType = (typeof MessageType)[keyof typeof MessageType]

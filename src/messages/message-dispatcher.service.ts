@@ -1,6 +1,5 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { MessageCommandRegistry } from './registry/message-command.registry';
-import { MessageType } from '@prisma/client';
 import { TextMessageCommand } from './commands/text-message.command';
 import { WhatsappService } from './whatsapp.service';
 import { ImageMessageCommand } from './commands/image-message.command';
@@ -12,6 +11,8 @@ import { LocationMessageCommand } from './commands/location-message.command';
 import { ButtonMessageCommand } from './commands/button-message.command';
 import { TemplateMessageCommand } from './commands/template-message.command';
 import { ComponentMessageCommand } from './commands/component-message.command';
+import { ButtonListMessageCommand } from './commands/button-list-message.command';
+import { MessageType } from 'prisma/generated/prisma';
 
 @Injectable()
 export class MessageDispatcherService implements OnModuleInit {
@@ -29,6 +30,7 @@ export class MessageDispatcherService implements OnModuleInit {
     this.registry.register(MessageType.sticker, new StickerMessageCommand(this.whatsappService));
     this.registry.register(MessageType.location, new LocationMessageCommand(this.whatsappService));
     this.registry.register(MessageType.button, new ButtonMessageCommand(this.whatsappService));
+    this.registry.register(MessageType.list, new ButtonListMessageCommand(this.whatsappService));
     this.registry.register(MessageType.template, new TemplateMessageCommand(this.whatsappService));
     this.registry.register(MessageType.component, new ComponentMessageCommand(this.whatsappService));
   }

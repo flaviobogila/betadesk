@@ -12,6 +12,10 @@ import { SendLocationMessageDto } from './dto/send-location-message.dto';
 import { SendButtonMessageDto } from './dto/send-button-message.dto';
 import { SendComponentMessageDto } from './dto/send-component-message.dto';
 
+import * as fs from 'fs';
+import * as FormData from 'form-data';
+import { SendListButtonMessageDto } from './dto/send-list-button-message.dto';
+
 @Injectable()
 export class WhatsappService {
   private readonly logger = new Logger(WhatsappService.name);
@@ -64,13 +68,15 @@ export class WhatsappService {
   async sendAudioMessage(dto: SendAudioMessageDto) {
     const { to, audioUrl, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
+
+    const audioId = await this.getAudioId(audioUrl, channelId);
   
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
       type: 'audio',
       audio: {
-        link: audioUrl,
+        id: audioId,
       },
     });
   }
@@ -137,7 +143,7 @@ export class WhatsappService {
   }
 
   async sendButtonMessage(dto: SendButtonMessageDto) {
-    const { to, text, buttons, channelId } = dto;
+    const { to, content, buttons, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -146,16 +152,42 @@ export class WhatsappService {
       type: 'interactive',
       interactive: {
         type: 'button',
-        body: { text },
+        body: { text: content },
         action: {
-          buttons: buttons.map((b) => ({
-            type: b.type,
-            reply: {
-              id: b.payload,
-              title: b.text,
-            },
+          buttons: buttons.map((reply) => ({
+            type: "reply",
+            reply,
           })),
         },
+      },
+    });
+  }
+
+  async sendListButtonMessage(dto: SendListButtonMessageDto) {
+    const { to, body, buttonText, header, footer, items, channelId } = dto;
+    const { externalId, token } = await this.getChannelAuth(channelId);
+  
+    return this.sendRequest(token, externalId, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'interactive',
+      interactive: {
+        type: 'list',
+        header: header ? { type: 'text', text: header } : undefined,
+        footer: footer ? { text: footer } : undefined,
+        body: { text: body },
+        action: {
+          button: buttonText,
+          sections: [
+            {
+              rows: items.map((item) => ({
+                id: item.id,
+                title: item.title,
+                description: item.description,
+              })),
+            },
+          ]
+        }
       },
     });
   }
@@ -189,6 +221,43 @@ export class WhatsappService {
         ],
       },
     });
+  }
+
+  async getAudioId(audioUrl: string, channelId: string) {
+    try {
+      const { externalId, token } = await this.getChannelAuth(channelId);
+
+      const responseAudio = await axios.get(audioUrl, {
+        responseType: 'arraybuffer',
+      });
+  
+      const buffer = Buffer.from(responseAudio.data);
+
+      const form = new FormData();
+      form.append('messaging_product', 'whatsapp');
+      form.append('file', buffer, {
+        contentType: 'audio/ogg; codecs=opus',
+        filename: 'voice.ogg',
+        knownLength: buffer.length
+      });
+      
+      const response = await axios.post(
+        `https://graph.facebook.com/v19.0/${externalId}/media`,
+        form,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            ...form.getHeaders()
+          },
+          maxBodyLength: Infinity // necessário para uploads grandes
+        }
+      );
+    
+      return response.data.id;
+    } catch (error) {
+      console.error('Erro ao baixar mídia:', error?.response?.data || error);
+      throw new HttpException('Erro ao baixar mídia do WhatsApp.', HttpStatus.BAD_GATEWAY);
+    }
   }
 
   async downloadMediaFromMeta(mediaId: string, channelId: string): Promise<Buffer> {

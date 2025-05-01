@@ -6,13 +6,12 @@ export class SendButtonMessageDto extends SendBaseMessageDto {
   
   @ApiProperty()
   @IsString()
-  text: string;
+  content: string;
 
   @ApiProperty({ type: Array })
   @IsArray()
   buttons: Array<{
-    type: string;
-    text: string;
-    payload: string;
+    id: string;
+    title: string;
   }>;
 }
