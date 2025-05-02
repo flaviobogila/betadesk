@@ -14,6 +14,7 @@ import { SendStickerMessageDto } from './dto/send-sticker-message.dto';
 import { SendButtonMessageDto } from './dto/send-button-message.dto';
 import { SendComponentMessageDto } from './dto/send-component-message.dto';
 import { SendListButtonMessageDto } from './dto/send-list-button-message.dto';
+import { SendContactMessageDto } from './dto/send-contact-message.dto';
 
 @Injectable()
 export class MessageFactoryService {
@@ -56,6 +57,9 @@ export class MessageFactoryService {
 
       case MessageType.list:
         return this.buildButtonListMessage(dto as SendListButtonMessageDto, sender)
+
+      case MessageType.contact:
+        return this.buildContactMessage(dto as SendContactMessageDto, sender)
     
       default:
         throw new BadRequestException(`Tipo de mensagem não suportada: ${messageType}`);
@@ -201,7 +205,7 @@ export class MessageFactoryService {
       senderId: sender.id,
       senderName: sender.name,
       messageType: 'list',
-      content: dto.body,
+      content: dto.content,
       metadata: {
         header: dto.header ?? undefined,
         footer: dto.footer ?? undefined,
@@ -223,6 +227,20 @@ export class MessageFactoryService {
       content: dto.body,
       componentFooter: dto.footer,
       componentButtons: dto.buttons,
+      status: 'pending',
+    };
+  }
+
+  private buildContactMessage(dto: SendContactMessageDto, sender: SupabaseUser): Prisma.MessageCreateInput {
+    return {
+      conversation: { connect: { id: dto.conversationId } },
+      senderType: 'agent',
+      senderId: sender.id,
+      senderName: sender.name,
+      messageType: 'contact',
+      metadata: {
+        ...dto.contact
+      } as unknown as InputJsonValue,
       status: 'pending',
     };
   }

@@ -1,7 +1,10 @@
 // src/messages/dto/send-message-base.dto.ts
-import { IsUUID, IsEnum, IsNotEmpty, IsOptional, ValidateIf, IsString, IsUrl, IsObject, IsArray, ValidateNested } from 'class-validator';
+import { IsUUID, IsEnum, IsNotEmpty, IsOptional, ValidateIf, IsString, IsUrl, IsObject, IsArray, ValidateNested, isNotEmpty } from 'class-validator';
 import { MessageType } from './message-type.enum';
 import { ApiProperty } from '@nestjs/swagger';
+import { SendContactMessageDto } from './send-contact-message.dto';
+import { Type } from 'class-transformer';
+import { ButtonItem } from './send-button-message.dto';
 
 export class SendMessageBaseDto {
   @ApiProperty({ example: '296d5f0c-ad78-4d31-9dfd-c996aa074857' })
@@ -22,7 +25,7 @@ export class SendMessageBaseDto {
   to: string;
 
   @ApiProperty({example: 'oi, tudo bem?'})
-  @ValidateIf((o) => o.messageType === MessageType.text || o.messageType === MessageType.button)
+  @ValidateIf((o) => o.messageType === MessageType.text || o.messageType === MessageType.button || o.messageType === MessageType.list)
   @IsNotEmpty({ message: 'O campo content não pode estar vazio para mensagens de texto.' })
   content?: string;
 
@@ -76,13 +79,8 @@ export class SendMessageBaseDto {
 
   @ApiProperty({example: [{id: '1', title: 'Botão 1'}, {id: '2', title: 'Botão 2'}]})
   @ValidateIf((o) => o.messageType === MessageType.text || o.messageType === MessageType.button)
-  @IsArray({ message: 'O campo buttons precisa ser uma de botoes' })
+  @IsArray({ message: 'O campo buttons precisa ser uma lista de botões' })
   buttons?: [{ id: string; title: string }];
-
-  @ApiProperty({example: 'Selecione uma opção na lista'})
-  @ValidateIf((o) => o.messageType === MessageType.list)
-  @IsString()
-  body: string;
 
   @ApiProperty({example: 'Lista de Opções'})
   @ValidateIf((o) => o.messageType === MessageType.list)
@@ -105,5 +103,24 @@ export class SendMessageBaseDto {
   @ValidateIf((o) => o.messageType === MessageType.list)
   @IsArray()
   items: [{ id: string; title: string; description?: string }];
+
+  @ApiProperty({example: { contact: {}}})
+  @ValidateIf((o) => o.messageType === MessageType.contact)
+  contact: SendContactMessageDto;
+
+  @ApiProperty({example: "pt_BR"})
+  @IsNotEmpty({ message: 'languageCode não pode estar vazio.' })
+  @ValidateIf((o) => o.messageType === MessageType.template)
+  languageCode: string;
+
+  @ApiProperty({example: "nomedotemplate"})
+  @IsNotEmpty({ message: 'templateName não pode estar vazio.' })
+  @ValidateIf((o) => o.messageType === MessageType.template)
+  templateName: string;
+
+  @ApiProperty({example: []})
+  @IsNotEmpty({ message: 'components não pode estar vazio.' })
+  @ValidateIf((o) => o.messageType === MessageType.template)
+  components: [];
 }
 

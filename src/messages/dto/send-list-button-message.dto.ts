@@ -1,4 +1,4 @@
-import { IsString, IsArray, IsOptional, ValidateNested } from 'class-validator';
+import { IsString, IsArray, IsOptional, ValidateNested, Max, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { SendBaseMessageDto } from './send-base-message.dto';
 import { Type } from 'class-transformer';
@@ -34,10 +34,11 @@ export class SendListButtonMessageDto extends SendBaseMessageDto {
   
   @ApiProperty()
   @IsString()
-  body: string;
+  content: string;
 
   @ApiProperty()
   @IsString()
+  @MaxLength(20)
   buttonText: string;
 
   @ApiProperty({ required: false })

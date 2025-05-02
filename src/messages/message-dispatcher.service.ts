@@ -13,6 +13,7 @@ import { TemplateMessageCommand } from './commands/template-message.command';
 import { ComponentMessageCommand } from './commands/component-message.command';
 import { ButtonListMessageCommand } from './commands/button-list-message.command';
 import { MessageType } from 'prisma/generated/prisma';
+import { ContactMessageCommand } from './commands/contact-message.command';
 
 @Injectable()
 export class MessageDispatcherService implements OnModuleInit {
@@ -33,6 +34,7 @@ export class MessageDispatcherService implements OnModuleInit {
     this.registry.register(MessageType.list, new ButtonListMessageCommand(this.whatsappService));
     this.registry.register(MessageType.template, new TemplateMessageCommand(this.whatsappService));
     this.registry.register(MessageType.component, new ComponentMessageCommand(this.whatsappService));
+    this.registry.register(MessageType.contact, new ContactMessageCommand(this.whatsappService));
   }
 
   async dispatch(type: MessageType, dto: any) {

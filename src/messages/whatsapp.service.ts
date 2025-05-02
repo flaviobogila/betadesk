@@ -15,6 +15,7 @@ import { SendComponentMessageDto } from './dto/send-component-message.dto';
 import * as fs from 'fs';
 import * as FormData from 'form-data';
 import { SendListButtonMessageDto } from './dto/send-list-button-message.dto';
+import { SendContactMessageDto } from './dto/send-contact-message.dto';
 
 @Injectable()
 export class WhatsappService {
@@ -156,7 +157,10 @@ export class WhatsappService {
         action: {
           buttons: buttons.map((reply) => ({
             type: "reply",
-            reply,
+            reply: {
+              id: reply.id.substring(0, 20),
+              title: reply.title.substring(0, 20)
+            },
           })),
         },
       },
@@ -164,7 +168,7 @@ export class WhatsappService {
   }
 
   async sendListButtonMessage(dto: SendListButtonMessageDto) {
-    const { to, body, buttonText, header, footer, items, channelId } = dto;
+    const { to, content, buttonText, header, footer, items, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -175,9 +179,9 @@ export class WhatsappService {
         type: 'list',
         header: header ? { type: 'text', text: header } : undefined,
         footer: footer ? { text: footer } : undefined,
-        body: { text: body },
+        body: { text: content },
         action: {
-          button: buttonText,
+          button: buttonText.substring(0, 20),
           sections: [
             {
               rows: items.map((item) => ({
@@ -220,6 +224,20 @@ export class WhatsappService {
             : []),
         ],
       },
+    });
+  }
+
+  async sendContactMessage(dto: SendContactMessageDto) {
+    const { to, contact, channelId } = dto;
+    const { externalId, token } = await this.getChannelAuth(channelId);
+  
+    return this.sendRequest(token, externalId, {
+      messaging_product: 'whatsapp',
+      to,
+      type: 'contacts',
+      contacts: [
+        contact
+      ]
     });
   }
 
@@ -310,7 +328,6 @@ export class WhatsappService {
   private async sendRequest(token: string, phoneNumberId: string, payload: any) {
     const url = `https://graph.facebook.com/v19.0/${phoneNumberId}/messages`;
 
-    try {
       const response = await axios.post(url, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -319,13 +336,5 @@ export class WhatsappService {
       });
 
       return response.data;
-    } catch (error) {
-      this.logger.error('Erro ao enviar mensagem', error?.response?.data || error.message);
-
-      throw new HttpException(
-        error?.response?.data || 'Erro ao enviar mensagem via WhatsApp',
-        error?.response?.status || HttpStatus.INTERNAL_SERVER_ERROR,
-      );
-    }
   }
 }

@@ -1,6 +1,13 @@
 import { IsString, IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
 
 export class SendImageMessageDto {
+
+  @IsString()
+  @IsNotEmpty()
+  channelId: string;
+
+  @IsUUID()
+  conversationId: string;
   @IsString()
   @IsNotEmpty()
   to: string;
@@ -12,11 +19,4 @@ export class SendImageMessageDto {
   @IsOptional()
   @IsString()
   caption?: string;
-
-  @IsString()
-  @IsNotEmpty()
-  channelId: string;
-
-  @IsUUID()
-  conversationId: string;
 }
