@@ -12,7 +12,6 @@ import { SendLocationMessageDto } from './dto/send-location-message.dto';
 import { SendButtonMessageDto } from './dto/send-button-message.dto';
 import { SendComponentMessageDto } from './dto/send-component-message.dto';
 
-import * as fs from 'fs';
 import * as FormData from 'form-data';
 import { SendListButtonMessageDto } from './dto/send-list-button-message.dto';
 import { SendContactMessageDto } from './dto/send-contact-message.dto';
@@ -24,7 +23,7 @@ export class WhatsappService {
   constructor(private readonly channelService: ChannelsService) {}
 
   async sendTextMessage(dto: SendTextMessageDto) {
-    const { to, content, channelId } = dto;
+    const { to, content, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
 
     return this.sendRequest(token, externalId, {
@@ -32,11 +31,12 @@ export class WhatsappService {
       to,
       type: 'text',
       text: { body: content },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
 
   async sendImageMessage(dto: SendImageMessageDto) {
-    const { to, imageUrl, caption, channelId } = dto;
+    const { to, imageUrl, caption, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
 
     return this.sendRequest(token, externalId, {
@@ -47,11 +47,12 @@ export class WhatsappService {
         link: imageUrl,
         ...(caption ? { caption } : {}),
       },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
 
   async sendTemplateMessage(dto: SendTemplateMessageDto) {
-    const { to, templateName, languageCode, components, channelId } = dto;
+    const { to, templateName, languageCode, components, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
 
     return this.sendRequest(token, externalId, {
@@ -63,11 +64,12 @@ export class WhatsappService {
         language: { code: languageCode },
         components,
       },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
 
   async sendAudioMessage(dto: SendAudioMessageDto) {
-    const { to, audioUrl, channelId } = dto;
+    const { to, audioUrl, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
 
     const audioId = await this.getAudioId(audioUrl, channelId);
@@ -79,11 +81,12 @@ export class WhatsappService {
       audio: {
         id: audioId,
       },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
 
   async sendVideoMessage(dto: SendVideoMessageDto) {
-    const { to, videoUrl, caption, channelId } = dto;
+    const { to, videoUrl, caption, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -94,11 +97,12 @@ export class WhatsappService {
         link: videoUrl,
         ...(caption ? { caption } : {}),
       },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
 
   async sendDocumentMessage(dto: SendDocumentMessageDto) {
-    const { to, documentUrl, filename, channelId } = dto;
+    const { to, documentUrl, filename, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -109,11 +113,12 @@ export class WhatsappService {
         link: documentUrl,
         filename,
       },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
   
   async sendStickerMessage(dto: SendStickerMessageDto) {
-    const { to, stickerUrl, channelId } = dto;
+    const { to, stickerUrl, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -123,11 +128,12 @@ export class WhatsappService {
       sticker: {
         link: stickerUrl,
       },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
 
   async sendLocationMessage(dto: SendLocationMessageDto) {
-    const { to, latitude, longitude, name, address, channelId } = dto;
+    const { to, latitude, longitude, name, address, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -140,11 +146,12 @@ export class WhatsappService {
         ...(name ? { name } : {}),
         ...(address ? { address } : {}),
       },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
 
   async sendButtonMessage(dto: SendButtonMessageDto) {
-    const { to, content, buttons, channelId } = dto;
+    const { to, content, buttons, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -164,11 +171,12 @@ export class WhatsappService {
           })),
         },
       },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
 
   async sendListButtonMessage(dto: SendListButtonMessageDto) {
-    const { to, content, buttonText, header, footer, items, channelId } = dto;
+    const { to, content, buttonText, header, footer, items, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -193,11 +201,12 @@ export class WhatsappService {
           ]
         }
       },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
   
   async sendComponentMessage(dto: SendComponentMessageDto) {
-    const { to, body, header, footer, buttons, channelId } = dto;
+    const { to, body, header, footer, buttons, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -224,11 +233,12 @@ export class WhatsappService {
             : []),
         ],
       },
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
 
   async sendContactMessage(dto: SendContactMessageDto) {
-    const { to, contact, channelId } = dto;
+    const { to, contact, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -237,7 +247,8 @@ export class WhatsappService {
       type: 'contacts',
       contacts: [
         contact
-      ]
+      ],
+      context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
 

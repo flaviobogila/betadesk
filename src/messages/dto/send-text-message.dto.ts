@@ -1,16 +1,7 @@
 import { IsString, IsNotEmpty, IsUUID } from 'class-validator';
+import { SendBaseMessageDto } from './send-base-message.dto';
 
-export class SendTextMessageDto {
-  @IsUUID()
-  channelId: string;
-
-  @IsUUID()
-  conversationId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  to: string; // número internacional (ex: 5511999999999)
-
+export class SendTextMessageDto extends SendBaseMessageDto {
   @IsString()
   @IsNotEmpty()
   content: string;

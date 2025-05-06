@@ -42,9 +42,11 @@ export class InboundMessageService {
     //configura o id do contato e o nome do remetente
     const senderData = { senderId: conversation.contactId, senderName: name };
     //concatenando os dados da mensagem com os dados do remetente
-    const data = { ...messageData, ...senderData };
+    const data = { ...messageData, ...senderData, replyTo: message.context?.id ?? undefined };
 
-    const stored = await this.messageService.createIfNotExists(data, conversation.id);
+    const replyTo = message.context?.id ?? undefined;
+
+    const stored = await this.messageService.createIfNotExists(data, conversation.id, replyTo);
     if (stored != null) {
       await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
       //baixando media do whatsapp caso seja do tipo media

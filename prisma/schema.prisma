@@ -215,11 +215,14 @@ model Message {
   metadata          Json?
   reaction          String?
   isPrivate         Boolean  @default(false)
+  replyToId         String?
+  replyTo           Message? @relation("MessageReply", fields: [replyToId], references: [id])
   status            MessageStatus @default(pending) // 'pending', 'sent', 'failed', 'delivered', 'read'
   externalId        String? // ID da mensagem na API externa
   createdAt         DateTime @default(now()) //timestamp do provedor ou data de criação
   receivedAt        DateTime @default(now()) //data de recebimento da mensagem
   mentions          Mention[]
+  replies           Message[] @relation("MessageReply")
 }
 
 model Label {

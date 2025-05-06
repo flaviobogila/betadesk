@@ -22,7 +22,6 @@ export class WebhookService {
         for (const change of entry?.changes ?? []) {
           const value = change.value;
 
-          // 🎯 Lida com mensagens (conteúdo)
           if (value?.messages?.length) {
             for (const message of value.messages) {
               this.logger.log(`Processando mensagem`, message);
@@ -31,7 +30,6 @@ export class WebhookService {
             }
           }
 
-          // 🎯 Lida com atualizações de status
           if (value?.statuses?.length) {
             for (const status of value.statuses) {
               this.logger.log(`Processando mensagem de status`, status);

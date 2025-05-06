@@ -78,7 +78,7 @@ export class SendMessageBaseDto {
   caption?: string;
 
   @ApiProperty({example: [{id: '1', title: 'Botão 1'}, {id: '2', title: 'Botão 2'}]})
-  @ValidateIf((o) => o.messageType === MessageType.text || o.messageType === MessageType.button)
+  @ValidateIf((o) => o.messageType === MessageType.button)
   @IsArray({ message: 'O campo buttons precisa ser uma lista de botões' })
   buttons?: [{ id: string; title: string }];
 
@@ -122,5 +122,11 @@ export class SendMessageBaseDto {
   @IsNotEmpty({ message: 'components não pode estar vazio.' })
   @ValidateIf((o) => o.messageType === MessageType.template)
   components: [];
+
+  @ApiProperty({example: '296d5f0c-ad78-4d31-9dfd-c996aa074857'})
+  @IsString({ message: 'replyTo deve ser um UUID da mensagem a ser respondida.' })
+  @IsUUID()
+  @IsOptional()
+  replyTo?: string;
 }
 

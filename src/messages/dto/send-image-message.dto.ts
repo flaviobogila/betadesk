@@ -1,17 +1,7 @@
-import { IsString, IsNotEmpty, IsOptional, IsUUID } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional } from 'class-validator';
+import { SendBaseMessageDto } from './send-base-message.dto';
 
-export class SendImageMessageDto {
-
-  @IsString()
-  @IsNotEmpty()
-  channelId: string;
-
-  @IsUUID()
-  conversationId: string;
-  @IsString()
-  @IsNotEmpty()
-  to: string;
-
+export class SendImageMessageDto extends SendBaseMessageDto {
   @IsString()
   @IsNotEmpty()
   imageUrl: string;

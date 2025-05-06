@@ -13,7 +13,7 @@ export class MessageWhatsAppMapperService {
             externalId: msg.id,
             createdAt: new Date(Number(msg.timestamp) * 1000),
             status: MessageStatus.sent,
-            senderType: SenderType.user
+            senderType: SenderType.user,
         };
 
         switch (msg.type) {

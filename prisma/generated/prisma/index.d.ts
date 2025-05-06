@@ -484,8 +484,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -2188,10 +2188,12 @@ export namespace Prisma {
 
   export type MessageCountOutputType = {
     mentions: number
+    replies: number
   }
 
   export type MessageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     mentions?: boolean | MessageCountOutputTypeCountMentionsArgs
+    replies?: boolean | MessageCountOutputTypeCountRepliesArgs
   }
 
   // Custom InputTypes
@@ -2210,6 +2212,13 @@ export namespace Prisma {
    */
   export type MessageCountOutputTypeCountMentionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MentionWhereInput
+  }
+
+  /**
+   * MessageCountOutputType without action
+   */
+  export type MessageCountOutputTypeCountRepliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageWhereInput
   }
 
 
@@ -10532,6 +10541,7 @@ export namespace Prisma {
     componentFooter: string | null
     reaction: string | null
     isPrivate: boolean | null
+    replyToId: string | null
     status: $Enums.MessageStatus | null
     externalId: string | null
     createdAt: Date | null
@@ -10557,6 +10567,7 @@ export namespace Prisma {
     componentFooter: string | null
     reaction: string | null
     isPrivate: boolean | null
+    replyToId: string | null
     status: $Enums.MessageStatus | null
     externalId: string | null
     createdAt: Date | null
@@ -10584,6 +10595,7 @@ export namespace Prisma {
     metadata: number
     reaction: number
     isPrivate: number
+    replyToId: number
     status: number
     externalId: number
     createdAt: number
@@ -10621,6 +10633,7 @@ export namespace Prisma {
     componentFooter?: true
     reaction?: true
     isPrivate?: true
+    replyToId?: true
     status?: true
     externalId?: true
     createdAt?: true
@@ -10646,6 +10659,7 @@ export namespace Prisma {
     componentFooter?: true
     reaction?: true
     isPrivate?: true
+    replyToId?: true
     status?: true
     externalId?: true
     createdAt?: true
@@ -10673,6 +10687,7 @@ export namespace Prisma {
     metadata?: true
     reaction?: true
     isPrivate?: true
+    replyToId?: true
     status?: true
     externalId?: true
     createdAt?: true
@@ -10787,6 +10802,7 @@ export namespace Prisma {
     metadata: JsonValue | null
     reaction: string | null
     isPrivate: boolean
+    replyToId: string | null
     status: $Enums.MessageStatus
     externalId: string | null
     createdAt: Date
@@ -10833,12 +10849,15 @@ export namespace Prisma {
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
+    replyToId?: boolean
     status?: boolean
     externalId?: boolean
     createdAt?: boolean
     receivedAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+    replyTo?: boolean | Message$replyToArgs<ExtArgs>
     mentions?: boolean | Message$mentionsArgs<ExtArgs>
+    replies?: boolean | Message$repliesArgs<ExtArgs>
     _count?: boolean | MessageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
@@ -10863,11 +10882,13 @@ export namespace Prisma {
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
+    replyToId?: boolean
     status?: boolean
     externalId?: boolean
     createdAt?: boolean
     receivedAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+    replyTo?: boolean | Message$replyToArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
   export type MessageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10891,11 +10912,13 @@ export namespace Prisma {
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
+    replyToId?: boolean
     status?: boolean
     externalId?: boolean
     createdAt?: boolean
     receivedAt?: boolean
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+    replyTo?: boolean | Message$replyToArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
   export type MessageSelectScalar = {
@@ -10919,30 +10942,37 @@ export namespace Prisma {
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
+    replyToId?: boolean
     status?: boolean
     externalId?: boolean
     createdAt?: boolean
     receivedAt?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaId" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "mediaStatus" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "status" | "externalId" | "createdAt" | "receivedAt", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaId" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "mediaStatus" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "replyToId" | "status" | "externalId" | "createdAt" | "receivedAt", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+    replyTo?: boolean | Message$replyToArgs<ExtArgs>
     mentions?: boolean | Message$mentionsArgs<ExtArgs>
+    replies?: boolean | Message$repliesArgs<ExtArgs>
     _count?: boolean | MessageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+    replyTo?: boolean | Message$replyToArgs<ExtArgs>
   }
   export type MessageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
+    replyTo?: boolean | Message$replyToArgs<ExtArgs>
   }
 
   export type $MessagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Message"
     objects: {
       conversation: Prisma.$ConversationPayload<ExtArgs>
+      replyTo: Prisma.$MessagePayload<ExtArgs> | null
       mentions: Prisma.$MentionPayload<ExtArgs>[]
+      replies: Prisma.$MessagePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10965,6 +10995,7 @@ export namespace Prisma {
       metadata: Prisma.JsonValue | null
       reaction: string | null
       isPrivate: boolean
+      replyToId: string | null
       status: $Enums.MessageStatus
       externalId: string | null
       createdAt: Date
@@ -11364,7 +11395,9 @@ export namespace Prisma {
   export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     conversation<T extends ConversationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConversationDefaultArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    replyTo<T extends Message$replyToArgs<ExtArgs> = {}>(args?: Subset<T, Message$replyToArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     mentions<T extends Message$mentionsArgs<ExtArgs> = {}>(args?: Subset<T, Message$mentionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    replies<T extends Message$repliesArgs<ExtArgs> = {}>(args?: Subset<T, Message$repliesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -11414,6 +11447,7 @@ export namespace Prisma {
     readonly metadata: FieldRef<"Message", 'Json'>
     readonly reaction: FieldRef<"Message", 'String'>
     readonly isPrivate: FieldRef<"Message", 'Boolean'>
+    readonly replyToId: FieldRef<"Message", 'String'>
     readonly status: FieldRef<"Message", 'MessageStatus'>
     readonly externalId: FieldRef<"Message", 'String'>
     readonly createdAt: FieldRef<"Message", 'DateTime'>
@@ -11814,6 +11848,25 @@ export namespace Prisma {
   }
 
   /**
+   * Message.replyTo
+   */
+  export type Message$replyToArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+  }
+
+  /**
    * Message.mentions
    */
   export type Message$mentionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11835,6 +11888,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MentionScalarFieldEnum | MentionScalarFieldEnum[]
+  }
+
+  /**
+   * Message.replies
+   */
+  export type Message$repliesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Message
+     */
+    select?: MessageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Message
+     */
+    omit?: MessageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageInclude<ExtArgs> | null
+    where?: MessageWhereInput
+    orderBy?: MessageOrderByWithRelationInput | MessageOrderByWithRelationInput[]
+    cursor?: MessageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageScalarFieldEnum | MessageScalarFieldEnum[]
   }
 
   /**
@@ -15208,6 +15285,7 @@ export namespace Prisma {
     metadata: 'metadata',
     reaction: 'reaction',
     isPrivate: 'isPrivate',
+    replyToId: 'replyToId',
     status: 'status',
     externalId: 'externalId',
     createdAt: 'createdAt',
@@ -16058,12 +16136,15 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"Message">
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
+    replyToId?: StringNullableFilter<"Message"> | string | null
     status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
     externalId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     receivedAt?: DateTimeFilter<"Message"> | Date | string
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
+    replyTo?: XOR<MessageNullableScalarRelationFilter, MessageWhereInput> | null
     mentions?: MentionListRelationFilter
+    replies?: MessageListRelationFilter
   }
 
   export type MessageOrderByWithRelationInput = {
@@ -16087,12 +16168,15 @@ export namespace Prisma {
     metadata?: SortOrderInput | SortOrder
     reaction?: SortOrderInput | SortOrder
     isPrivate?: SortOrder
+    replyToId?: SortOrderInput | SortOrder
     status?: SortOrder
     externalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     receivedAt?: SortOrder
     conversation?: ConversationOrderByWithRelationInput
+    replyTo?: MessageOrderByWithRelationInput
     mentions?: MentionOrderByRelationAggregateInput
+    replies?: MessageOrderByRelationAggregateInput
   }
 
   export type MessageWhereUniqueInput = Prisma.AtLeast<{
@@ -16119,12 +16203,15 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"Message">
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
+    replyToId?: StringNullableFilter<"Message"> | string | null
     status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
     externalId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
     receivedAt?: DateTimeFilter<"Message"> | Date | string
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
+    replyTo?: XOR<MessageNullableScalarRelationFilter, MessageWhereInput> | null
     mentions?: MentionListRelationFilter
+    replies?: MessageListRelationFilter
   }, "id">
 
   export type MessageOrderByWithAggregationInput = {
@@ -16148,6 +16235,7 @@ export namespace Prisma {
     metadata?: SortOrderInput | SortOrder
     reaction?: SortOrderInput | SortOrder
     isPrivate?: SortOrder
+    replyToId?: SortOrderInput | SortOrder
     status?: SortOrder
     externalId?: SortOrderInput | SortOrder
     createdAt?: SortOrder
@@ -16183,6 +16271,7 @@ export namespace Prisma {
     metadata?: JsonNullableWithAggregatesFilter<"Message">
     reaction?: StringNullableWithAggregatesFilter<"Message"> | string | null
     isPrivate?: BoolWithAggregatesFilter<"Message"> | boolean
+    replyToId?: StringNullableWithAggregatesFilter<"Message"> | string | null
     status?: EnumMessageStatusWithAggregatesFilter<"Message"> | $Enums.MessageStatus
     externalId?: StringNullableWithAggregatesFilter<"Message"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Message"> | Date | string
@@ -16963,7 +17052,9 @@ export namespace Prisma {
     createdAt?: Date | string
     receivedAt?: Date | string
     conversation: ConversationCreateNestedOneWithoutMessagesInput
+    replyTo?: MessageCreateNestedOneWithoutRepliesInput
     mentions?: MentionCreateNestedManyWithoutMessageInput
+    replies?: MessageCreateNestedManyWithoutReplyToInput
   }
 
   export type MessageUncheckedCreateInput = {
@@ -16987,11 +17078,13 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    replyToId?: string | null
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
     receivedAt?: Date | string
     mentions?: MentionUncheckedCreateNestedManyWithoutMessageInput
+    replies?: MessageUncheckedCreateNestedManyWithoutReplyToInput
   }
 
   export type MessageUpdateInput = {
@@ -17019,7 +17112,9 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
+    replyTo?: MessageUpdateOneWithoutRepliesNestedInput
     mentions?: MentionUpdateManyWithoutMessageNestedInput
+    replies?: MessageUpdateManyWithoutReplyToNestedInput
   }
 
   export type MessageUncheckedUpdateInput = {
@@ -17043,11 +17138,13 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUncheckedUpdateManyWithoutMessageNestedInput
+    replies?: MessageUncheckedUpdateManyWithoutReplyToNestedInput
   }
 
   export type MessageCreateManyInput = {
@@ -17071,6 +17168,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    replyToId?: string | null
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
@@ -17124,6 +17222,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -17950,6 +18049,11 @@ export namespace Prisma {
     isNot?: ConversationWhereInput
   }
 
+  export type MessageNullableScalarRelationFilter = {
+    is?: MessageWhereInput | null
+    isNot?: MessageWhereInput | null
+  }
+
   export type MessageCountOrderByAggregateInput = {
     id?: SortOrder
     conversationId?: SortOrder
@@ -17971,6 +18075,7 @@ export namespace Prisma {
     metadata?: SortOrder
     reaction?: SortOrder
     isPrivate?: SortOrder
+    replyToId?: SortOrder
     status?: SortOrder
     externalId?: SortOrder
     createdAt?: SortOrder
@@ -18001,6 +18106,7 @@ export namespace Prisma {
     componentFooter?: SortOrder
     reaction?: SortOrder
     isPrivate?: SortOrder
+    replyToId?: SortOrder
     status?: SortOrder
     externalId?: SortOrder
     createdAt?: SortOrder
@@ -18026,6 +18132,7 @@ export namespace Prisma {
     componentFooter?: SortOrder
     reaction?: SortOrder
     isPrivate?: SortOrder
+    replyToId?: SortOrder
     status?: SortOrder
     externalId?: SortOrder
     createdAt?: SortOrder
@@ -19106,6 +19213,12 @@ export namespace Prisma {
     connect?: ConversationWhereUniqueInput
   }
 
+  export type MessageCreateNestedOneWithoutRepliesInput = {
+    create?: XOR<MessageCreateWithoutRepliesInput, MessageUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: MessageCreateOrConnectWithoutRepliesInput
+    connect?: MessageWhereUniqueInput
+  }
+
   export type MentionCreateNestedManyWithoutMessageInput = {
     create?: XOR<MentionCreateWithoutMessageInput, MentionUncheckedCreateWithoutMessageInput> | MentionCreateWithoutMessageInput[] | MentionUncheckedCreateWithoutMessageInput[]
     connectOrCreate?: MentionCreateOrConnectWithoutMessageInput | MentionCreateOrConnectWithoutMessageInput[]
@@ -19113,11 +19226,25 @@ export namespace Prisma {
     connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[]
   }
 
+  export type MessageCreateNestedManyWithoutReplyToInput = {
+    create?: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput> | MessageCreateWithoutReplyToInput[] | MessageUncheckedCreateWithoutReplyToInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReplyToInput | MessageCreateOrConnectWithoutReplyToInput[]
+    createMany?: MessageCreateManyReplyToInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
   export type MentionUncheckedCreateNestedManyWithoutMessageInput = {
     create?: XOR<MentionCreateWithoutMessageInput, MentionUncheckedCreateWithoutMessageInput> | MentionCreateWithoutMessageInput[] | MentionUncheckedCreateWithoutMessageInput[]
     connectOrCreate?: MentionCreateOrConnectWithoutMessageInput | MentionCreateOrConnectWithoutMessageInput[]
     createMany?: MentionCreateManyMessageInputEnvelope
     connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[]
+  }
+
+  export type MessageUncheckedCreateNestedManyWithoutReplyToInput = {
+    create?: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput> | MessageCreateWithoutReplyToInput[] | MessageUncheckedCreateWithoutReplyToInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReplyToInput | MessageCreateOrConnectWithoutReplyToInput[]
+    createMany?: MessageCreateManyReplyToInputEnvelope
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
   export type EnumSenderTypeFieldUpdateOperationsInput = {
@@ -19152,6 +19279,16 @@ export namespace Prisma {
     update?: XOR<XOR<ConversationUpdateToOneWithWhereWithoutMessagesInput, ConversationUpdateWithoutMessagesInput>, ConversationUncheckedUpdateWithoutMessagesInput>
   }
 
+  export type MessageUpdateOneWithoutRepliesNestedInput = {
+    create?: XOR<MessageCreateWithoutRepliesInput, MessageUncheckedCreateWithoutRepliesInput>
+    connectOrCreate?: MessageCreateOrConnectWithoutRepliesInput
+    upsert?: MessageUpsertWithoutRepliesInput
+    disconnect?: MessageWhereInput | boolean
+    delete?: MessageWhereInput | boolean
+    connect?: MessageWhereUniqueInput
+    update?: XOR<XOR<MessageUpdateToOneWithWhereWithoutRepliesInput, MessageUpdateWithoutRepliesInput>, MessageUncheckedUpdateWithoutRepliesInput>
+  }
+
   export type MentionUpdateManyWithoutMessageNestedInput = {
     create?: XOR<MentionCreateWithoutMessageInput, MentionUncheckedCreateWithoutMessageInput> | MentionCreateWithoutMessageInput[] | MentionUncheckedCreateWithoutMessageInput[]
     connectOrCreate?: MentionCreateOrConnectWithoutMessageInput | MentionCreateOrConnectWithoutMessageInput[]
@@ -19166,6 +19303,20 @@ export namespace Prisma {
     deleteMany?: MentionScalarWhereInput | MentionScalarWhereInput[]
   }
 
+  export type MessageUpdateManyWithoutReplyToNestedInput = {
+    create?: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput> | MessageCreateWithoutReplyToInput[] | MessageUncheckedCreateWithoutReplyToInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReplyToInput | MessageCreateOrConnectWithoutReplyToInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutReplyToInput | MessageUpsertWithWhereUniqueWithoutReplyToInput[]
+    createMany?: MessageCreateManyReplyToInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutReplyToInput | MessageUpdateWithWhereUniqueWithoutReplyToInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutReplyToInput | MessageUpdateManyWithWhereWithoutReplyToInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
   export type MentionUncheckedUpdateManyWithoutMessageNestedInput = {
     create?: XOR<MentionCreateWithoutMessageInput, MentionUncheckedCreateWithoutMessageInput> | MentionCreateWithoutMessageInput[] | MentionUncheckedCreateWithoutMessageInput[]
     connectOrCreate?: MentionCreateOrConnectWithoutMessageInput | MentionCreateOrConnectWithoutMessageInput[]
@@ -19178,6 +19329,20 @@ export namespace Prisma {
     update?: MentionUpdateWithWhereUniqueWithoutMessageInput | MentionUpdateWithWhereUniqueWithoutMessageInput[]
     updateMany?: MentionUpdateManyWithWhereWithoutMessageInput | MentionUpdateManyWithWhereWithoutMessageInput[]
     deleteMany?: MentionScalarWhereInput | MentionScalarWhereInput[]
+  }
+
+  export type MessageUncheckedUpdateManyWithoutReplyToNestedInput = {
+    create?: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput> | MessageCreateWithoutReplyToInput[] | MessageUncheckedCreateWithoutReplyToInput[]
+    connectOrCreate?: MessageCreateOrConnectWithoutReplyToInput | MessageCreateOrConnectWithoutReplyToInput[]
+    upsert?: MessageUpsertWithWhereUniqueWithoutReplyToInput | MessageUpsertWithWhereUniqueWithoutReplyToInput[]
+    createMany?: MessageCreateManyReplyToInputEnvelope
+    set?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    disconnect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    delete?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+    update?: MessageUpdateWithWhereUniqueWithoutReplyToInput | MessageUpdateWithWhereUniqueWithoutReplyToInput[]
+    updateMany?: MessageUpdateManyWithWhereWithoutReplyToInput | MessageUpdateManyWithWhereWithoutReplyToInput[]
+    deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutLabelsInput = {
@@ -21167,7 +21332,9 @@ export namespace Prisma {
     externalId?: string | null
     createdAt?: Date | string
     receivedAt?: Date | string
+    replyTo?: MessageCreateNestedOneWithoutRepliesInput
     mentions?: MentionCreateNestedManyWithoutMessageInput
+    replies?: MessageCreateNestedManyWithoutReplyToInput
   }
 
   export type MessageUncheckedCreateWithoutConversationInput = {
@@ -21190,11 +21357,13 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    replyToId?: string | null
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
     receivedAt?: Date | string
     mentions?: MentionUncheckedCreateNestedManyWithoutMessageInput
+    replies?: MessageUncheckedCreateNestedManyWithoutReplyToInput
   }
 
   export type MessageCreateOrConnectWithoutConversationInput = {
@@ -21448,6 +21617,7 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"Message">
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
+    replyToId?: StringNullableFilter<"Message"> | string | null
     status?: EnumMessageStatusFilter<"Message"> | $Enums.MessageStatus
     externalId?: StringNullableFilter<"Message"> | string | null
     createdAt?: DateTimeFilter<"Message"> | Date | string
@@ -21516,6 +21686,69 @@ export namespace Prisma {
     create: XOR<ConversationCreateWithoutMessagesInput, ConversationUncheckedCreateWithoutMessagesInput>
   }
 
+  export type MessageCreateWithoutRepliesInput = {
+    id?: string
+    senderType: $Enums.SenderType
+    senderId?: string | null
+    senderName?: string | null
+    messageType?: $Enums.MessageType
+    content?: string | null
+    mediaId?: string | null
+    mediaUrl?: string | null
+    mediaCaption?: string | null
+    mediaMimeType?: string | null
+    mediaSize?: number | null
+    mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
+    componentHeader?: string | null
+    componentFooter?: string | null
+    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    reaction?: string | null
+    isPrivate?: boolean
+    status?: $Enums.MessageStatus
+    externalId?: string | null
+    createdAt?: Date | string
+    receivedAt?: Date | string
+    conversation: ConversationCreateNestedOneWithoutMessagesInput
+    replyTo?: MessageCreateNestedOneWithoutRepliesInput
+    mentions?: MentionCreateNestedManyWithoutMessageInput
+  }
+
+  export type MessageUncheckedCreateWithoutRepliesInput = {
+    id?: string
+    conversationId: string
+    senderType: $Enums.SenderType
+    senderId?: string | null
+    senderName?: string | null
+    messageType?: $Enums.MessageType
+    content?: string | null
+    mediaId?: string | null
+    mediaUrl?: string | null
+    mediaCaption?: string | null
+    mediaMimeType?: string | null
+    mediaSize?: number | null
+    mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
+    componentHeader?: string | null
+    componentFooter?: string | null
+    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    reaction?: string | null
+    isPrivate?: boolean
+    replyToId?: string | null
+    status?: $Enums.MessageStatus
+    externalId?: string | null
+    createdAt?: Date | string
+    receivedAt?: Date | string
+    mentions?: MentionUncheckedCreateNestedManyWithoutMessageInput
+  }
+
+  export type MessageCreateOrConnectWithoutRepliesInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutRepliesInput, MessageUncheckedCreateWithoutRepliesInput>
+  }
+
   export type MentionCreateWithoutMessageInput = {
     id?: string
     createdAt?: Date | string
@@ -21535,6 +21768,74 @@ export namespace Prisma {
 
   export type MentionCreateManyMessageInputEnvelope = {
     data: MentionCreateManyMessageInput | MentionCreateManyMessageInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageCreateWithoutReplyToInput = {
+    id?: string
+    senderType: $Enums.SenderType
+    senderId?: string | null
+    senderName?: string | null
+    messageType?: $Enums.MessageType
+    content?: string | null
+    mediaId?: string | null
+    mediaUrl?: string | null
+    mediaCaption?: string | null
+    mediaMimeType?: string | null
+    mediaSize?: number | null
+    mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
+    componentHeader?: string | null
+    componentFooter?: string | null
+    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    reaction?: string | null
+    isPrivate?: boolean
+    status?: $Enums.MessageStatus
+    externalId?: string | null
+    createdAt?: Date | string
+    receivedAt?: Date | string
+    conversation: ConversationCreateNestedOneWithoutMessagesInput
+    mentions?: MentionCreateNestedManyWithoutMessageInput
+    replies?: MessageCreateNestedManyWithoutReplyToInput
+  }
+
+  export type MessageUncheckedCreateWithoutReplyToInput = {
+    id?: string
+    conversationId: string
+    senderType: $Enums.SenderType
+    senderId?: string | null
+    senderName?: string | null
+    messageType?: $Enums.MessageType
+    content?: string | null
+    mediaId?: string | null
+    mediaUrl?: string | null
+    mediaCaption?: string | null
+    mediaMimeType?: string | null
+    mediaSize?: number | null
+    mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
+    componentHeader?: string | null
+    componentFooter?: string | null
+    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    reaction?: string | null
+    isPrivate?: boolean
+    status?: $Enums.MessageStatus
+    externalId?: string | null
+    createdAt?: Date | string
+    receivedAt?: Date | string
+    mentions?: MentionUncheckedCreateNestedManyWithoutMessageInput
+    replies?: MessageUncheckedCreateNestedManyWithoutReplyToInput
+  }
+
+  export type MessageCreateOrConnectWithoutReplyToInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput>
+  }
+
+  export type MessageCreateManyReplyToInputEnvelope = {
+    data: MessageCreateManyReplyToInput | MessageCreateManyReplyToInput[]
     skipDuplicates?: boolean
   }
 
@@ -21581,6 +21882,75 @@ export namespace Prisma {
     labels?: ConversationLabelUncheckedUpdateManyWithoutConversationNestedInput
   }
 
+  export type MessageUpsertWithoutRepliesInput = {
+    update: XOR<MessageUpdateWithoutRepliesInput, MessageUncheckedUpdateWithoutRepliesInput>
+    create: XOR<MessageCreateWithoutRepliesInput, MessageUncheckedCreateWithoutRepliesInput>
+    where?: MessageWhereInput
+  }
+
+  export type MessageUpdateToOneWithWhereWithoutRepliesInput = {
+    where?: MessageWhereInput
+    data: XOR<MessageUpdateWithoutRepliesInput, MessageUncheckedUpdateWithoutRepliesInput>
+  }
+
+  export type MessageUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumSenderTypeFieldUpdateOperationsInput | $Enums.SenderType
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderName?: NullableStringFieldUpdateOperationsInput | string | null
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
+    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
+    replyTo?: MessageUpdateOneWithoutRepliesNestedInput
+    mentions?: MentionUpdateManyWithoutMessageNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutRepliesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumSenderTypeFieldUpdateOperationsInput | $Enums.SenderType
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderName?: NullableStringFieldUpdateOperationsInput | string | null
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
+    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mentions?: MentionUncheckedUpdateManyWithoutMessageNestedInput
+  }
+
   export type MentionUpsertWithWhereUniqueWithoutMessageInput = {
     where: MentionWhereUniqueInput
     update: XOR<MentionUpdateWithoutMessageInput, MentionUncheckedUpdateWithoutMessageInput>
@@ -21595,6 +21965,22 @@ export namespace Prisma {
   export type MentionUpdateManyWithWhereWithoutMessageInput = {
     where: MentionScalarWhereInput
     data: XOR<MentionUpdateManyMutationInput, MentionUncheckedUpdateManyWithoutMessageInput>
+  }
+
+  export type MessageUpsertWithWhereUniqueWithoutReplyToInput = {
+    where: MessageWhereUniqueInput
+    update: XOR<MessageUpdateWithoutReplyToInput, MessageUncheckedUpdateWithoutReplyToInput>
+    create: XOR<MessageCreateWithoutReplyToInput, MessageUncheckedCreateWithoutReplyToInput>
+  }
+
+  export type MessageUpdateWithWhereUniqueWithoutReplyToInput = {
+    where: MessageWhereUniqueInput
+    data: XOR<MessageUpdateWithoutReplyToInput, MessageUncheckedUpdateWithoutReplyToInput>
+  }
+
+  export type MessageUpdateManyWithWhereWithoutReplyToInput = {
+    where: MessageScalarWhereInput
+    data: XOR<MessageUpdateManyMutationInput, MessageUncheckedUpdateManyWithoutReplyToInput>
   }
 
   export type TenantCreateWithoutLabelsInput = {
@@ -21942,6 +22328,8 @@ export namespace Prisma {
     createdAt?: Date | string
     receivedAt?: Date | string
     conversation: ConversationCreateNestedOneWithoutMessagesInput
+    replyTo?: MessageCreateNestedOneWithoutRepliesInput
+    replies?: MessageCreateNestedManyWithoutReplyToInput
   }
 
   export type MessageUncheckedCreateWithoutMentionsInput = {
@@ -21965,10 +22353,12 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    replyToId?: string | null
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
     receivedAt?: Date | string
+    replies?: MessageUncheckedCreateNestedManyWithoutReplyToInput
   }
 
   export type MessageCreateOrConnectWithoutMentionsInput = {
@@ -22047,6 +22437,8 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
+    replyTo?: MessageUpdateOneWithoutRepliesNestedInput
+    replies?: MessageUpdateManyWithoutReplyToNestedInput
   }
 
   export type MessageUncheckedUpdateWithoutMentionsInput = {
@@ -22070,10 +22462,12 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replies?: MessageUncheckedUpdateManyWithoutReplyToNestedInput
   }
 
   export type UserUpsertWithoutMentionsInput = {
@@ -22797,6 +23191,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
+    replyToId?: string | null
     status?: $Enums.MessageStatus
     externalId?: string | null
     createdAt?: Date | string
@@ -22832,7 +23227,9 @@ export namespace Prisma {
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    replyTo?: MessageUpdateOneWithoutRepliesNestedInput
     mentions?: MentionUpdateManyWithoutMessageNestedInput
+    replies?: MessageUpdateManyWithoutReplyToNestedInput
   }
 
   export type MessageUncheckedUpdateWithoutConversationInput = {
@@ -22855,11 +23252,13 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     mentions?: MentionUncheckedUpdateManyWithoutMessageNestedInput
+    replies?: MessageUncheckedUpdateManyWithoutReplyToNestedInput
   }
 
   export type MessageUncheckedUpdateManyWithoutConversationInput = {
@@ -22882,6 +23281,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    replyToId?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
     externalId?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22909,6 +23309,33 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type MessageCreateManyReplyToInput = {
+    id?: string
+    conversationId: string
+    senderType: $Enums.SenderType
+    senderId?: string | null
+    senderName?: string | null
+    messageType?: $Enums.MessageType
+    content?: string | null
+    mediaId?: string | null
+    mediaUrl?: string | null
+    mediaCaption?: string | null
+    mediaMimeType?: string | null
+    mediaSize?: number | null
+    mediaDuration?: number | null
+    mediaStatus?: $Enums.MediaStatus
+    componentHeader?: string | null
+    componentFooter?: string | null
+    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    reaction?: string | null
+    isPrivate?: boolean
+    status?: $Enums.MessageStatus
+    externalId?: string | null
+    createdAt?: Date | string
+    receivedAt?: Date | string
+  }
+
   export type MentionUpdateWithoutMessageInput = {
     id?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22925,6 +23352,91 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     mentionedId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageUpdateWithoutReplyToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumSenderTypeFieldUpdateOperationsInput | $Enums.SenderType
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderName?: NullableStringFieldUpdateOperationsInput | string | null
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
+    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    conversation?: ConversationUpdateOneRequiredWithoutMessagesNestedInput
+    mentions?: MentionUpdateManyWithoutMessageNestedInput
+    replies?: MessageUpdateManyWithoutReplyToNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutReplyToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumSenderTypeFieldUpdateOperationsInput | $Enums.SenderType
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderName?: NullableStringFieldUpdateOperationsInput | string | null
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
+    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    mentions?: MentionUncheckedUpdateManyWithoutMessageNestedInput
+    replies?: MessageUncheckedUpdateManyWithoutReplyToNestedInput
+  }
+
+  export type MessageUncheckedUpdateManyWithoutReplyToInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    conversationId?: StringFieldUpdateOperationsInput | string
+    senderType?: EnumSenderTypeFieldUpdateOperationsInput | $Enums.SenderType
+    senderId?: NullableStringFieldUpdateOperationsInput | string | null
+    senderName?: NullableStringFieldUpdateOperationsInput | string | null
+    messageType?: EnumMessageTypeFieldUpdateOperationsInput | $Enums.MessageType
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaId?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaCaption?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaMimeType?: NullableStringFieldUpdateOperationsInput | string | null
+    mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
+    mediaStatus?: EnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus
+    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
+    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
+    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    reaction?: NullableStringFieldUpdateOperationsInput | string | null
+    isPrivate?: BoolFieldUpdateOperationsInput | boolean
+    status?: EnumMessageStatusFieldUpdateOperationsInput | $Enums.MessageStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    receivedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type ConversationLabelCreateManyLabelInput = {

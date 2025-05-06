@@ -118,6 +118,11 @@ export interface WhatsAppMessage {
         emoji: string;
         message_id: string;
     };
+
+    context?: {
+        from: string;
+        id: string;
+    };
 }
 
 export type WhatsAppMessageStatus = {

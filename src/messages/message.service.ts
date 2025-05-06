@@ -10,15 +10,15 @@ export class MessageService {
   constructor(private readonly prisma: PrismaService, private readonly factory: MessageFactoryService) { }
 
   async create(data: Prisma.MessageCreateInput) {
-    return this.prisma.message.create({ data });
+    return this.prisma.message.create({ data, include: { replyTo: true } });
   }
 
   async buildAndCreate(messageDto: SendMessageBaseDto, user: SupabaseUser) {
-    const message = await this.factory.buildMessage(messageDto.messageType, messageDto, user );
-    return await this.create(message);
+    const entityMessage = await this.factory.buildMessage(messageDto.messageType, messageDto, user );
+    return await this.create(entityMessage);
   }
 
-  async createIfNotExists(input: Prisma.MessageCreateInput, conversationId: string) {
+  async createIfNotExists(input: Prisma.MessageCreateInput, conversationId: string, replyTo?: string) {
     const existing = await this.prisma.message.findFirst({
       where: {
         conversationId: conversationId,
@@ -29,6 +29,29 @@ export class MessageService {
 
     if (existing) {
       return existing;
+    }
+
+    if(replyTo){
+      const replyMessage = await this.prisma.message.findFirst({
+        where: {
+          conversationId: conversationId,
+          externalId: replyTo,
+        },
+      });
+
+      if(replyMessage){
+        return this.prisma.message.create({
+          data: {
+            ...input, conversation: {
+              connect: { id: conversationId },
+            },
+            replyTo: {
+              connect: { id: replyMessage.id },
+            }
+          },
+          include: { replyTo: true }
+        });
+      }
     }
 
     return this.prisma.message.create({

@@ -76,6 +76,7 @@ export class MessageFactoryService {
       messageType: 'text',
       content: dto.content,
       status: 'pending',
+      replyTo: dto.replyTo ? { connect: { id: dto.replyTo } } : undefined
     };
   }
 

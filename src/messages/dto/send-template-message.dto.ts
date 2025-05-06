@@ -1,4 +1,5 @@
 import { IsString, IsNotEmpty, IsUUID, IsOptional, IsArray } from 'class-validator';
+import { SendBaseMessageDto } from './send-base-message.dto';
 
 export class TemplateComponentParameter {
   @IsString()
@@ -19,16 +20,7 @@ export class TemplateComponent {
   parameters: TemplateComponentParameter[];
 }
 
-export class SendTemplateMessageDto {
-  @IsUUID()
-  channelId: string;
-
-  @IsUUID()
-  conversationId: string;
-
-  @IsString()
-  @IsNotEmpty()
-  to: string;
+export class SendTemplateMessageDto extends SendBaseMessageDto {
 
   @IsString()
   @IsNotEmpty()
