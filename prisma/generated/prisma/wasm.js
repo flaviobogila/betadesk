@@ -235,7 +235,10 @@ exports.Prisma.LabelScalarFieldEnum = {
 exports.Prisma.ConversationLabelScalarFieldEnum = {
   conversationId: 'conversationId',
   labelId: 'labelId',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  createdById: 'createdById',
+  removedAt: 'removedAt',
+  removedById: 'removedById'
 };
 
 exports.Prisma.MentionScalarFieldEnum = {

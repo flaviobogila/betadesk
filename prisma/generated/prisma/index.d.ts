@@ -1983,6 +1983,8 @@ export namespace Prisma {
     conversationsAssigned: number
     labelsCreated: number
     mentions: number
+    conversationlabelsCreated: number
+    conversationlabelsRemoved: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1991,6 +1993,8 @@ export namespace Prisma {
     conversationsAssigned?: boolean | UserCountOutputTypeCountConversationsAssignedArgs
     labelsCreated?: boolean | UserCountOutputTypeCountLabelsCreatedArgs
     mentions?: boolean | UserCountOutputTypeCountMentionsArgs
+    conversationlabelsCreated?: boolean | UserCountOutputTypeCountConversationlabelsCreatedArgs
+    conversationlabelsRemoved?: boolean | UserCountOutputTypeCountConversationlabelsRemovedArgs
   }
 
   // Custom InputTypes
@@ -2037,6 +2041,20 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMentionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MentionWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountConversationlabelsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConversationLabelWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountConversationlabelsRemovedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ConversationLabelWhereInput
   }
 
 
@@ -3687,6 +3705,8 @@ export namespace Prisma {
     conversationsAssigned?: boolean | User$conversationsAssignedArgs<ExtArgs>
     labelsCreated?: boolean | User$labelsCreatedArgs<ExtArgs>
     mentions?: boolean | User$mentionsArgs<ExtArgs>
+    conversationlabelsCreated?: boolean | User$conversationlabelsCreatedArgs<ExtArgs>
+    conversationlabelsRemoved?: boolean | User$conversationlabelsRemovedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3733,6 +3753,8 @@ export namespace Prisma {
     conversationsAssigned?: boolean | User$conversationsAssignedArgs<ExtArgs>
     labelsCreated?: boolean | User$labelsCreatedArgs<ExtArgs>
     mentions?: boolean | User$mentionsArgs<ExtArgs>
+    conversationlabelsCreated?: boolean | User$conversationlabelsCreatedArgs<ExtArgs>
+    conversationlabelsRemoved?: boolean | User$conversationlabelsRemovedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3751,6 +3773,8 @@ export namespace Prisma {
       conversationsAssigned: Prisma.$ConversationPayload<ExtArgs>[]
       labelsCreated: Prisma.$LabelPayload<ExtArgs>[]
       mentions: Prisma.$MentionPayload<ExtArgs>[]
+      conversationlabelsCreated: Prisma.$ConversationLabelPayload<ExtArgs>[]
+      conversationlabelsRemoved: Prisma.$ConversationLabelPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4161,6 +4185,8 @@ export namespace Prisma {
     conversationsAssigned<T extends User$conversationsAssignedArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationsAssignedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     labelsCreated<T extends User$labelsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$labelsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LabelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     mentions<T extends User$mentionsArgs<ExtArgs> = {}>(args?: Subset<T, User$mentionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MentionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    conversationlabelsCreated<T extends User$conversationlabelsCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationlabelsCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationLabelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    conversationlabelsRemoved<T extends User$conversationlabelsRemovedArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationlabelsRemovedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationLabelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4711,6 +4737,54 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MentionScalarFieldEnum | MentionScalarFieldEnum[]
+  }
+
+  /**
+   * User.conversationlabelsCreated
+   */
+  export type User$conversationlabelsCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConversationLabel
+     */
+    select?: ConversationLabelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConversationLabel
+     */
+    omit?: ConversationLabelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationLabelInclude<ExtArgs> | null
+    where?: ConversationLabelWhereInput
+    orderBy?: ConversationLabelOrderByWithRelationInput | ConversationLabelOrderByWithRelationInput[]
+    cursor?: ConversationLabelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConversationLabelScalarFieldEnum | ConversationLabelScalarFieldEnum[]
+  }
+
+  /**
+   * User.conversationlabelsRemoved
+   */
+  export type User$conversationlabelsRemovedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ConversationLabel
+     */
+    select?: ConversationLabelSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ConversationLabel
+     */
+    omit?: ConversationLabelOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ConversationLabelInclude<ExtArgs> | null
+    where?: ConversationLabelWhereInput
+    orderBy?: ConversationLabelOrderByWithRelationInput | ConversationLabelOrderByWithRelationInput[]
+    cursor?: ConversationLabelWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ConversationLabelScalarFieldEnum | ConversationLabelScalarFieldEnum[]
   }
 
   /**
@@ -13075,18 +13149,27 @@ export namespace Prisma {
     conversationId: string | null
     labelId: string | null
     createdAt: Date | null
+    createdById: string | null
+    removedAt: Date | null
+    removedById: string | null
   }
 
   export type ConversationLabelMaxAggregateOutputType = {
     conversationId: string | null
     labelId: string | null
     createdAt: Date | null
+    createdById: string | null
+    removedAt: Date | null
+    removedById: string | null
   }
 
   export type ConversationLabelCountAggregateOutputType = {
     conversationId: number
     labelId: number
     createdAt: number
+    createdById: number
+    removedAt: number
+    removedById: number
     _all: number
   }
 
@@ -13095,18 +13178,27 @@ export namespace Prisma {
     conversationId?: true
     labelId?: true
     createdAt?: true
+    createdById?: true
+    removedAt?: true
+    removedById?: true
   }
 
   export type ConversationLabelMaxAggregateInputType = {
     conversationId?: true
     labelId?: true
     createdAt?: true
+    createdById?: true
+    removedAt?: true
+    removedById?: true
   }
 
   export type ConversationLabelCountAggregateInputType = {
     conversationId?: true
     labelId?: true
     createdAt?: true
+    createdById?: true
+    removedAt?: true
+    removedById?: true
     _all?: true
   }
 
@@ -13186,6 +13278,9 @@ export namespace Prisma {
     conversationId: string
     labelId: string
     createdAt: Date
+    createdById: string | null
+    removedAt: Date | null
+    removedById: string | null
     _count: ConversationLabelCountAggregateOutputType | null
     _min: ConversationLabelMinAggregateOutputType | null
     _max: ConversationLabelMaxAggregateOutputType | null
@@ -13209,6 +13304,11 @@ export namespace Prisma {
     conversationId?: boolean
     labelId?: boolean
     createdAt?: boolean
+    createdById?: boolean
+    removedAt?: boolean
+    removedById?: boolean
+    createdBy?: boolean | ConversationLabel$createdByArgs<ExtArgs>
+    removedBy?: boolean | ConversationLabel$removedByArgs<ExtArgs>
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     label?: boolean | LabelDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["conversationLabel"]>
@@ -13217,6 +13317,11 @@ export namespace Prisma {
     conversationId?: boolean
     labelId?: boolean
     createdAt?: boolean
+    createdById?: boolean
+    removedAt?: boolean
+    removedById?: boolean
+    createdBy?: boolean | ConversationLabel$createdByArgs<ExtArgs>
+    removedBy?: boolean | ConversationLabel$removedByArgs<ExtArgs>
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     label?: boolean | LabelDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["conversationLabel"]>
@@ -13225,6 +13330,11 @@ export namespace Prisma {
     conversationId?: boolean
     labelId?: boolean
     createdAt?: boolean
+    createdById?: boolean
+    removedAt?: boolean
+    removedById?: boolean
+    createdBy?: boolean | ConversationLabel$createdByArgs<ExtArgs>
+    removedBy?: boolean | ConversationLabel$removedByArgs<ExtArgs>
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     label?: boolean | LabelDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["conversationLabel"]>
@@ -13233,18 +13343,27 @@ export namespace Prisma {
     conversationId?: boolean
     labelId?: boolean
     createdAt?: boolean
+    createdById?: boolean
+    removedAt?: boolean
+    removedById?: boolean
   }
 
-  export type ConversationLabelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"conversationId" | "labelId" | "createdAt", ExtArgs["result"]["conversationLabel"]>
+  export type ConversationLabelOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"conversationId" | "labelId" | "createdAt" | "createdById" | "removedAt" | "removedById", ExtArgs["result"]["conversationLabel"]>
   export type ConversationLabelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | ConversationLabel$createdByArgs<ExtArgs>
+    removedBy?: boolean | ConversationLabel$removedByArgs<ExtArgs>
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     label?: boolean | LabelDefaultArgs<ExtArgs>
   }
   export type ConversationLabelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | ConversationLabel$createdByArgs<ExtArgs>
+    removedBy?: boolean | ConversationLabel$removedByArgs<ExtArgs>
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     label?: boolean | LabelDefaultArgs<ExtArgs>
   }
   export type ConversationLabelIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    createdBy?: boolean | ConversationLabel$createdByArgs<ExtArgs>
+    removedBy?: boolean | ConversationLabel$removedByArgs<ExtArgs>
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     label?: boolean | LabelDefaultArgs<ExtArgs>
   }
@@ -13252,6 +13371,8 @@ export namespace Prisma {
   export type $ConversationLabelPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ConversationLabel"
     objects: {
+      createdBy: Prisma.$UserPayload<ExtArgs> | null
+      removedBy: Prisma.$UserPayload<ExtArgs> | null
       conversation: Prisma.$ConversationPayload<ExtArgs>
       label: Prisma.$LabelPayload<ExtArgs>
     }
@@ -13259,6 +13380,9 @@ export namespace Prisma {
       conversationId: string
       labelId: string
       createdAt: Date
+      createdById: string | null
+      removedAt: Date | null
+      removedById: string | null
     }, ExtArgs["result"]["conversationLabel"]>
     composites: {}
   }
@@ -13653,6 +13777,8 @@ export namespace Prisma {
    */
   export interface Prisma__ConversationLabelClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    createdBy<T extends ConversationLabel$createdByArgs<ExtArgs> = {}>(args?: Subset<T, ConversationLabel$createdByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    removedBy<T extends ConversationLabel$removedByArgs<ExtArgs> = {}>(args?: Subset<T, ConversationLabel$removedByArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     conversation<T extends ConversationDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConversationDefaultArgs<ExtArgs>>): Prisma__ConversationClient<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     label<T extends LabelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, LabelDefaultArgs<ExtArgs>>): Prisma__LabelClient<$Result.GetResult<Prisma.$LabelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -13687,6 +13813,9 @@ export namespace Prisma {
     readonly conversationId: FieldRef<"ConversationLabel", 'String'>
     readonly labelId: FieldRef<"ConversationLabel", 'String'>
     readonly createdAt: FieldRef<"ConversationLabel", 'DateTime'>
+    readonly createdById: FieldRef<"ConversationLabel", 'String'>
+    readonly removedAt: FieldRef<"ConversationLabel", 'DateTime'>
+    readonly removedById: FieldRef<"ConversationLabel", 'String'>
   }
     
 
@@ -14080,6 +14209,44 @@ export namespace Prisma {
      * Limit how many ConversationLabels to delete.
      */
     limit?: number
+  }
+
+  /**
+   * ConversationLabel.createdBy
+   */
+  export type ConversationLabel$createdByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+  }
+
+  /**
+   * ConversationLabel.removedBy
+   */
+  export type ConversationLabel$removedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
   }
 
   /**
@@ -15310,7 +15477,10 @@ export namespace Prisma {
   export const ConversationLabelScalarFieldEnum: {
     conversationId: 'conversationId',
     labelId: 'labelId',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    createdById: 'createdById',
+    removedAt: 'removedAt',
+    removedById: 'removedById'
   };
 
   export type ConversationLabelScalarFieldEnum = (typeof ConversationLabelScalarFieldEnum)[keyof typeof ConversationLabelScalarFieldEnum]
@@ -15662,6 +15832,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationListRelationFilter
     labelsCreated?: LabelListRelationFilter
     mentions?: MentionListRelationFilter
+    conversationlabelsCreated?: ConversationLabelListRelationFilter
+    conversationlabelsRemoved?: ConversationLabelListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -15679,6 +15851,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationOrderByRelationAggregateInput
     labelsCreated?: LabelOrderByRelationAggregateInput
     mentions?: MentionOrderByRelationAggregateInput
+    conversationlabelsCreated?: ConversationLabelOrderByRelationAggregateInput
+    conversationlabelsRemoved?: ConversationLabelOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -15699,6 +15873,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationListRelationFilter
     labelsCreated?: LabelListRelationFilter
     mentions?: MentionListRelationFilter
+    conversationlabelsCreated?: ConversationLabelListRelationFilter
+    conversationlabelsRemoved?: ConversationLabelListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -16351,6 +16527,11 @@ export namespace Prisma {
     conversationId?: StringFilter<"ConversationLabel"> | string
     labelId?: StringFilter<"ConversationLabel"> | string
     createdAt?: DateTimeFilter<"ConversationLabel"> | Date | string
+    createdById?: StringNullableFilter<"ConversationLabel"> | string | null
+    removedAt?: DateTimeNullableFilter<"ConversationLabel"> | Date | string | null
+    removedById?: StringNullableFilter<"ConversationLabel"> | string | null
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    removedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
     label?: XOR<LabelScalarRelationFilter, LabelWhereInput>
   }
@@ -16359,6 +16540,11 @@ export namespace Prisma {
     conversationId?: SortOrder
     labelId?: SortOrder
     createdAt?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    removedAt?: SortOrderInput | SortOrder
+    removedById?: SortOrderInput | SortOrder
+    createdBy?: UserOrderByWithRelationInput
+    removedBy?: UserOrderByWithRelationInput
     conversation?: ConversationOrderByWithRelationInput
     label?: LabelOrderByWithRelationInput
   }
@@ -16371,6 +16557,11 @@ export namespace Prisma {
     conversationId?: StringFilter<"ConversationLabel"> | string
     labelId?: StringFilter<"ConversationLabel"> | string
     createdAt?: DateTimeFilter<"ConversationLabel"> | Date | string
+    createdById?: StringNullableFilter<"ConversationLabel"> | string | null
+    removedAt?: DateTimeNullableFilter<"ConversationLabel"> | Date | string | null
+    removedById?: StringNullableFilter<"ConversationLabel"> | string | null
+    createdBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    removedBy?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     conversation?: XOR<ConversationScalarRelationFilter, ConversationWhereInput>
     label?: XOR<LabelScalarRelationFilter, LabelWhereInput>
   }, "conversationId_labelId">
@@ -16379,6 +16570,9 @@ export namespace Prisma {
     conversationId?: SortOrder
     labelId?: SortOrder
     createdAt?: SortOrder
+    createdById?: SortOrderInput | SortOrder
+    removedAt?: SortOrderInput | SortOrder
+    removedById?: SortOrderInput | SortOrder
     _count?: ConversationLabelCountOrderByAggregateInput
     _max?: ConversationLabelMaxOrderByAggregateInput
     _min?: ConversationLabelMinOrderByAggregateInput
@@ -16391,6 +16585,9 @@ export namespace Prisma {
     conversationId?: StringWithAggregatesFilter<"ConversationLabel"> | string
     labelId?: StringWithAggregatesFilter<"ConversationLabel"> | string
     createdAt?: DateTimeWithAggregatesFilter<"ConversationLabel"> | Date | string
+    createdById?: StringNullableWithAggregatesFilter<"ConversationLabel"> | string | null
+    removedAt?: DateTimeNullableWithAggregatesFilter<"ConversationLabel"> | Date | string | null
+    removedById?: StringNullableWithAggregatesFilter<"ConversationLabel"> | string | null
   }
 
   export type MentionWhereInput = {
@@ -16554,6 +16751,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedUserInput
     labelsCreated?: LabelCreateNestedManyWithoutCreatedByInput
     mentions?: MentionCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -16570,6 +16769,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedUserInput
     labelsCreated?: LabelUncheckedCreateNestedManyWithoutCreatedByInput
     mentions?: MentionUncheckedCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserUpdateInput = {
@@ -16586,6 +16787,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedUserNestedInput
     labelsCreated?: LabelUpdateManyWithoutCreatedByNestedInput
     mentions?: MentionUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -16602,6 +16805,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedUserNestedInput
     labelsCreated?: LabelUncheckedUpdateManyWithoutCreatedByNestedInput
     mentions?: MentionUncheckedUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -17296,6 +17501,9 @@ export namespace Prisma {
 
   export type ConversationLabelCreateInput = {
     createdAt?: Date | string
+    removedAt?: Date | string | null
+    createdBy?: UserCreateNestedOneWithoutConversationlabelsCreatedInput
+    removedBy?: UserCreateNestedOneWithoutConversationlabelsRemovedInput
     conversation: ConversationCreateNestedOneWithoutLabelsInput
     label: LabelCreateNestedOneWithoutConversationsInput
   }
@@ -17304,10 +17512,16 @@ export namespace Prisma {
     conversationId: string
     labelId: string
     createdAt?: Date | string
+    createdById?: string | null
+    removedAt?: Date | string | null
+    removedById?: string | null
   }
 
   export type ConversationLabelUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: UserUpdateOneWithoutConversationlabelsCreatedNestedInput
+    removedBy?: UserUpdateOneWithoutConversationlabelsRemovedNestedInput
     conversation?: ConversationUpdateOneRequiredWithoutLabelsNestedInput
     label?: LabelUpdateOneRequiredWithoutConversationsNestedInput
   }
@@ -17316,22 +17530,32 @@ export namespace Prisma {
     conversationId?: StringFieldUpdateOperationsInput | string
     labelId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    removedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ConversationLabelCreateManyInput = {
     conversationId: string
     labelId: string
     createdAt?: Date | string
+    createdById?: string | null
+    removedAt?: Date | string | null
+    removedById?: string | null
   }
 
   export type ConversationLabelUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ConversationLabelUncheckedUpdateManyInput = {
     conversationId?: StringFieldUpdateOperationsInput | string
     labelId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    removedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MentionCreateInput = {
@@ -17604,11 +17828,21 @@ export namespace Prisma {
     none?: MentionWhereInput
   }
 
+  export type ConversationLabelListRelationFilter = {
+    every?: ConversationLabelWhereInput
+    some?: ConversationLabelWhereInput
+    none?: ConversationLabelWhereInput
+  }
+
   export type TeamMemberOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type MentionOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ConversationLabelOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17922,17 +18156,7 @@ export namespace Prisma {
     none?: MessageWhereInput
   }
 
-  export type ConversationLabelListRelationFilter = {
-    every?: ConversationLabelWhereInput
-    some?: ConversationLabelWhereInput
-    none?: ConversationLabelWhereInput
-  }
-
   export type MessageOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
-  export type ConversationLabelOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -18241,18 +18465,27 @@ export namespace Prisma {
     conversationId?: SortOrder
     labelId?: SortOrder
     createdAt?: SortOrder
+    createdById?: SortOrder
+    removedAt?: SortOrder
+    removedById?: SortOrder
   }
 
   export type ConversationLabelMaxOrderByAggregateInput = {
     conversationId?: SortOrder
     labelId?: SortOrder
     createdAt?: SortOrder
+    createdById?: SortOrder
+    removedAt?: SortOrder
+    removedById?: SortOrder
   }
 
   export type ConversationLabelMinOrderByAggregateInput = {
     conversationId?: SortOrder
     labelId?: SortOrder
     createdAt?: SortOrder
+    createdById?: SortOrder
+    removedAt?: SortOrder
+    removedById?: SortOrder
   }
 
   export type MessageScalarRelationFilter = {
@@ -18590,6 +18823,20 @@ export namespace Prisma {
     connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[]
   }
 
+  export type ConversationLabelCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<ConversationLabelCreateWithoutCreatedByInput, ConversationLabelUncheckedCreateWithoutCreatedByInput> | ConversationLabelCreateWithoutCreatedByInput[] | ConversationLabelUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ConversationLabelCreateOrConnectWithoutCreatedByInput | ConversationLabelCreateOrConnectWithoutCreatedByInput[]
+    createMany?: ConversationLabelCreateManyCreatedByInputEnvelope
+    connect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+  }
+
+  export type ConversationLabelCreateNestedManyWithoutRemovedByInput = {
+    create?: XOR<ConversationLabelCreateWithoutRemovedByInput, ConversationLabelUncheckedCreateWithoutRemovedByInput> | ConversationLabelCreateWithoutRemovedByInput[] | ConversationLabelUncheckedCreateWithoutRemovedByInput[]
+    connectOrCreate?: ConversationLabelCreateOrConnectWithoutRemovedByInput | ConversationLabelCreateOrConnectWithoutRemovedByInput[]
+    createMany?: ConversationLabelCreateManyRemovedByInputEnvelope
+    connect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+  }
+
   export type TeamMemberUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput> | TeamMemberCreateWithoutUserInput[] | TeamMemberUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TeamMemberCreateOrConnectWithoutUserInput | TeamMemberCreateOrConnectWithoutUserInput[]
@@ -18623,6 +18870,20 @@ export namespace Prisma {
     connectOrCreate?: MentionCreateOrConnectWithoutMentionedInput | MentionCreateOrConnectWithoutMentionedInput[]
     createMany?: MentionCreateManyMentionedInputEnvelope
     connect?: MentionWhereUniqueInput | MentionWhereUniqueInput[]
+  }
+
+  export type ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<ConversationLabelCreateWithoutCreatedByInput, ConversationLabelUncheckedCreateWithoutCreatedByInput> | ConversationLabelCreateWithoutCreatedByInput[] | ConversationLabelUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ConversationLabelCreateOrConnectWithoutCreatedByInput | ConversationLabelCreateOrConnectWithoutCreatedByInput[]
+    createMany?: ConversationLabelCreateManyCreatedByInputEnvelope
+    connect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+  }
+
+  export type ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput = {
+    create?: XOR<ConversationLabelCreateWithoutRemovedByInput, ConversationLabelUncheckedCreateWithoutRemovedByInput> | ConversationLabelCreateWithoutRemovedByInput[] | ConversationLabelUncheckedCreateWithoutRemovedByInput[]
+    connectOrCreate?: ConversationLabelCreateOrConnectWithoutRemovedByInput | ConversationLabelCreateOrConnectWithoutRemovedByInput[]
+    createMany?: ConversationLabelCreateManyRemovedByInputEnvelope
+    connect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -18707,6 +18968,34 @@ export namespace Prisma {
     deleteMany?: MentionScalarWhereInput | MentionScalarWhereInput[]
   }
 
+  export type ConversationLabelUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<ConversationLabelCreateWithoutCreatedByInput, ConversationLabelUncheckedCreateWithoutCreatedByInput> | ConversationLabelCreateWithoutCreatedByInput[] | ConversationLabelUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ConversationLabelCreateOrConnectWithoutCreatedByInput | ConversationLabelCreateOrConnectWithoutCreatedByInput[]
+    upsert?: ConversationLabelUpsertWithWhereUniqueWithoutCreatedByInput | ConversationLabelUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: ConversationLabelCreateManyCreatedByInputEnvelope
+    set?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    disconnect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    delete?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    connect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    update?: ConversationLabelUpdateWithWhereUniqueWithoutCreatedByInput | ConversationLabelUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: ConversationLabelUpdateManyWithWhereWithoutCreatedByInput | ConversationLabelUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: ConversationLabelScalarWhereInput | ConversationLabelScalarWhereInput[]
+  }
+
+  export type ConversationLabelUpdateManyWithoutRemovedByNestedInput = {
+    create?: XOR<ConversationLabelCreateWithoutRemovedByInput, ConversationLabelUncheckedCreateWithoutRemovedByInput> | ConversationLabelCreateWithoutRemovedByInput[] | ConversationLabelUncheckedCreateWithoutRemovedByInput[]
+    connectOrCreate?: ConversationLabelCreateOrConnectWithoutRemovedByInput | ConversationLabelCreateOrConnectWithoutRemovedByInput[]
+    upsert?: ConversationLabelUpsertWithWhereUniqueWithoutRemovedByInput | ConversationLabelUpsertWithWhereUniqueWithoutRemovedByInput[]
+    createMany?: ConversationLabelCreateManyRemovedByInputEnvelope
+    set?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    disconnect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    delete?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    connect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    update?: ConversationLabelUpdateWithWhereUniqueWithoutRemovedByInput | ConversationLabelUpdateWithWhereUniqueWithoutRemovedByInput[]
+    updateMany?: ConversationLabelUpdateManyWithWhereWithoutRemovedByInput | ConversationLabelUpdateManyWithWhereWithoutRemovedByInput[]
+    deleteMany?: ConversationLabelScalarWhereInput | ConversationLabelScalarWhereInput[]
+  }
+
   export type TeamMemberUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput> | TeamMemberCreateWithoutUserInput[] | TeamMemberUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TeamMemberCreateOrConnectWithoutUserInput | TeamMemberCreateOrConnectWithoutUserInput[]
@@ -18775,6 +19064,34 @@ export namespace Prisma {
     update?: MentionUpdateWithWhereUniqueWithoutMentionedInput | MentionUpdateWithWhereUniqueWithoutMentionedInput[]
     updateMany?: MentionUpdateManyWithWhereWithoutMentionedInput | MentionUpdateManyWithWhereWithoutMentionedInput[]
     deleteMany?: MentionScalarWhereInput | MentionScalarWhereInput[]
+  }
+
+  export type ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<ConversationLabelCreateWithoutCreatedByInput, ConversationLabelUncheckedCreateWithoutCreatedByInput> | ConversationLabelCreateWithoutCreatedByInput[] | ConversationLabelUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: ConversationLabelCreateOrConnectWithoutCreatedByInput | ConversationLabelCreateOrConnectWithoutCreatedByInput[]
+    upsert?: ConversationLabelUpsertWithWhereUniqueWithoutCreatedByInput | ConversationLabelUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: ConversationLabelCreateManyCreatedByInputEnvelope
+    set?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    disconnect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    delete?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    connect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    update?: ConversationLabelUpdateWithWhereUniqueWithoutCreatedByInput | ConversationLabelUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: ConversationLabelUpdateManyWithWhereWithoutCreatedByInput | ConversationLabelUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: ConversationLabelScalarWhereInput | ConversationLabelScalarWhereInput[]
+  }
+
+  export type ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput = {
+    create?: XOR<ConversationLabelCreateWithoutRemovedByInput, ConversationLabelUncheckedCreateWithoutRemovedByInput> | ConversationLabelCreateWithoutRemovedByInput[] | ConversationLabelUncheckedCreateWithoutRemovedByInput[]
+    connectOrCreate?: ConversationLabelCreateOrConnectWithoutRemovedByInput | ConversationLabelCreateOrConnectWithoutRemovedByInput[]
+    upsert?: ConversationLabelUpsertWithWhereUniqueWithoutRemovedByInput | ConversationLabelUpsertWithWhereUniqueWithoutRemovedByInput[]
+    createMany?: ConversationLabelCreateManyRemovedByInputEnvelope
+    set?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    disconnect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    delete?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    connect?: ConversationLabelWhereUniqueInput | ConversationLabelWhereUniqueInput[]
+    update?: ConversationLabelUpdateWithWhereUniqueWithoutRemovedByInput | ConversationLabelUpdateWithWhereUniqueWithoutRemovedByInput[]
+    updateMany?: ConversationLabelUpdateManyWithWhereWithoutRemovedByInput | ConversationLabelUpdateManyWithWhereWithoutRemovedByInput[]
+    deleteMany?: ConversationLabelScalarWhereInput | ConversationLabelScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutTeamsInput = {
@@ -19417,6 +19734,18 @@ export namespace Prisma {
     deleteMany?: ConversationLabelScalarWhereInput | ConversationLabelScalarWhereInput[]
   }
 
+  export type UserCreateNestedOneWithoutConversationlabelsCreatedInput = {
+    create?: XOR<UserCreateWithoutConversationlabelsCreatedInput, UserUncheckedCreateWithoutConversationlabelsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutConversationlabelsCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutConversationlabelsRemovedInput = {
+    create?: XOR<UserCreateWithoutConversationlabelsRemovedInput, UserUncheckedCreateWithoutConversationlabelsRemovedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutConversationlabelsRemovedInput
+    connect?: UserWhereUniqueInput
+  }
+
   export type ConversationCreateNestedOneWithoutLabelsInput = {
     create?: XOR<ConversationCreateWithoutLabelsInput, ConversationUncheckedCreateWithoutLabelsInput>
     connectOrCreate?: ConversationCreateOrConnectWithoutLabelsInput
@@ -19427,6 +19756,26 @@ export namespace Prisma {
     create?: XOR<LabelCreateWithoutConversationsInput, LabelUncheckedCreateWithoutConversationsInput>
     connectOrCreate?: LabelCreateOrConnectWithoutConversationsInput
     connect?: LabelWhereUniqueInput
+  }
+
+  export type UserUpdateOneWithoutConversationlabelsCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutConversationlabelsCreatedInput, UserUncheckedCreateWithoutConversationlabelsCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutConversationlabelsCreatedInput
+    upsert?: UserUpsertWithoutConversationlabelsCreatedInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutConversationlabelsCreatedInput, UserUpdateWithoutConversationlabelsCreatedInput>, UserUncheckedUpdateWithoutConversationlabelsCreatedInput>
+  }
+
+  export type UserUpdateOneWithoutConversationlabelsRemovedNestedInput = {
+    create?: XOR<UserCreateWithoutConversationlabelsRemovedInput, UserUncheckedCreateWithoutConversationlabelsRemovedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutConversationlabelsRemovedInput
+    upsert?: UserUpsertWithoutConversationlabelsRemovedInput
+    disconnect?: UserWhereInput | boolean
+    delete?: UserWhereInput | boolean
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutConversationlabelsRemovedInput, UserUpdateWithoutConversationlabelsRemovedInput>, UserUncheckedUpdateWithoutConversationlabelsRemovedInput>
   }
 
   export type ConversationUpdateOneRequiredWithoutLabelsNestedInput = {
@@ -19819,6 +20168,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedUserInput
     labelsCreated?: LabelCreateNestedManyWithoutCreatedByInput
     mentions?: MentionCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserUncheckedCreateWithoutTenantInput = {
@@ -19834,6 +20185,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedUserInput
     labelsCreated?: LabelUncheckedCreateNestedManyWithoutCreatedByInput
     mentions?: MentionUncheckedCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserCreateOrConnectWithoutTenantInput = {
@@ -20376,6 +20729,58 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type ConversationLabelCreateWithoutCreatedByInput = {
+    createdAt?: Date | string
+    removedAt?: Date | string | null
+    removedBy?: UserCreateNestedOneWithoutConversationlabelsRemovedInput
+    conversation: ConversationCreateNestedOneWithoutLabelsInput
+    label: LabelCreateNestedOneWithoutConversationsInput
+  }
+
+  export type ConversationLabelUncheckedCreateWithoutCreatedByInput = {
+    conversationId: string
+    labelId: string
+    createdAt?: Date | string
+    removedAt?: Date | string | null
+    removedById?: string | null
+  }
+
+  export type ConversationLabelCreateOrConnectWithoutCreatedByInput = {
+    where: ConversationLabelWhereUniqueInput
+    create: XOR<ConversationLabelCreateWithoutCreatedByInput, ConversationLabelUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type ConversationLabelCreateManyCreatedByInputEnvelope = {
+    data: ConversationLabelCreateManyCreatedByInput | ConversationLabelCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type ConversationLabelCreateWithoutRemovedByInput = {
+    createdAt?: Date | string
+    removedAt?: Date | string | null
+    createdBy?: UserCreateNestedOneWithoutConversationlabelsCreatedInput
+    conversation: ConversationCreateNestedOneWithoutLabelsInput
+    label: LabelCreateNestedOneWithoutConversationsInput
+  }
+
+  export type ConversationLabelUncheckedCreateWithoutRemovedByInput = {
+    conversationId: string
+    labelId: string
+    createdAt?: Date | string
+    createdById?: string | null
+    removedAt?: Date | string | null
+  }
+
+  export type ConversationLabelCreateOrConnectWithoutRemovedByInput = {
+    where: ConversationLabelWhereUniqueInput
+    create: XOR<ConversationLabelCreateWithoutRemovedByInput, ConversationLabelUncheckedCreateWithoutRemovedByInput>
+  }
+
+  export type ConversationLabelCreateManyRemovedByInputEnvelope = {
+    data: ConversationLabelCreateManyRemovedByInput | ConversationLabelCreateManyRemovedByInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantUpsertWithoutUsersInput = {
     update: XOR<TenantUpdateWithoutUsersInput, TenantUncheckedUpdateWithoutUsersInput>
     create: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
@@ -20515,6 +20920,50 @@ export namespace Prisma {
     messageId?: StringFilter<"Mention"> | string
     mentionedId?: StringFilter<"Mention"> | string
     createdAt?: DateTimeFilter<"Mention"> | Date | string
+  }
+
+  export type ConversationLabelUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: ConversationLabelWhereUniqueInput
+    update: XOR<ConversationLabelUpdateWithoutCreatedByInput, ConversationLabelUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<ConversationLabelCreateWithoutCreatedByInput, ConversationLabelUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type ConversationLabelUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: ConversationLabelWhereUniqueInput
+    data: XOR<ConversationLabelUpdateWithoutCreatedByInput, ConversationLabelUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type ConversationLabelUpdateManyWithWhereWithoutCreatedByInput = {
+    where: ConversationLabelScalarWhereInput
+    data: XOR<ConversationLabelUpdateManyMutationInput, ConversationLabelUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type ConversationLabelScalarWhereInput = {
+    AND?: ConversationLabelScalarWhereInput | ConversationLabelScalarWhereInput[]
+    OR?: ConversationLabelScalarWhereInput[]
+    NOT?: ConversationLabelScalarWhereInput | ConversationLabelScalarWhereInput[]
+    conversationId?: StringFilter<"ConversationLabel"> | string
+    labelId?: StringFilter<"ConversationLabel"> | string
+    createdAt?: DateTimeFilter<"ConversationLabel"> | Date | string
+    createdById?: StringNullableFilter<"ConversationLabel"> | string | null
+    removedAt?: DateTimeNullableFilter<"ConversationLabel"> | Date | string | null
+    removedById?: StringNullableFilter<"ConversationLabel"> | string | null
+  }
+
+  export type ConversationLabelUpsertWithWhereUniqueWithoutRemovedByInput = {
+    where: ConversationLabelWhereUniqueInput
+    update: XOR<ConversationLabelUpdateWithoutRemovedByInput, ConversationLabelUncheckedUpdateWithoutRemovedByInput>
+    create: XOR<ConversationLabelCreateWithoutRemovedByInput, ConversationLabelUncheckedCreateWithoutRemovedByInput>
+  }
+
+  export type ConversationLabelUpdateWithWhereUniqueWithoutRemovedByInput = {
+    where: ConversationLabelWhereUniqueInput
+    data: XOR<ConversationLabelUpdateWithoutRemovedByInput, ConversationLabelUncheckedUpdateWithoutRemovedByInput>
+  }
+
+  export type ConversationLabelUpdateManyWithWhereWithoutRemovedByInput = {
+    where: ConversationLabelScalarWhereInput
+    data: XOR<ConversationLabelUpdateManyMutationInput, ConversationLabelUncheckedUpdateManyWithoutRemovedByInput>
   }
 
   export type TenantCreateWithoutTeamsInput = {
@@ -20702,6 +21151,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedUserInput
     labelsCreated?: LabelCreateNestedManyWithoutCreatedByInput
     mentions?: MentionCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserUncheckedCreateWithoutTeamMembershipsInput = {
@@ -20717,6 +21168,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedUserInput
     labelsCreated?: LabelUncheckedCreateNestedManyWithoutCreatedByInput
     mentions?: MentionUncheckedCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserCreateOrConnectWithoutTeamMembershipsInput = {
@@ -20769,6 +21222,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedUserNestedInput
     labelsCreated?: LabelUpdateManyWithoutCreatedByNestedInput
     mentions?: MentionUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
@@ -20784,6 +21239,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedUserNestedInput
     labelsCreated?: LabelUncheckedUpdateManyWithoutCreatedByNestedInput
     mentions?: MentionUncheckedUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
   }
 
   export type TeamUpsertWithoutMembersInput = {
@@ -20861,6 +21318,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedUserInput
     labelsCreated?: LabelCreateNestedManyWithoutCreatedByInput
     mentions?: MentionCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserUncheckedCreateWithoutContactsCreatedInput = {
@@ -20876,6 +21335,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedUserInput
     labelsCreated?: LabelUncheckedCreateNestedManyWithoutCreatedByInput
     mentions?: MentionUncheckedCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserCreateOrConnectWithoutContactsCreatedInput = {
@@ -20990,6 +21451,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedUserNestedInput
     labelsCreated?: LabelUpdateManyWithoutCreatedByNestedInput
     mentions?: MentionUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutContactsCreatedInput = {
@@ -21005,6 +21468,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedUserNestedInput
     labelsCreated?: LabelUncheckedUpdateManyWithoutCreatedByNestedInput
     mentions?: MentionUncheckedUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
   }
 
   export type ConversationUpsertWithWhereUniqueWithoutContactInput = {
@@ -21265,6 +21730,8 @@ export namespace Prisma {
     contactsCreated?: ContactCreateNestedManyWithoutCreatedByInput
     labelsCreated?: LabelCreateNestedManyWithoutCreatedByInput
     mentions?: MentionCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserUncheckedCreateWithoutConversationsAssignedInput = {
@@ -21280,6 +21747,8 @@ export namespace Prisma {
     contactsCreated?: ContactUncheckedCreateNestedManyWithoutCreatedByInput
     labelsCreated?: LabelUncheckedCreateNestedManyWithoutCreatedByInput
     mentions?: MentionUncheckedCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserCreateOrConnectWithoutConversationsAssignedInput = {
@@ -21378,12 +21847,18 @@ export namespace Prisma {
 
   export type ConversationLabelCreateWithoutConversationInput = {
     createdAt?: Date | string
+    removedAt?: Date | string | null
+    createdBy?: UserCreateNestedOneWithoutConversationlabelsCreatedInput
+    removedBy?: UserCreateNestedOneWithoutConversationlabelsRemovedInput
     label: LabelCreateNestedOneWithoutConversationsInput
   }
 
   export type ConversationLabelUncheckedCreateWithoutConversationInput = {
     labelId: string
     createdAt?: Date | string
+    createdById?: string | null
+    removedAt?: Date | string | null
+    removedById?: string | null
   }
 
   export type ConversationLabelCreateOrConnectWithoutConversationInput = {
@@ -21533,6 +22008,8 @@ export namespace Prisma {
     contactsCreated?: ContactUpdateManyWithoutCreatedByNestedInput
     labelsCreated?: LabelUpdateManyWithoutCreatedByNestedInput
     mentions?: MentionUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsAssignedInput = {
@@ -21548,6 +22025,8 @@ export namespace Prisma {
     contactsCreated?: ContactUncheckedUpdateManyWithoutCreatedByNestedInput
     labelsCreated?: LabelUncheckedUpdateManyWithoutCreatedByNestedInput
     mentions?: MentionUncheckedUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
   }
 
   export type TeamUpsertWithoutConversationsInput = {
@@ -21638,15 +22117,6 @@ export namespace Prisma {
   export type ConversationLabelUpdateManyWithWhereWithoutConversationInput = {
     where: ConversationLabelScalarWhereInput
     data: XOR<ConversationLabelUpdateManyMutationInput, ConversationLabelUncheckedUpdateManyWithoutConversationInput>
-  }
-
-  export type ConversationLabelScalarWhereInput = {
-    AND?: ConversationLabelScalarWhereInput | ConversationLabelScalarWhereInput[]
-    OR?: ConversationLabelScalarWhereInput[]
-    NOT?: ConversationLabelScalarWhereInput | ConversationLabelScalarWhereInput[]
-    conversationId?: StringFilter<"ConversationLabel"> | string
-    labelId?: StringFilter<"ConversationLabel"> | string
-    createdAt?: DateTimeFilter<"ConversationLabel"> | Date | string
   }
 
   export type ConversationCreateWithoutMessagesInput = {
@@ -22031,6 +22501,8 @@ export namespace Prisma {
     contactsCreated?: ContactCreateNestedManyWithoutCreatedByInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedUserInput
     mentions?: MentionCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserUncheckedCreateWithoutLabelsCreatedInput = {
@@ -22046,6 +22518,8 @@ export namespace Prisma {
     contactsCreated?: ContactUncheckedCreateNestedManyWithoutCreatedByInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedUserInput
     mentions?: MentionUncheckedCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserCreateOrConnectWithoutLabelsCreatedInput = {
@@ -22055,12 +22529,18 @@ export namespace Prisma {
 
   export type ConversationLabelCreateWithoutLabelInput = {
     createdAt?: Date | string
+    removedAt?: Date | string | null
+    createdBy?: UserCreateNestedOneWithoutConversationlabelsCreatedInput
+    removedBy?: UserCreateNestedOneWithoutConversationlabelsRemovedInput
     conversation: ConversationCreateNestedOneWithoutLabelsInput
   }
 
   export type ConversationLabelUncheckedCreateWithoutLabelInput = {
     conversationId: string
     createdAt?: Date | string
+    createdById?: string | null
+    removedAt?: Date | string | null
+    removedById?: string | null
   }
 
   export type ConversationLabelCreateOrConnectWithoutLabelInput = {
@@ -22138,6 +22618,8 @@ export namespace Prisma {
     contactsCreated?: ContactUpdateManyWithoutCreatedByNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedUserNestedInput
     mentions?: MentionUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLabelsCreatedInput = {
@@ -22153,6 +22635,8 @@ export namespace Prisma {
     contactsCreated?: ContactUncheckedUpdateManyWithoutCreatedByNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedUserNestedInput
     mentions?: MentionUncheckedUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
   }
 
   export type ConversationLabelUpsertWithWhereUniqueWithoutLabelInput = {
@@ -22169,6 +22653,84 @@ export namespace Prisma {
   export type ConversationLabelUpdateManyWithWhereWithoutLabelInput = {
     where: ConversationLabelScalarWhereInput
     data: XOR<ConversationLabelUpdateManyMutationInput, ConversationLabelUncheckedUpdateManyWithoutLabelInput>
+  }
+
+  export type UserCreateWithoutConversationlabelsCreatedInput = {
+    id?: string
+    name: string
+    email: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    teamMemberships?: TeamMemberCreateNestedManyWithoutUserInput
+    contactsCreated?: ContactCreateNestedManyWithoutCreatedByInput
+    conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedUserInput
+    labelsCreated?: LabelCreateNestedManyWithoutCreatedByInput
+    mentions?: MentionCreateNestedManyWithoutMentionedInput
+    conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
+  }
+
+  export type UserUncheckedCreateWithoutConversationlabelsCreatedInput = {
+    id?: string
+    tenantId: string
+    name: string
+    email: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    teamMemberships?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
+    contactsCreated?: ContactUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedUserInput
+    labelsCreated?: LabelUncheckedCreateNestedManyWithoutCreatedByInput
+    mentions?: MentionUncheckedCreateNestedManyWithoutMentionedInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
+  }
+
+  export type UserCreateOrConnectWithoutConversationlabelsCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutConversationlabelsCreatedInput, UserUncheckedCreateWithoutConversationlabelsCreatedInput>
+  }
+
+  export type UserCreateWithoutConversationlabelsRemovedInput = {
+    id?: string
+    name: string
+    email: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    teamMemberships?: TeamMemberCreateNestedManyWithoutUserInput
+    contactsCreated?: ContactCreateNestedManyWithoutCreatedByInput
+    conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedUserInput
+    labelsCreated?: LabelCreateNestedManyWithoutCreatedByInput
+    mentions?: MentionCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserUncheckedCreateWithoutConversationlabelsRemovedInput = {
+    id?: string
+    tenantId: string
+    name: string
+    email: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    teamMemberships?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
+    contactsCreated?: ContactUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedUserInput
+    labelsCreated?: LabelUncheckedCreateNestedManyWithoutCreatedByInput
+    mentions?: MentionUncheckedCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
+  }
+
+  export type UserCreateOrConnectWithoutConversationlabelsRemovedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutConversationlabelsRemovedInput, UserUncheckedCreateWithoutConversationlabelsRemovedInput>
   }
 
   export type ConversationCreateWithoutLabelsInput = {
@@ -22229,6 +22791,96 @@ export namespace Prisma {
   export type LabelCreateOrConnectWithoutConversationsInput = {
     where: LabelWhereUniqueInput
     create: XOR<LabelCreateWithoutConversationsInput, LabelUncheckedCreateWithoutConversationsInput>
+  }
+
+  export type UserUpsertWithoutConversationlabelsCreatedInput = {
+    update: XOR<UserUpdateWithoutConversationlabelsCreatedInput, UserUncheckedUpdateWithoutConversationlabelsCreatedInput>
+    create: XOR<UserCreateWithoutConversationlabelsCreatedInput, UserUncheckedCreateWithoutConversationlabelsCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutConversationlabelsCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutConversationlabelsCreatedInput, UserUncheckedUpdateWithoutConversationlabelsCreatedInput>
+  }
+
+  export type UserUpdateWithoutConversationlabelsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    teamMemberships?: TeamMemberUpdateManyWithoutUserNestedInput
+    contactsCreated?: ContactUpdateManyWithoutCreatedByNestedInput
+    conversationsAssigned?: ConversationUpdateManyWithoutAssignedUserNestedInput
+    labelsCreated?: LabelUpdateManyWithoutCreatedByNestedInput
+    mentions?: MentionUpdateManyWithoutMentionedNestedInput
+    conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutConversationlabelsCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teamMemberships?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+    contactsCreated?: ContactUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedUserNestedInput
+    labelsCreated?: LabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    mentions?: MentionUncheckedUpdateManyWithoutMentionedNestedInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
+  }
+
+  export type UserUpsertWithoutConversationlabelsRemovedInput = {
+    update: XOR<UserUpdateWithoutConversationlabelsRemovedInput, UserUncheckedUpdateWithoutConversationlabelsRemovedInput>
+    create: XOR<UserCreateWithoutConversationlabelsRemovedInput, UserUncheckedCreateWithoutConversationlabelsRemovedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutConversationlabelsRemovedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutConversationlabelsRemovedInput, UserUncheckedUpdateWithoutConversationlabelsRemovedInput>
+  }
+
+  export type UserUpdateWithoutConversationlabelsRemovedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    teamMemberships?: TeamMemberUpdateManyWithoutUserNestedInput
+    contactsCreated?: ContactUpdateManyWithoutCreatedByNestedInput
+    conversationsAssigned?: ConversationUpdateManyWithoutAssignedUserNestedInput
+    labelsCreated?: LabelUpdateManyWithoutCreatedByNestedInput
+    mentions?: MentionUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutConversationlabelsRemovedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teamMemberships?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+    contactsCreated?: ContactUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedUserNestedInput
+    labelsCreated?: LabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    mentions?: MentionUncheckedUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ConversationUpsertWithoutLabelsInput = {
@@ -22379,6 +23031,8 @@ export namespace Prisma {
     contactsCreated?: ContactCreateNestedManyWithoutCreatedByInput
     conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedUserInput
     labelsCreated?: LabelCreateNestedManyWithoutCreatedByInput
+    conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserUncheckedCreateWithoutMentionsInput = {
@@ -22394,6 +23048,8 @@ export namespace Prisma {
     contactsCreated?: ContactUncheckedCreateNestedManyWithoutCreatedByInput
     conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedUserInput
     labelsCreated?: LabelUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
   }
 
   export type UserCreateOrConnectWithoutMentionsInput = {
@@ -22494,6 +23150,8 @@ export namespace Prisma {
     contactsCreated?: ContactUpdateManyWithoutCreatedByNestedInput
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedUserNestedInput
     labelsCreated?: LabelUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMentionsInput = {
@@ -22509,6 +23167,8 @@ export namespace Prisma {
     contactsCreated?: ContactUncheckedUpdateManyWithoutCreatedByNestedInput
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedUserNestedInput
     labelsCreated?: LabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
   }
 
   export type UserCreateManyTenantInput = {
@@ -22585,6 +23245,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUpdateManyWithoutAssignedUserNestedInput
     labelsCreated?: LabelUpdateManyWithoutCreatedByNestedInput
     mentions?: MentionUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantInput = {
@@ -22600,6 +23262,8 @@ export namespace Prisma {
     conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedUserNestedInput
     labelsCreated?: LabelUncheckedUpdateManyWithoutCreatedByNestedInput
     mentions?: MentionUncheckedUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTenantInput = {
@@ -22824,6 +23488,22 @@ export namespace Prisma {
     createdAt?: Date | string
   }
 
+  export type ConversationLabelCreateManyCreatedByInput = {
+    conversationId: string
+    labelId: string
+    createdAt?: Date | string
+    removedAt?: Date | string | null
+    removedById?: string | null
+  }
+
+  export type ConversationLabelCreateManyRemovedByInput = {
+    conversationId: string
+    labelId: string
+    createdAt?: Date | string
+    createdById?: string | null
+    removedAt?: Date | string | null
+  }
+
   export type TeamMemberUpdateWithoutUserInput = {
     role?: EnumTeamRoleFieldUpdateOperationsInput | $Enums.TeamRole
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -22965,6 +23645,54 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     messageId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConversationLabelUpdateWithoutCreatedByInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    removedBy?: UserUpdateOneWithoutConversationlabelsRemovedNestedInput
+    conversation?: ConversationUpdateOneRequiredWithoutLabelsNestedInput
+    label?: LabelUpdateOneRequiredWithoutConversationsNestedInput
+  }
+
+  export type ConversationLabelUncheckedUpdateWithoutCreatedByInput = {
+    conversationId?: StringFieldUpdateOperationsInput | string
+    labelId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    removedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ConversationLabelUncheckedUpdateManyWithoutCreatedByInput = {
+    conversationId?: StringFieldUpdateOperationsInput | string
+    labelId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    removedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type ConversationLabelUpdateWithoutRemovedByInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: UserUpdateOneWithoutConversationlabelsCreatedNestedInput
+    conversation?: ConversationUpdateOneRequiredWithoutLabelsNestedInput
+    label?: LabelUpdateOneRequiredWithoutConversationsNestedInput
+  }
+
+  export type ConversationLabelUncheckedUpdateWithoutRemovedByInput = {
+    conversationId?: StringFieldUpdateOperationsInput | string
+    labelId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type ConversationLabelUncheckedUpdateManyWithoutRemovedByInput = {
+    conversationId?: StringFieldUpdateOperationsInput | string
+    labelId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TeamMemberCreateManyTeamInput = {
@@ -23201,6 +23929,9 @@ export namespace Prisma {
   export type ConversationLabelCreateManyConversationInput = {
     labelId: string
     createdAt?: Date | string
+    createdById?: string | null
+    removedAt?: Date | string | null
+    removedById?: string | null
   }
 
   export type MessageUpdateWithoutConversationInput = {
@@ -23290,17 +24021,26 @@ export namespace Prisma {
 
   export type ConversationLabelUpdateWithoutConversationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: UserUpdateOneWithoutConversationlabelsCreatedNestedInput
+    removedBy?: UserUpdateOneWithoutConversationlabelsRemovedNestedInput
     label?: LabelUpdateOneRequiredWithoutConversationsNestedInput
   }
 
   export type ConversationLabelUncheckedUpdateWithoutConversationInput = {
     labelId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    removedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ConversationLabelUncheckedUpdateManyWithoutConversationInput = {
     labelId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    removedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MentionCreateManyMessageInput = {
@@ -23442,21 +24182,33 @@ export namespace Prisma {
   export type ConversationLabelCreateManyLabelInput = {
     conversationId: string
     createdAt?: Date | string
+    createdById?: string | null
+    removedAt?: Date | string | null
+    removedById?: string | null
   }
 
   export type ConversationLabelUpdateWithoutLabelInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    createdBy?: UserUpdateOneWithoutConversationlabelsCreatedNestedInput
+    removedBy?: UserUpdateOneWithoutConversationlabelsRemovedNestedInput
     conversation?: ConversationUpdateOneRequiredWithoutLabelsNestedInput
   }
 
   export type ConversationLabelUncheckedUpdateWithoutLabelInput = {
     conversationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    removedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ConversationLabelUncheckedUpdateManyWithoutLabelInput = {
     conversationId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdById?: NullableStringFieldUpdateOperationsInput | string | null
+    removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    removedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

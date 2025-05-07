@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Channel, Contact } from 'prisma/generated/prisma';
+import { CreateConversationLabelDto } from './dto/create-conversation-label.dto';
 
 @Injectable()
 export class ConversationsService {
@@ -46,5 +47,4 @@ export class ConversationsService {
       }
     });
   }
-
 }

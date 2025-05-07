@@ -48,11 +48,13 @@ model User {
   isVerified Boolean  @default(false)
   createdAt  DateTime @default(now())
 
-  teamMemberships       TeamMember[]
-  contactsCreated       Contact[]      @relation("ContactCreatedBy")
-  conversationsAssigned Conversation[] @relation("AssignedUser")
-  labelsCreated         Label[]        @relation("LabelCreatedBy")
-  mentions              Mention[]
+  teamMemberships           TeamMember[]
+  contactsCreated           Contact[]           @relation("ContactCreatedBy")
+  conversationsAssigned     Conversation[]      @relation("AssignedUser")
+  labelsCreated             Label[]             @relation("LabelCreatedBy")
+  mentions                  Mention[]
+  conversationlabelsCreated ConversationLabel[] @relation("ConvLabelCreatedBy")
+  conversationlabelsRemoved ConversationLabel[] @relation("ConvLabelRemovedBy")
 }
 
 model Team {
@@ -241,10 +243,14 @@ model Label {
 model ConversationLabel {
   conversationId String
   labelId        String
-  createdAt      DateTime @default(now())
-
-  conversation Conversation @relation(fields: [conversationId], references: [id])
-  label        Label        @relation(fields: [labelId], references: [id])
+  createdAt      DateTime     @default(now())
+  createdById    String?
+  removedAt      DateTime?
+  removedById    String?
+  createdBy      User?        @relation("ConvLabelCreatedBy", fields: [createdById], references: [id])
+  removedBy      User?        @relation("ConvLabelRemovedBy", fields: [removedById], references: [id])
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  label          Label        @relation(fields: [labelId], references: [id])
 
   @@id([conversationId, labelId])
 }

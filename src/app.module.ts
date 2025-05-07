@@ -10,9 +10,11 @@ import { ContactsModule } from './contacts/contacts.module';
 import { ConversationsModule } from './conversations/conversations.module';
 import { WebhookModule } from './webhook/webhook.module';
 import { AuthModule } from './auth/auth.module';
+import { LabelsModule } from './labels/labels.module';
+import { ConversationLabelsModule } from './conversation-labels/conversation-labels.module';
 
 @Module({
-  imports: [PrismaModule, UsersModule, TenantsModule, ChannelsModule, MessagesModule, ContactsModule, ConversationsModule, WebhookModule, AuthModule],
+  imports: [PrismaModule, UsersModule, TenantsModule, ChannelsModule, MessagesModule, ContactsModule, ConversationsModule, WebhookModule, AuthModule, LabelsModule, ConversationLabelsModule],
   controllers: [AppController],
   providers: [AppService],
 })
