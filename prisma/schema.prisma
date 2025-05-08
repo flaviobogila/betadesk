@@ -63,6 +63,7 @@ model Team {
   tenant     Tenant   @relation(fields: [tenantId], references: [id])
   name       String
   createdAt  DateTime @default(now())
+  deletedAt  DateTime?
 
   members        TeamMember[]
   conversations  Conversation[]
@@ -82,7 +83,7 @@ model TeamMember {
   user User @relation(fields: [userId], references: [id])
   team Team @relation(fields: [teamId], references: [id])
 
-  @@id([userId, teamId])
+  @@id([userId, teamId], name: "user_team_id")
 }
 
 model Contact {

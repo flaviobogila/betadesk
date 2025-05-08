@@ -4821,6 +4821,7 @@ export namespace Prisma {
     tenantId: string | null
     name: string | null
     createdAt: Date | null
+    deletedAt: Date | null
   }
 
   export type TeamMaxAggregateOutputType = {
@@ -4828,6 +4829,7 @@ export namespace Prisma {
     tenantId: string | null
     name: string | null
     createdAt: Date | null
+    deletedAt: Date | null
   }
 
   export type TeamCountAggregateOutputType = {
@@ -4835,6 +4837,7 @@ export namespace Prisma {
     tenantId: number
     name: number
     createdAt: number
+    deletedAt: number
     _all: number
   }
 
@@ -4844,6 +4847,7 @@ export namespace Prisma {
     tenantId?: true
     name?: true
     createdAt?: true
+    deletedAt?: true
   }
 
   export type TeamMaxAggregateInputType = {
@@ -4851,6 +4855,7 @@ export namespace Prisma {
     tenantId?: true
     name?: true
     createdAt?: true
+    deletedAt?: true
   }
 
   export type TeamCountAggregateInputType = {
@@ -4858,6 +4863,7 @@ export namespace Prisma {
     tenantId?: true
     name?: true
     createdAt?: true
+    deletedAt?: true
     _all?: true
   }
 
@@ -4938,6 +4944,7 @@ export namespace Prisma {
     tenantId: string
     name: string
     createdAt: Date
+    deletedAt: Date | null
     _count: TeamCountAggregateOutputType | null
     _min: TeamMinAggregateOutputType | null
     _max: TeamMaxAggregateOutputType | null
@@ -4962,6 +4969,7 @@ export namespace Prisma {
     tenantId?: boolean
     name?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     members?: boolean | Team$membersArgs<ExtArgs>
     conversations?: boolean | Team$conversationsArgs<ExtArgs>
@@ -4973,6 +4981,7 @@ export namespace Prisma {
     tenantId?: boolean
     name?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
@@ -4981,6 +4990,7 @@ export namespace Prisma {
     tenantId?: boolean
     name?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["team"]>
 
@@ -4989,9 +4999,10 @@ export namespace Prisma {
     tenantId?: boolean
     name?: boolean
     createdAt?: boolean
+    deletedAt?: boolean
   }
 
-  export type TeamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "name" | "createdAt", ExtArgs["result"]["team"]>
+  export type TeamOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "tenantId" | "name" | "createdAt" | "deletedAt", ExtArgs["result"]["team"]>
   export type TeamInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     members?: boolean | Team$membersArgs<ExtArgs>
@@ -5017,6 +5028,7 @@ export namespace Prisma {
       tenantId: string
       name: string
       createdAt: Date
+      deletedAt: Date | null
     }, ExtArgs["result"]["team"]>
     composites: {}
   }
@@ -5447,6 +5459,7 @@ export namespace Prisma {
     readonly tenantId: FieldRef<"Team", 'String'>
     readonly name: FieldRef<"Team", 'String'>
     readonly createdAt: FieldRef<"Team", 'DateTime'>
+    readonly deletedAt: FieldRef<"Team", 'DateTime'>
   }
     
 
@@ -15366,7 +15379,8 @@ export namespace Prisma {
     id: 'id',
     tenantId: 'tenantId',
     name: 'name',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    deletedAt: 'deletedAt'
   };
 
   export type TeamScalarFieldEnum = (typeof TeamScalarFieldEnum)[keyof typeof TeamScalarFieldEnum]
@@ -15913,6 +15927,7 @@ export namespace Prisma {
     tenantId?: StringFilter<"Team"> | string
     name?: StringFilter<"Team"> | string
     createdAt?: DateTimeFilter<"Team"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Team"> | Date | string | null
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     members?: TeamMemberListRelationFilter
     conversations?: ConversationListRelationFilter
@@ -15923,6 +15938,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     tenant?: TenantOrderByWithRelationInput
     members?: TeamMemberOrderByRelationAggregateInput
     conversations?: ConversationOrderByRelationAggregateInput
@@ -15936,6 +15952,7 @@ export namespace Prisma {
     tenantId?: StringFilter<"Team"> | string
     name?: StringFilter<"Team"> | string
     createdAt?: DateTimeFilter<"Team"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Team"> | Date | string | null
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     members?: TeamMemberListRelationFilter
     conversations?: ConversationListRelationFilter
@@ -15946,6 +15963,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrderInput | SortOrder
     _count?: TeamCountOrderByAggregateInput
     _max?: TeamMaxOrderByAggregateInput
     _min?: TeamMinOrderByAggregateInput
@@ -15959,6 +15977,7 @@ export namespace Prisma {
     tenantId?: StringWithAggregatesFilter<"Team"> | string
     name?: StringWithAggregatesFilter<"Team"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Team"> | Date | string
+    deletedAt?: DateTimeNullableWithAggregatesFilter<"Team"> | Date | string | null
   }
 
   export type TeamMemberWhereInput = {
@@ -15983,7 +16002,7 @@ export namespace Prisma {
   }
 
   export type TeamMemberWhereUniqueInput = Prisma.AtLeast<{
-    userId_teamId?: TeamMemberUserIdTeamIdCompoundUniqueInput
+    user_team_id?: TeamMemberUser_team_idCompoundUniqueInput
     AND?: TeamMemberWhereInput | TeamMemberWhereInput[]
     OR?: TeamMemberWhereInput[]
     NOT?: TeamMemberWhereInput | TeamMemberWhereInput[]
@@ -15993,7 +16012,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"TeamMember"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     team?: XOR<TeamScalarRelationFilter, TeamWhereInput>
-  }, "userId_teamId">
+  }, "user_team_id">
 
   export type TeamMemberOrderByWithAggregationInput = {
     userId?: SortOrder
@@ -16845,6 +16864,7 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     tenant: TenantCreateNestedOneWithoutTeamsInput
     members?: TeamMemberCreateNestedManyWithoutTeamInput
     conversations?: ConversationCreateNestedManyWithoutTeamInput
@@ -16855,6 +16875,7 @@ export namespace Prisma {
     tenantId: string
     name: string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     members?: TeamMemberUncheckedCreateNestedManyWithoutTeamInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutTeamInput
   }
@@ -16863,6 +16884,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tenant?: TenantUpdateOneRequiredWithoutTeamsNestedInput
     members?: TeamMemberUpdateManyWithoutTeamNestedInput
     conversations?: ConversationUpdateManyWithoutTeamNestedInput
@@ -16873,6 +16895,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutTeamNestedInput
   }
@@ -16882,12 +16905,14 @@ export namespace Prisma {
     tenantId: string
     name: string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type TeamUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TeamUncheckedUpdateManyInput = {
@@ -16895,6 +16920,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TeamMemberCreateInput = {
@@ -17889,11 +17915,23 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type TeamCountOrderByAggregateInput = {
     id?: SortOrder
     tenantId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type TeamMaxOrderByAggregateInput = {
@@ -17901,6 +17939,7 @@ export namespace Prisma {
     tenantId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrder
   }
 
   export type TeamMinOrderByAggregateInput = {
@@ -17908,6 +17947,21 @@ export namespace Prisma {
     tenantId?: SortOrder
     name?: SortOrder
     createdAt?: SortOrder
+    deletedAt?: SortOrder
+  }
+
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumTeamRoleFilter<$PrismaModel = never> = {
@@ -17927,7 +17981,7 @@ export namespace Prisma {
     isNot?: TeamWhereInput
   }
 
-  export type TeamMemberUserIdTeamIdCompoundUniqueInput = {
+  export type TeamMemberUser_team_idCompoundUniqueInput = {
     userId: string
     teamId: string
   }
@@ -18124,17 +18178,6 @@ export namespace Prisma {
     not?: NestedEnumConversationStatusFilter<$PrismaModel> | $Enums.ConversationStatus
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type ContactScalarRelationFilter = {
     is?: ContactWhereInput
     isNot?: ContactWhereInput
@@ -18213,20 +18256,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumConversationStatusFilter<$PrismaModel>
     _max?: NestedEnumConversationStatusFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumSenderTypeFilter<$PrismaModel = never> = {
@@ -19128,6 +19157,10 @@ export namespace Prisma {
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type TenantUpdateOneRequiredWithoutTeamsNestedInput = {
     create?: XOR<TenantCreateWithoutTeamsInput, TenantUncheckedCreateWithoutTeamsInput>
     connectOrCreate?: TenantCreateOrConnectWithoutTeamsInput
@@ -19418,10 +19451,6 @@ export namespace Prisma {
 
   export type EnumConversationStatusFieldUpdateOperationsInput = {
     set?: $Enums.ConversationStatus
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type TenantUpdateOneRequiredWithoutConversationsNestedInput = {
@@ -19961,6 +19990,31 @@ export namespace Prisma {
     _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type NestedEnumTeamRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.TeamRole | EnumTeamRoleFieldRefInput<$PrismaModel>
     in?: $Enums.TeamRole[] | ListEnumTeamRoleFieldRefInput<$PrismaModel>
@@ -20025,17 +20079,6 @@ export namespace Prisma {
     not?: NestedEnumConversationStatusFilter<$PrismaModel> | $Enums.ConversationStatus
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedEnumConversationStatusWithAggregatesFilter<$PrismaModel = never> = {
     equals?: $Enums.ConversationStatus | EnumConversationStatusFieldRefInput<$PrismaModel>
     in?: $Enums.ConversationStatus[] | ListEnumConversationStatusFieldRefInput<$PrismaModel>
@@ -20044,20 +20087,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumConversationStatusFilter<$PrismaModel>
     _max?: NestedEnumConversationStatusFilter<$PrismaModel>
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumSenderTypeFilter<$PrismaModel = never> = {
@@ -20203,6 +20232,7 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     members?: TeamMemberCreateNestedManyWithoutTeamInput
     conversations?: ConversationCreateNestedManyWithoutTeamInput
   }
@@ -20211,6 +20241,7 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     members?: TeamMemberUncheckedCreateNestedManyWithoutTeamInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutTeamInput
   }
@@ -20419,6 +20450,7 @@ export namespace Prisma {
     tenantId?: StringFilter<"Team"> | string
     name?: StringFilter<"Team"> | string
     createdAt?: DateTimeFilter<"Team"> | Date | string
+    deletedAt?: DateTimeNullableFilter<"Team"> | Date | string | null
   }
 
   export type ContactUpsertWithWhereUniqueWithoutTenantInput = {
@@ -21181,6 +21213,7 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     tenant: TenantCreateNestedOneWithoutTeamsInput
     conversations?: ConversationCreateNestedManyWithoutTeamInput
   }
@@ -21190,6 +21223,7 @@ export namespace Prisma {
     tenantId: string
     name: string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     conversations?: ConversationUncheckedCreateNestedManyWithoutTeamInput
   }
 
@@ -21258,6 +21292,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tenant?: TenantUpdateOneRequiredWithoutTeamsNestedInput
     conversations?: ConversationUpdateManyWithoutTeamNestedInput
   }
@@ -21267,6 +21302,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     conversations?: ConversationUncheckedUpdateManyWithoutTeamNestedInput
   }
 
@@ -21760,6 +21796,7 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     tenant: TenantCreateNestedOneWithoutTeamsInput
     members?: TeamMemberCreateNestedManyWithoutTeamInput
   }
@@ -21769,6 +21806,7 @@ export namespace Prisma {
     tenantId: string
     name: string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
     members?: TeamMemberUncheckedCreateNestedManyWithoutTeamInput
   }
 
@@ -22044,6 +22082,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     tenant?: TenantUpdateOneRequiredWithoutTeamsNestedInput
     members?: TeamMemberUpdateManyWithoutTeamNestedInput
   }
@@ -22053,6 +22092,7 @@ export namespace Prisma {
     tenantId?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
   }
 
@@ -23185,6 +23225,7 @@ export namespace Prisma {
     id?: string
     name: string
     createdAt?: Date | string
+    deletedAt?: Date | string | null
   }
 
   export type ContactCreateManyTenantInput = {
@@ -23280,6 +23321,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: TeamMemberUpdateManyWithoutTeamNestedInput
     conversations?: ConversationUpdateManyWithoutTeamNestedInput
   }
@@ -23288,6 +23330,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     members?: TeamMemberUncheckedUpdateManyWithoutTeamNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutTeamNestedInput
   }
@@ -23296,6 +23339,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type ContactUpdateWithoutTenantInput = {

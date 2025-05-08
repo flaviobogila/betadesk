@@ -12,9 +12,11 @@ import { WebhookModule } from './webhook/webhook.module';
 import { AuthModule } from './auth/auth.module';
 import { LabelsModule } from './labels/labels.module';
 import { ConversationLabelsModule } from './conversation-labels/conversation-labels.module';
+import { TeamsModule } from './teams/teams.module';
+import { TeamMembersModule } from './team-members/team-members.module';
 
 @Module({
-  imports: [PrismaModule, UsersModule, TenantsModule, ChannelsModule, MessagesModule, ContactsModule, ConversationsModule, WebhookModule, AuthModule, LabelsModule, ConversationLabelsModule],
+  imports: [PrismaModule, UsersModule, TenantsModule, ChannelsModule, MessagesModule, ContactsModule, ConversationsModule, WebhookModule, AuthModule, LabelsModule, ConversationLabelsModule, TeamsModule, TeamMembersModule],
   controllers: [AppController],
   providers: [AppService],
 })
