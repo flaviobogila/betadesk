@@ -13,8 +13,27 @@ export class MessageService {
     return this.prisma.message.create({ data, include: { replyTo: true } });
   }
 
+  async createPrivateMessageWithMention(data: Prisma.MessageCreateInput, mentionedUserId: string) {
+    return this.prisma.$transaction(async (tx) => {
+      const message = await tx.message.create({
+        data, include: { replyTo: true }
+      });
+      const mention = await tx.mention.create({
+        data: {
+          messageId: message.id,
+          mentionedId: mentionedUserId,
+        },
+      });
+      return { message, mention };
+    });
+  }
+
   async buildAndCreate(messageDto: SendMessageBaseDto, user: SupabaseUser) {
-    const entityMessage = await this.factory.buildMessage(messageDto.messageType, messageDto, user );
+    const entityMessage = await this.factory.buildMessage(messageDto.messageType, messageDto, user);
+    if(messageDto.isPrivate) {
+      const messageAndMention = await this.createPrivateMessageWithMention(entityMessage, messageDto.mentionedUserId!);
+      return messageAndMention.message;
+    }
     return await this.create(entityMessage);
   }
 
@@ -31,7 +50,7 @@ export class MessageService {
       return existing;
     }
 
-    if(replyTo){
+    if (replyTo) {
       const replyMessage = await this.prisma.message.findFirst({
         where: {
           conversationId: conversationId,
@@ -39,7 +58,7 @@ export class MessageService {
         },
       });
 
-      if(replyMessage){
+      if (replyMessage) {
         return this.prisma.message.create({
           data: {
             ...input, conversation: {
@@ -75,6 +94,17 @@ export class MessageService {
         status,
         ...extras,
       },
+    });
+  }
+
+  async findAll(conversationId: string) {
+    return this.prisma.message.findMany({
+      where: { conversationId },
+      include: {
+        replyTo: true,
+        mentions: true,
+      },
+      orderBy: { createdAt: 'desc' },
     });
   }
 }

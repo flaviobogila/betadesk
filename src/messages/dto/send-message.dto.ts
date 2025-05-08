@@ -1,5 +1,5 @@
 // src/messages/dto/send-message-base.dto.ts
-import { IsUUID, IsEnum, IsNotEmpty, IsOptional, ValidateIf, IsString, IsUrl, IsObject, IsArray, ValidateNested, isNotEmpty } from 'class-validator';
+import { IsUUID, IsEnum, IsNotEmpty, IsOptional, ValidateIf, IsString, IsUrl, IsObject, IsArray, ValidateNested, isNotEmpty, IsBoolean } from 'class-validator';
 import { MessageType } from './message-type.enum';
 import { ApiProperty } from '@nestjs/swagger';
 import { SendContactMessageDto } from './send-contact-message.dto';
@@ -28,6 +28,16 @@ export class SendMessageBaseDto {
   @ValidateIf((o) => o.messageType === MessageType.text || o.messageType === MessageType.button || o.messageType === MessageType.list)
   @IsNotEmpty({ message: 'O campo content não pode estar vazio para mensagens de texto.' })
   content?: string;
+
+  @ApiProperty()
+  @ValidateIf((o) => o.messageType === MessageType.text)
+  @IsBoolean({ message: 'O campo isPrivate deve ser um booleano.' })
+  isPrivate?: string;
+
+  @ApiProperty()
+  @ValidateIf((o) => o.messageType === MessageType.text)
+  @IsUUID(undefined, { message: 'O campo mentionedUserId deve ser um uuid.' })
+  mentionedUserId?: string;
 
   @ApiProperty({example: 'https://example.com/image.jpg'})
   @ValidateIf((o) => o.messageType === MessageType.image)

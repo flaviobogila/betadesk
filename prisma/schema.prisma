@@ -15,20 +15,20 @@ datasource db {
 }
 
 model Tenant {
-  id          String         @id @default(uuid())
-  name        String
-  slug        String         @unique
-  logoUrl     String?
-  plan        String?
-  isActive    Boolean        @default(true)
-  createdAt   DateTime       @default(now())
+  id            String     @id @default(uuid())
+  name          String
+  slug          String     @unique
+  logoUrl       String?
+  plan          String?
+  isActive      Boolean    @default(true)
+  createdAt     DateTime   @default(now())
 
   users          User[]
   teams          Team[]
   contacts       Contact[]
   conversations  Conversation[]
   labels         Label[]
-  channels Channel[]
+  channels       Channel[]
 }
 
 enum UserRole {
@@ -43,7 +43,7 @@ model User {
   tenant     Tenant   @relation(fields: [tenantId], references: [id])
   name       String
   email      String   @unique
-  role       UserRole   @default(agent)
+  role       UserRole @default(agent)
   isActive   Boolean  @default(true)
   isVerified Boolean  @default(false)
   createdAt  DateTime @default(now())
@@ -54,7 +54,7 @@ model User {
   labelsCreated               Label[]        @relation("LabelCreatedBy")
   mentions                    Mention[]
   conversationlabelsCreated   ConversationLabel[] @relation("ConvLabelCreatedBy")
-  conversationlabelsRemoved  ConversationLabel[] @relation("ConvLabelRemovedBy")
+  conversationlabelsRemoved   ConversationLabel[] @relation("ConvLabelRemovedBy")
 }
 
 model Team {
@@ -112,7 +112,7 @@ enum ChannelType {
 }
 
 model Channel {
-  id         String   @id @default(uuid())
+  id         String    @id @default(uuid())
   tenantId   String
   tenant     Tenant?   @relation(fields: [tenantId], references: [id])
   name       String
@@ -120,8 +120,8 @@ model Channel {
   provider   String?  // ex: '360dialog', 'meta', 'z-api'
   externalId String?  // ID da API externa
   token      String?  // Token de autenticação (pode ser encriptado)
-  isActive   Boolean  @default(true)
-  createdAt  DateTime @default(now())
+  isActive   Boolean   @default(true)
+  createdAt  DateTime  @default(now())
   metadata   Json?
 
   conversations Conversation[]
@@ -142,7 +142,7 @@ model Conversation {
   contactId        String
   contact          Contact  @relation(fields: [contactId], references: [id])
   channelId        String
-  channel          Channel @relation(fields: [channelId], references: [id])
+  channel          Channel  @relation(fields: [channelId], references: [id])
   provider         String // 'whatsapp', 'instagram', 'facebook' 
   externalId       String // ID da conversa na API externa
   externalChannelId String // ID do canal na API externa
@@ -181,6 +181,7 @@ enum SenderType {
   system
   agent
 }
+
 enum MessageStatus {
   pending
   sent
@@ -197,7 +198,7 @@ enum MediaStatus {
 }
 
 model Message {
-  id                String   @id @default(uuid())
+  id                String       @id @default(uuid())
   conversationId    String
   conversation      Conversation @relation(fields: [conversationId], references: [id])
   senderType        SenderType
@@ -246,7 +247,7 @@ model ConversationLabel {
   labelId        String
   createdAt      DateTime @default(now())
   createdById    String?
-  removedAt     DateTime?
+  removedAt      DateTime?
   removedById    String?
   createdBy      User?        @relation("ConvLabelCreatedBy", fields: [createdById], references: [id])
   removedBy      User?        @relation("ConvLabelRemovedBy", fields: [removedById], references: [id])
@@ -257,10 +258,10 @@ model ConversationLabel {
 }
 
 model Mention {
-  id         String   @id @default(uuid())
-  messageId  String
-  message    Message  @relation(fields: [messageId], references: [id])
+  id          String   @id @default(uuid())
+  messageId   String
+  message     Message  @relation(fields: [messageId], references: [id])
   mentionedId String
-  mentioned  User     @relation(fields: [mentionedId], references: [id])
-  createdAt  DateTime @default(now())
+  mentioned   User     @relation(fields: [mentionedId], references: [id])
+  createdAt   DateTime @default(now())
 }

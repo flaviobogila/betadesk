@@ -75,8 +75,9 @@ export class MessageFactoryService {
       senderName: sender?.name,
       messageType: 'text',
       content: dto.content,
-      status: 'pending',
-      replyTo: dto.replyTo ? { connect: { id: dto.replyTo } } : undefined
+      status: dto.isPrivate ? 'sent': 'pending',
+      replyTo: dto.replyTo ? { connect: { id: dto.replyTo } } : undefined,
+      isPrivate: dto.isPrivate ? true : false
     };
   }
 
