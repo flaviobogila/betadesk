@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Channel, Contact } from 'prisma/generated/prisma';
+import { Channel, Contact, ConversationStatus, LogType, ParticipantRole } from 'prisma/generated/prisma';
+import { HttpStatusCode } from 'axios';
+import { ConversationsLogService } from './conversations-logs.service';
+import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
 
 @Injectable()
 export class ConversationsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService, private readonly conversationLogService: ConversationsLogService) { }
 
   findOne(id: string) {
     return this.prisma.conversation.findFirst({
@@ -89,12 +92,163 @@ export class ConversationsService {
     });
   }
 
-  assingToAgentUser(id: string, userId: string) {
-    return this.prisma.conversation.update({
-      where: { id},
-      data: {
-        assignedUserId: userId,
+  assignToAgentUser(id: string, userId: string, roleToAssign?: ParticipantRole, assignedBy?: SupabaseUser) {
+
+    return this.prisma.$transaction(async (tx) => {
+
+      const conversation = await tx.conversation.findFirst({
+        where: {
+          id
+        }
+      });
+
+      if (conversation != null && conversation.assignedUserId == userId) {
+        throw new HttpException('O agente já está vinculado a conversa', HttpStatusCode.BadRequest);
+      }
+
+      this.prisma.conversation.update({
+        where: { id },
+        data: {
+          assignedUserId: userId,
+        }
+      });
+
+      await this.conversationLogService.create({
+        conversationId: id,
+        type: LogType.AGENT_CHANGE,
+        from: conversation?.assignedUserId || undefined,
+        to: userId,
+        performedBy: assignedBy!.id,
+        metadata: {
+          userId: assignedBy!.id,
+          userName: assignedBy!.name
+        }
+      })
+
+      let participant = await tx.conversationParticipant.findFirst({
+        where: {
+          conversationId: id,
+          userId
+        }
+      });
+
+      //só podemos mudar a role de sender para assignee, nunca o contrário
+      if (participant) {
+        if (roleToAssign == ParticipantRole.assignee) {
+          participant = await tx.conversationParticipant.update({
+            where: {
+              conversation_participant_id: {
+                conversationId: id,
+                userId
+              }
+            },
+            data: {
+              role: roleToAssign,
+              assignedById: assignedBy?.id
+            }
+          });
+        }
+      }
+      else{
+        participant = await tx.conversationParticipant.create({
+          data: {
+            conversationId: id,
+            userId,
+            assignedById: assignedBy?.id,
+            role: roleToAssign
+          }
+        });
+      }
+      return { conversation, participant };
+    });
+  }
+
+  async assignToTeam(id: string, teamId: string, user: SupabaseUser) {
+
+    let conversation = await this.prisma.conversation.findUnique({
+      where: { id },
+      include: {
+        team: true
       }
     });
+
+    if (!conversation) {
+      throw new HttpException('Conversa não encontrada', HttpStatusCode.NotFound);
+    }
+
+    if (conversation.teamId == teamId) {
+      return conversation
+    }
+
+    const oldTeam = conversation?.team;
+
+    conversation = await this.prisma.conversation.update({
+      where: { id },
+      data: {
+        teamId,
+      },
+      include: {
+        team: true
+      }
+    });
+
+    await this.conversationLogService.create({
+        conversationId: id,
+        type: LogType.TEAM_CHANGE,
+        from: oldTeam?.name || undefined,
+        to: conversation.team?.name || undefined,
+        performedBy: user.id,
+        metadata: {
+          userId: user.id,
+          userName: user.name,
+          oldTeamId: oldTeam?.id,
+          newTeamId: conversation.team?.id
+        }
+    })
+
+    return conversation;
+  }
+
+  async updateStatus(id: string, status: ConversationStatus, user: SupabaseUser) {
+
+    let conversation = await this.prisma.conversation.findUnique({
+      where: { id },
+      select: {
+        status: true
+      }
+    });
+
+    if (!conversation) {
+      throw new HttpException('Conversa não encontrada', HttpStatusCode.NotFound);
+    }
+
+    if (conversation.status == status) {
+      return conversation
+    }
+
+    const oldStatus = conversation.status;
+
+    conversation = await this.prisma.conversation.update({
+      where: { id },
+      data: {
+        status,
+        closedAt: status == ConversationStatus.closed ? new Date() : undefined,
+      },
+    });
+
+    await this.conversationLogService.create({
+      conversationId: id,
+        type: LogType.STATUS_CHANGE,
+        from: oldStatus,
+        to: status,
+        performedBy: user.id,
+        metadata: {
+          userId: user.id,
+          userName: user.name
+        }
+    })
+
+    return conversation;
+
   }
 }

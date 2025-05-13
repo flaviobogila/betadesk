@@ -193,7 +193,8 @@ exports.Prisma.ConversationScalarFieldEnum = {
   assignedUserId: 'assignedUserId',
   teamId: 'teamId',
   lastMessageAt: 'lastMessageAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  closedAt: 'closedAt'
 };
 
 exports.Prisma.MessageScalarFieldEnum = {
@@ -246,6 +247,26 @@ exports.Prisma.MentionScalarFieldEnum = {
   id: 'id',
   messageId: 'messageId',
   mentionedId: 'mentionedId',
+  createdAt: 'createdAt'
+};
+
+exports.Prisma.ConversationParticipantScalarFieldEnum = {
+  conversationId: 'conversationId',
+  userId: 'userId',
+  role: 'role',
+  joinedAt: 'joinedAt',
+  assignedById: 'assignedById'
+};
+
+exports.Prisma.ConversationLogScalarFieldEnum = {
+  id: 'id',
+  conversationId: 'conversationId',
+  type: 'type',
+  from: 'from',
+  to: 'to',
+  performedBy: 'performedBy',
+  comment: 'comment',
+  metadata: 'metadata',
   createdAt: 'createdAt'
 };
 
@@ -336,6 +357,21 @@ exports.MessageStatus = exports.$Enums.MessageStatus = {
   read: 'read'
 };
 
+exports.ParticipantRole = exports.$Enums.ParticipantRole = {
+  assignee: 'assignee',
+  sender: 'sender'
+};
+
+exports.LogType = exports.$Enums.LogType = {
+  CREATED: 'CREATED',
+  STATUS_CHANGE: 'STATUS_CHANGE',
+  AGENT_CHANGE: 'AGENT_CHANGE',
+  TEAM_CHANGE: 'TEAM_CHANGE',
+  LABEL_ADDED: 'LABEL_ADDED',
+  LABEL_REMOVED: 'LABEL_REMOVED',
+  CUSTOM: 'CUSTOM'
+};
+
 exports.Prisma.ModelName = {
   Tenant: 'Tenant',
   User: 'User',
@@ -347,7 +383,9 @@ exports.Prisma.ModelName = {
   Message: 'Message',
   Label: 'Label',
   ConversationLabel: 'ConversationLabel',
-  Mention: 'Mention'
+  Mention: 'Mention',
+  ConversationParticipant: 'ConversationParticipant',
+  ConversationLog: 'ConversationLog'
 };
 
 /**

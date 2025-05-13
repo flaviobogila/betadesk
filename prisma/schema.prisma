@@ -55,6 +55,8 @@ model User {
   mentions                    Mention[]
   conversationlabelsCreated   ConversationLabel[] @relation("ConvLabelCreatedBy")
   conversationlabelsRemoved   ConversationLabel[] @relation("ConvLabelRemovedBy")
+  participantAssignments      ConversationParticipant[] @relation("ParticipantAssignedBy")
+  conversationParticipated    ConversationParticipant[]
 }
 
 model Team {
@@ -153,9 +155,12 @@ model Conversation {
   team             Team?    @relation(fields: [teamId], references: [id])
   lastMessageAt    DateTime?
   createdAt        DateTime @default(now())
+  closedAt         DateTime?
 
   messages         Message[]
   labels           ConversationLabel[]
+  participants     ConversationParticipant[]
+  logs            ConversationLog[]
 
   @@index([externalId, externalChannelId])
 }
@@ -265,3 +270,48 @@ model Mention {
   mentioned   User     @relation(fields: [mentionedId], references: [id])
   createdAt   DateTime @default(now())
 }
+
+model ConversationParticipant {
+  conversationId String
+  userId         String
+  role           ParticipantRole @default(assignee) // 'assignee' ou 'sender'
+  joinedAt       DateTime        @default(now())
+  assignedById    String?
+
+  assignedBy     User?           @relation("ParticipantAssignedBy", fields: [assignedById], references: [id])
+  conversation   Conversation    @relation(fields: [conversationId], references: [id])
+  user           User            @relation(fields: [userId], references: [id])
+
+  @@id([conversationId, userId], name: "conversation_participant_id")
+}
+
+enum ParticipantRole {
+  assignee
+  sender
+}
+
+model ConversationLog {
+  id             String   @id @default(cuid())
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String
+  type           LogType
+  from           String? // valor anterior (por exemplo, status anterior, agente anterior etc.)
+  to             String? // valor novo (novo status, novo agente etc.)
+  performedBy    String? // ID do agente ou do sistema que executou a ação [userId, 'system', 'bot']
+  comment        String? // comentário opcional ou motivo da mudança
+  metadata       Json?   // dados adicionais sobre a ação
+  createdAt      DateTime @default(now())
+
+  @@index([conversationId, createdAt])
+}
+
+enum LogType {
+  CREATED
+  STATUS_CHANGE
+  AGENT_CHANGE
+  TEAM_CHANGE
+  LABEL_ADDED
+  LABEL_REMOVED
+  CUSTOM
+}
+
