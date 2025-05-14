@@ -19,12 +19,12 @@ import { join } from 'path';
 
 @Module({
   imports: [
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '..', 'public'), // caminho para a pasta 'public'
-      exclude: ['/api*'], // exclui rotas da API, se houver
-    }),
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'public'), // caminho para a pasta 'public'
+    //   exclude: ['/api*'], // exclui rotas da API, se houver
+    // }),
     PrismaModule, UsersModule, TenantsModule, ChannelsModule, MessagesModule, ContactsModule, ConversationsModule, WebhookModule, AuthModule, LabelsModule, ConversationLabelsModule, TeamsModule, TeamMembersModule],
-  //controllers: [AppController],
+  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
