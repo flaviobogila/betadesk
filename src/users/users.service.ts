@@ -39,8 +39,10 @@ export class UsersService {
     });
   }
 
-  findAll() {
+  findAll(tenantId: string) {
     return this.prisma.user.findMany({
+      where: { tenantId },
+      orderBy: { name: 'asc' },
       include: {
         tenant: true,
       },
