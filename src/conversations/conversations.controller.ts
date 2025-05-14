@@ -24,11 +24,6 @@ export class ConversationsController {
     return this.conversationsService.findOne(id);
   }
 
-  @Get(':id/messages')
-  findAllMessages(@Param('id') id: string) {
-    return this.messageService.findAll(id)
-  }
-
   @Patch(':id/teams/:teamId')
   changeTeam(
     @CurrentUser() loggedUser: SupabaseUser, 

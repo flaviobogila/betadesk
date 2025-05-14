@@ -84,12 +84,16 @@ export class MessageService {
   }
 
   async updateMessageStatus(
-    id: string,
+    externalId: string,
     status: 'sent' | 'failed' | 'delivered' | 'read',
     extras?: Partial<Pick<Prisma.MessageUpdateInput, 'metadata' | 'externalId'>>,
   ) {
+    const message = await this.prisma.message.findFirst({
+      where: { externalId },
+    });
+
     return this.prisma.message.update({
-      where: { id },
+      where: { id: message?.id },
       data: {
         status,
         ...extras,

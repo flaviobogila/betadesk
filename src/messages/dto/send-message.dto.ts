@@ -32,11 +32,13 @@ export class SendMessageBaseDto {
   @ApiProperty()
   @ValidateIf((o) => o.messageType === MessageType.text)
   @IsBoolean({ message: 'O campo isPrivate deve ser um booleano.' })
+  @IsOptional()
   isPrivate?: string;
 
   @ApiProperty()
   @ValidateIf((o) => o.messageType === MessageType.text)
   @IsUUID(undefined, { message: 'O campo mentionedUserId deve ser um uuid.' })
+  @IsOptional()
   mentionedUserId?: string;
 
   @ApiProperty({example: 'https://example.com/image.jpg'})
