@@ -1,7 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { WhatsAppMessage } from "../dto/whatsapp-webhook.dto";
-import { MessageStatus, MessageType, Prisma } from "prisma/generated/prisma";
-import { SenderType } from "@prisma/client";
+import { MessageStatus, MessageType, Prisma, SenderType } from "prisma/generated/prisma";
 
 @Injectable()
 export class MessageWhatsAppMapperService {
