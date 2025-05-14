@@ -15,6 +15,7 @@ import { SendComponentMessageDto } from './dto/send-component-message.dto';
 import FormData from 'form-data';
 import { SendListButtonMessageDto } from './dto/send-list-button-message.dto';
 import { SendContactMessageDto } from './dto/send-contact-message.dto';
+import { WhatsAppMediaDownloadResponse } from 'src/webhook/dto/whatsapp-webhook.dto';
 
 @Injectable()
 export class WhatsappService {
@@ -289,7 +290,7 @@ export class WhatsappService {
     }
   }
 
-  async downloadMediaFromMeta(mediaId: string, channelId: string): Promise<Buffer> {
+  async downloadMediaFromMeta(mediaId: string, channelId: string): Promise<WhatsAppMediaDownloadResponse> {
     try {
       const { externalId, token } = await this.getChannelAuth(channelId);
       
@@ -307,14 +308,16 @@ export class WhatsappService {
       }
 
       // 2. Fazer o download da mídia em si
-      const mediaResponse = await axios.get(mediaUrl, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        responseType: 'arraybuffer', // importante para binários
-      });
+      // const mediaResponse = await axios.get(mediaUrl, {
+      //   headers: {
+      //     Authorization: `Bearer ${token}`,
+      //   },
+      //   responseType: 'arraybuffer', // importante para binários
+      // });
 
-      return Buffer.from(mediaResponse.data);
+      // return Buffer.from(mediaResponse.data);
+
+      return mediaMetaResponse.data
     } catch (error) {
       console.error('Erro ao baixar mídia:', error?.response?.data || error);
       throw new HttpException('Erro ao baixar mídia do WhatsApp.', HttpStatus.BAD_GATEWAY);

@@ -61,8 +61,11 @@ export class InboundMessageService {
   async downloadMedia(message: MessageEntity) {
     const type = message.messageType as MessageType as any;
     if ([MessageType.image, MessageType.audio, MessageType.video, MessageType.document].includes(type)) {
-      const buffer = await this.whatsappService.downloadMediaFromMeta(message.channelId, message.mediaId!);
-      return { buffer, mimeType: message.mediaMimeType, url: "https://www.google.com" };
+      //TODO: salvar media no storage
+      const media = await this.whatsappService.downloadMediaFromMeta(message.mediaId!, message.channelId);
+      if (media) {
+        await this.messageService.updateMedia(message.id, media);
+      }
     }
   }
 

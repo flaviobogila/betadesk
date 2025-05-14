@@ -4,6 +4,7 @@ import { Prisma } from 'prisma/generated/prisma/client';
 import { MessageFactoryService } from './message-factory.service';
 import { SendMessageBaseDto } from './dto/send-message.dto';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
+import { WhatsAppMediaDownloadResponse } from 'src/webhook/dto/whatsapp-webhook.dto';
 
 @Injectable()
 export class MessageService {
@@ -146,6 +147,20 @@ export class MessageService {
       data: {
         status,
         ...extras,
+      },
+    });
+  }
+
+  updateMedia(id: string, media: WhatsAppMediaDownloadResponse) {
+    const { mime_type, file_size, url, caption } = media;
+    return this.prisma.message.update({
+      where: { id },
+      data: {
+        mediaMimeType: mime_type,
+        mediaSize: file_size,
+        mediaUrl: url,
+        mediaCaption: caption,
+        mediaStatus: 'downloaded'
       },
     });
   }

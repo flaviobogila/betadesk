@@ -131,21 +131,31 @@ export type WhatsAppMessageStatus = {
     timestamp: string;
     recipient_id: string;
     conversation?: {
-      id: string;
-      origin: {
-        type: 'user_initiated' | 'business_initiated' | 'referral';
-      };
+        id: string;
+        origin: {
+            type: 'user_initiated' | 'business_initiated' | 'referral';
+        };
     };
     pricing?: {
-      billable: boolean;
-      pricing_model: 'CBP' | 'FIXED';
-      category: 'marketing' | 'utility' | 'authentication' | string;
+        billable: boolean;
+        pricing_model: 'CBP' | 'FIXED';
+        category: 'marketing' | 'utility' | 'authentication' | string;
     };
     errors?: {
-      code: number;
-      title: string;
-      details?: string;
+        code: number;
+        title: string;
+        details?: string;
     }[];
-  };
-  
+};
+
+
+export class WhatsAppMediaDownloadResponse {
+    id: string;
+    mime_type: string;
+    sha256: string;
+    url: string;
+    file_size: number;
+    filename: string;
+    caption?: string;
+}
 
