@@ -105,7 +105,12 @@ export class MessageWhatsAppMapperService {
             default:
                 return {
                     ...common,
+                    messageType: MessageType.text,
                     content: '[Tipo de mensagem não mapeado]',
+                    metadata: {
+                        type: msg.type,
+                        ...msg[msg.type]
+                    }
                 };
         }
     }

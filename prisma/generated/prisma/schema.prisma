@@ -173,6 +173,7 @@ enum MessageType {
   sticker
   location
   contact
+  contacts
   button
   template
   component
