@@ -13,7 +13,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      forbidNonWhitelisted: false, //allow non-whitelisted properties
+      forbidNonWhitelisted: false, //allow non-whitelisted property
       transform: true,
       exceptionFactory: (errors) => {
         const firstError = errors[0];
