@@ -12,7 +12,7 @@ import { SendLocationMessageDto } from './dto/send-location-message.dto';
 import { SendButtonMessageDto } from './dto/send-button-message.dto';
 import { SendComponentMessageDto } from './dto/send-component-message.dto';
 
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 import { SendListButtonMessageDto } from './dto/send-list-button-message.dto';
 import { SendContactMessageDto } from './dto/send-contact-message.dto';
 
