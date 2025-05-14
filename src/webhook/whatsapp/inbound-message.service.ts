@@ -42,17 +42,19 @@ export class InboundMessageService {
     //configura o id do contato e o nome do remetente
     const senderData = { senderId: conversation.contactId, senderName: name };
     //concatenando os dados da mensagem com os dados do remetente
-    const data = { ...messageData, ...senderData, replyTo: message.context?.id ?? undefined };
-
     const replyTo = message.context?.id ?? undefined;
+    const data = { ...messageData, ...senderData, replyTo };
 
-    const stored = await this.messageService.createIfNotExists(data, conversation.id, replyTo);
-    if (stored != null) {
-      await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
-      //baixando media do whatsapp caso seja do tipo media
-      await this.downloadMedia(plainToInstance(MessageEntity, {...stored, channelId: conversation.channelId}));
+    if(message.type === 'reaction') {
+      await this.messageService.updateReaction(data);
+    }else{
+      const stored = await this.messageService.createIfNotExists(data, conversation.id, replyTo);
+      if (stored != null) {
+        await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
+        //baixando media do whatsapp caso seja do tipo media
+        await this.downloadMedia(plainToInstance(MessageEntity, {...stored, channelId: conversation.channelId}));
+      }
     }
-
   }
 
   //TODO: refatorar para salvar em um storage na cloud
@@ -64,15 +66,17 @@ export class InboundMessageService {
     }
   }
 
-  async updateStatus({ change, status }: { change: WhatsAppChangeValue, status: WhatsAppMessageStatus }) {
-    const { phone_number_id } = change.metadata;
-    const from = status.recipient_id;
+  async updateStatus(status: WhatsAppMessageStatus) {
+    // const { phone_number_id } = change.metadata;
+    // const from = status.recipient_id;
+    const externalId = status.id;
   
-    const conversation = await this.conversationService.findOneActive(from, phone_number_id);
-    if (!conversation) {
-      return;
-    }
-    await this.messageService.updateMessageStatus(status.id, status.status, {
+    // const conversation = await this.conversationService.findOneActive(from, phone_number_id);
+    // if (!conversation) {
+    //   return;
+    // }
+    
+    await this.messageService.updateMessageStatusByExternalId(externalId, status.status, {
       metadata: {
         timestamp: status.timestamp,
         conversation: status.conversation,

@@ -31,9 +31,9 @@ export class WebhookService {
           }
 
           if (value?.statuses?.length) {
-            for (const status of value.statuses) {
-              this.logger.log(`Processando mensagem de status`, status);
-              await this.inboundMessageService.updateStatus({ change:value, status });
+            for (const statusMessage of value.statuses) {
+              this.logger.log(`Processando mensagem de status`, statusMessage);
+              await this.inboundMessageService.updateStatus(statusMessage);
               this.logger.log(`Mensagem de status processada`);
             }
           }

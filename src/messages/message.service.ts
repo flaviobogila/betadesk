@@ -83,7 +83,52 @@ export class MessageService {
 
   }
 
+  async updateReaction(
+    input: Prisma.MessageCreateInput,
+  ) {
+    const { metadata } = input;
+    const { emoji, messageId } = metadata as any;
+
+    const message = await this.prisma.message.findFirst({
+      where: { externalId: messageId },
+    });
+
+    if(!message) {
+      return null;
+    }
+
+    const currentMetadata = (message.metadata || {}) as Prisma.JsonObject;
+    const newMetadata = (metadata || {}) as Prisma.JsonObject;
+
+    const mergedMetadata: Prisma.JsonObject = {
+      ...currentMetadata,
+      ...newMetadata,
+    };
+
+    return this.prisma.message.update({
+      where: { id: message?.id },
+      data: {
+        reaction: emoji,
+        metadata: mergedMetadata
+      },
+    });
+  }
+
   async updateMessageStatus(
+    id: string,
+    status: 'sent' | 'failed' | 'delivered' | 'read',
+    extras?: Partial<Pick<Prisma.MessageUpdateInput, 'metadata' | 'externalId'>>,
+  ) {
+    return this.prisma.message.update({
+      where: { id },
+      data: {
+        status,
+        ...extras,
+      },
+    });
+  }
+
+  async updateMessageStatusByExternalId(
     externalId: string,
     status: 'sent' | 'failed' | 'delivered' | 'read',
     extras?: Partial<Pick<Prisma.MessageUpdateInput, 'metadata' | 'externalId'>>,
@@ -91,6 +136,10 @@ export class MessageService {
     const message = await this.prisma.message.findFirst({
       where: { externalId },
     });
+
+    if(!message) {
+      return null;
+    } 
 
     return this.prisma.message.update({
       where: { id: message?.id },
