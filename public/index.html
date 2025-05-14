@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BetaDesk</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-100px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fade-in-left {
+            animation: fadeInLeft 1s ease-out forwards;
+        }
+
+
+        @keyframes tfadeInLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-400px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes tfadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(400px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes tfadeInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(400px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fade-in-left-t {
+            animation: tfadeInLeft 0.7s ease-out forwards;
+        }
+
+        .animate-fade-in-up-t {
+            animation: tfadeInUp 0.7s ease-out forwards;
+        }
+
+        .animate-fade-in-right-t {
+            animation: tfadeInRight 0.7s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-800">
+    <!-- Header -->
+    <header class="bg-cyan-600 p-4 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-2xl font-bold flex items-center text-white">
+                <svg class="w-10 h-10 mr-2 animate-pulse text-cyan-300" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 2H7l-5 9 5 7h6l5-7-5-9z" />
+                </svg>
+                BetaDesk
+            </div>
+            <nav>
+                <ul class="flex space-x-6 text-white font-semibold">
+                    <li><a href="#features" class="hover:underline">Recursos</a></li>
+                    <li><a href="#plans" class="hover:underline">Planos</a></li>
+                    <li><a href="#contact" class="hover:underline">Contato</a></li>
+                    <li><a href="/chats.html" class="hover:underline">Plataforma</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-green-100 to-cyan-100 py-24 text-center animate-fade-in-left">
+        <h1 class="text-5xl font-extrabold mb-4">Transforme seu Atendimento com a BetaDesk</h1>
+        <p class="text-xl mb-8 text-gray-700">A plataforma de atendimento pelo WhatsApp que faltava para seu negócio.</p>
+        <a href="#plans"
+            class="bg-gradient-to-r from-cyan-500 to-green-500 text-white px-8 py-4 rounded-full font-bold text-lg shadow-lg hover:scale-105 transform transition"><i class="fa-brands fa-whatsapp"></i> Comece
+            Agora</a>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 animate-fade-in-up">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-12 text-cyan-600">Recursos Poderosos</h2>
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="p-8 bg-cyan-50 rounded-2xl shadow-xl hover:scale-105 transition">
+                    <h3 class="text-2xl font-bold mb-2 text-cyan-700">Integração com Apps Meta</h3>
+                    <p class="text-gray-600">Conecte-se ao WhatsApp, Instagram e Facebook de forma rápida e segura.</p>
+                </div>
+                <div class="p-8 bg-cyan-50 rounded-2xl shadow-xl hover:scale-105 transition">
+                    <h3 class="text-2xl font-bold mb-2 text-cyan-700">Atendimento Multicanal</h3>
+                    <p class="text-gray-600">Administre vários canais simultaneamente e melhore a produtividade da sua
+                        equipe.</p>
+                </div>
+                <div class="p-8 bg-cyan-50 rounded-2xl shadow-xl hover:scale-105 transition">
+                    <h3 class="text-2xl font-bold mb-2 text-cyan-700">Automatização Inteligente</h3>
+                    <p class="text-gray-600">Deixe os bots trabalharem para você e concentre-se no que importa: o seu
+                        cliente.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Clients Section (Atualizada com Tailwind) -->
+    <section id="clients" class="py-24 bg-white animate-fade-in-up">
+        <div class="container mx-auto text-center px-6">
+            <div class="mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold text-cyan-600">+50 empresas acelerando resultados com
+                    Fuego Atendimento</h3>
+            </div>
+            <div class="flex flex-wrap justify-center items-center gap-10">
+                <div class="w-40">
+                    <img src="https://cdn.prod.website-files.com/658c279679a9ac61b565211a/67f4353a81c8a0ca2ec07ad0_logo-subway.svg"
+                        alt="Cliente Subway" class="h-12 mx-auto object-contain">
+                </div>
+                <div class="w-40">
+                    <img src="https://cdn.prod.website-files.com/658c279679a9ac61b565211a/658dd6d45a05f359b118629c_6580a8317c85d0269c831b56_64a7160af1ad1cfd470a46c5_logo-wine-2.svg"
+                        alt="Cliente Wine" class="h-12 mx-auto object-contain">
+                </div>
+                <div class="w-40">
+                    <img src="https://cdn.prod.website-files.com/658c279679a9ac61b565211a/658dd6d40c1bc035296e3e87_6580a8317c85d0269c831b59_649dc0401a94acbfe6d733ea_pfizer-logo-color.svg"
+                        alt="Cliente Pfizer" class="h-12 mx-auto object-contain">
+                </div>
+                <div class="w-40">
+                    <img src="https://cdn.prod.website-files.com/658c279679a9ac61b565211a/658dd6d40f2f680e3e7cecfd_6580a8317c85d0269c831b54_64a5cac34c1901e7cadeee99_logo-alura.svg"
+                        alt="Cliente Alura" class="h-12 mx-auto object-contain">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-24 bg-cyan-50">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-12 text-cyan-600">O que dizem nossos clientes</h2>
+            <div class="grid md:grid-cols-3 gap-10">
+                <div class="bg-white p-8 rounded-2xl shadow-lg animate-fade-in-left-t">
+                    <p class="text-gray-600 italic mb-4">"O Fuego Chat revolucionou o atendimento da nossa empresa.
+                        Rápido, eficiente e fácil de usar!"</p>
+                    <h4 class="text-lg font-bold text-cyan-700">Ana Silva</h4>
+                    <p class="text-gray-500">CEO, Loja Conecta</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg animate-fade-in-up-t">
+                    <p class="text-gray-600 italic mb-4">"Com a integração de múltiplos canais, conseguimos atender
+                        nossos clientes de forma muito mais eficiente."</p>
+                    <h4 class="text-lg font-bold text-cyan-700">Carlos Souza</h4>
+                    <p class="text-gray-500">Gerente, Tech Solutions</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg animate-fade-in-right-t">
+                    <p class="text-gray-600 italic mb-4">"A automação inteligente do Fuego Chat nos ajudou a escalar
+                        nosso suporte sem perder qualidade."</p>
+                    <h4 class="text-lg font-bold text-cyan-700">Juliana Mendes</h4>
+                    <p class="text-gray-500">Diretora, Digital Plus</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section id="plans" class="bg-green-50 py-24 animate-fade-in-up">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-12 text-cyan-600">Escolha seu Plano</h2>
+            <div class="flex justify-center mb-12">
+                <div class="flex border border-cyan-500 rounded-full overflow-hidden">
+                    <button class="px-6 py-2 bg-cyan-500 text-white font-semibold">Mensal</button>
+                    <button class="px-6 py-2 text-gray-700 hover:bg-cyan-100">Anual</button>
+                </div>
+            </div>
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Básico</h3>
+                        <p class="text-5xl font-extrabold text-gray-800 mb-2">R$99</p>
+                        <span class="text-gray-500">/mês</span>
+                        <ul class="mt-8 space-y-4 text-left">
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                WhatsApp Business</li>
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span> 1
+                                Integração</li>
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                Suporte Básico</li>
+                        </ul>
+                    </div>
+                    <a href="#contact"
+                        class="mt-8 block w-full border border-cyan-500 text-cyan-500 font-bold py-3 rounded-lg hover:bg-cyan-500 hover:text-white transition">Assinar</a>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Profissional</h3>
+                        <p class="text-5xl font-extrabold text-gray-800 mb-2">R$199</p>
+                        <span class="text-gray-500">/mês</span>
+                        <ul class="mt-8 space-y-4 text-left">
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                WhatsApp + Instagram</li>
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span> 3
+                                Integrações</li>
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                Suporte Prioritário</li>
+                        </ul>
+                    </div>
+                    <a href="#contact"
+                        class="mt-8 block w-full border border-cyan-500 text-cyan-500 font-bold py-3 rounded-lg hover:bg-cyan-500 hover:text-white transition">Assinar</a>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-2xl p-8 flex flex-col justify-between border-2 border-cyan-500">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Startup</h3>
+                        <p class="text-5xl font-extrabold text-gray-800 mb-2">R$399</p>
+                        <span class="text-gray-500">/mês</span>
+                        <ul class="mt-8 space-y-4 text-left">
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                WhatsApp + Instagram + Facebook</li>
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span> 5
+                                Integrações</li>
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                Suporte VIP 24h</li>
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                Automação de Marketing</li>
+                        </ul>
+                    </div>
+                    <a href="#contact"
+                        class="mt-8 block w-full bg-cyan-500 text-white font-bold py-3 rounded-lg hover:bg-cyan-600 transition">Assinar</a>
+                </div>
+
+                <div class="bg-white rounded-2xl shadow-lg p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Enterprise</h3>
+                        <p class="text-5xl font-extrabold text-gray-800 mb-2">Consulte</p>
+                        <span class="text-gray-500">Customizado</span>
+                        <ul class="mt-8 space-y-4 text-left">
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                Omnichannel Completo</li>
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                Integração Sob Medida</li>
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                Gerente de Conta Dedicado</li>
+                            <li class="flex items-center text-gray-600"><span class="text-cyan-500 mr-2">✔</span>
+                                Relatórios Customizados</li>
+                        </ul>
+                    </div>
+                    <a href="#contact"
+                        class="mt-8 block w-full border border-cyan-500 text-cyan-500 font-bold py-3 rounded-lg hover:bg-cyan-500 hover:text-white transition">Fale
+                        Conosco</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 animate-fade-in-up">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8 text-cyan-600">Fale Conosco</h2>
+            <form class="max-w-xl mx-auto space-y-6 bg-cyan-50 p-8 rounded-2xl shadow-xl">
+                <input type="text" placeholder="Nome"
+                    class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
+                <input type="email" placeholder="Email"
+                    class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
+                <textarea placeholder="Mensagem"
+                    class="w-full p-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400" rows="5"
+                    required></textarea>
+                <button type="submit"
+                    class="bg-gradient-to-r from-cyan-500 to-cyan-600 text-white px-6 py-3 rounded-full font-bold hover:scale-105 transform transition">Enviar</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-cyan-600 p-6 text-center text-white">
+        <p>© 2025 Fuego Chat. Todos os direitos reservados.</p>
+    </footer>
+
+    <!-- Botão Flutuante de Chat -->
+    <button id="chatButton"
+        class="fixed bottom-6 right-6 bg-cyan-600 hover:bg-cyan-700 text-white p-4 rounded-full shadow-lg z-50">
+        💬
+    </button>
+
+    <!-- Janela do Chat -->
+    <div id="chatWindow"
+        class="hidden fixed bottom-20 right-6 bg-white border border-cyan-300 rounded-lg shadow-lg p-6 w-80 z-50">
+        <h3 class="text-lg font-semibold text-cyan-700 mb-4">Entre em Contato</h3>
+        <form id="whatsappForm" class="space-y-4">
+            <input type="text" id="whatsappNumber" placeholder="Digite seu nome"
+                class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-cyan-400" required>
+            <button type="submit"
+                class="w-full bg-cyan-600 text-white py-2 rounded hover:bg-cyan-700 transition">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        document.querySelector('form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Mensagem enviada com sucesso! Em breve entraremos em contato.');
+        });
+
+        const chatButton = document.getElementById('chatButton');
+        const chatWindow = document.getElementById('chatWindow');
+        const whatsappForm = document.getElementById('whatsappForm');
+
+        chatButton.addEventListener('click', () => {
+            chatWindow.classList.toggle('hidden');
+        });
+
+        whatsappForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const number = document.getElementById('whatsappNumber').value;
+            if (number) {
+                alert(`Recebemos seu número: ${number}. Em breve entraremos em contato!`);
+                window.open(`https://wa.me/5515997391956?text=Quero conhecer melhor a plataforma`, '_blank');
+                chatWindow.classList.add('hidden');
+                whatsappForm.reset();
+            }
+        });
+    </script>
+</body>
+
+</html>
