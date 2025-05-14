@@ -29,7 +29,7 @@ export class ConversationsController {
     return this.messageService.findAll(id)
   }
 
-  @Put(':id/teams/:teamId')
+  @Patch(':id/teams/:teamId')
   changeTeam(
     @CurrentUser() loggedUser: SupabaseUser, 
     @Param('id') id: string, 
@@ -37,7 +37,7 @@ export class ConversationsController {
     return this.conversationsService.assignToTeam(id, teamId, loggedUser);
   }
 
-  @Put(':id/users/:userId')
+  @Patch(':id/users/:userId')
   changeUser(
     @CurrentUser() loggedUser: SupabaseUser, 
     @Param('id') id: string, 
@@ -48,7 +48,7 @@ export class ConversationsController {
     return this.conversationsService.assignToAgentUser(id, userId, role, loggedUser);
   }
 
-  @Put(':id/status')
+  @Patch(':id/status')
   changeStatus(
     @CurrentUser() loggedUser: SupabaseUser, 
     @Param('id') id: string,
