@@ -1,8 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
 import { PrismaClientExceptionFilter } from './common/filters/prisma-exception.filter';
+import { ValidationErrorException } from './common/expections/validation.exception';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -20,7 +21,7 @@ async function bootstrap() {
         const constraints = firstError?.constraints;
         const firstMessage = constraints ? Object.values(constraints)[0] : 'Erro de validação';
   
-        return new BadRequestException(firstMessage);
+        return new ValidationErrorException(firstMessage);
       }
     })
   );

@@ -338,6 +338,7 @@ exports.MessageType = exports.$Enums.MessageType = {
   contact: 'contact',
   contacts: 'contacts',
   button: 'button',
+  buttons: 'buttons',
   template: 'template',
   component: 'component',
   list: 'list'

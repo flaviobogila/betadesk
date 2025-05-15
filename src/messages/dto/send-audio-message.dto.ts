@@ -1,24 +1,20 @@
-import { IsString, IsOptional, IsInt } from 'class-validator';
+import { IsString, IsOptional, IsInt, IsUrl } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { SendBaseMessageDto } from './send-base-message.dto';
-import { MessageType } from 'prisma/generated/prisma';
 
 export class SendAudioMessageDto extends SendBaseMessageDto {
 
-  @ApiProperty()
+  @ApiProperty({ description: 'Audio URL', example: 'https://example.com/audio.mp3' })
   @IsString()
-  messageType: MessageType;
-
-  @ApiProperty()
-  @IsString()
+  @IsUrl(undefined, { message: 'A Url deve ser válida' })
   audioUrl: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ description: 'O Mime-Type que descreve o tipo de conteúdo do arquivo', example: 'audio/ogg', required: false })
   @IsOptional()
   @IsString()
   mimeType?: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ description: 'Duração do áudio em milisegundos', example: 30, required: false })
   @IsOptional()
   @IsInt()
   duration?: number;

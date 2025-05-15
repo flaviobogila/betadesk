@@ -9,7 +9,6 @@ import {
   UseFilters,
 } from '@nestjs/common';
 import { SupabaseAuthGuard } from 'src/auth/supabase-auth.guard';
-import { MessageType } from './dto/message-type.enum';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
 import { SendMessageBaseDto } from './dto/send-message.dto';
@@ -17,6 +16,7 @@ import { MessageService } from './message.service';
 import { MessageDispatcherService } from './message-dispatcher.service';
 import { SendMessageValidationPipe } from './pipes/send-message-validation.pipe';
 import { MetaExceptionFilter } from 'src/common/filters/meta-exception.filter';
+import { MessageType } from 'prisma/generated/prisma';
 
 @Controller('whatsapp/messages')
 @UseGuards(SupabaseAuthGuard)
@@ -26,7 +26,7 @@ export class WhatsappController {
   @Post()
   @HttpCode(HttpStatus.OK)
   @UseFilters(new MetaExceptionFilter)
-  async sendMessage(@Body() body: SendMessageBaseDto, @CurrentUser() user: SupabaseUser) {
+  async sendMessage(@Body(new SendMessageValidationPipe()) body: any, @CurrentUser() user: SupabaseUser) {
     const tenantId = user.tenantId
     const messageDto = { ...body, tenantId }
     const messageType = messageDto.messageType as MessageType;

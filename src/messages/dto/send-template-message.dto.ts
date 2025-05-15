@@ -4,20 +4,32 @@ import { SendBaseMessageDto } from './send-base-message.dto';
 export class TemplateComponentParameter {
   @IsString()
   @IsNotEmpty()
-  type: 'text';
+  type: 'text' | 'image' | 'video' | 'document';
 
   @IsString()
   @IsNotEmpty()
-  text: string;
+  text?: string;
+
+  @IsString()
+  @IsNotEmpty()
+  image?: { link: string; };
+
+  @IsString()
+  @IsNotEmpty()
+  video?:{ link: string; };
+
+  @IsString()
+  @IsNotEmpty()
+  document?: { link: string; };
 }
 
 export class TemplateComponent {
   @IsString()
   @IsNotEmpty()
-  type: 'body';
+  type: 'body' | 'header' | 'footer' | 'button' | 'list';
 
   @IsArray()
-  parameters: TemplateComponentParameter[];
+  parameters?: TemplateComponentParameter[];
 }
 
 export class SendTemplateMessageDto extends SendBaseMessageDto {
@@ -31,5 +43,6 @@ export class SendTemplateMessageDto extends SendBaseMessageDto {
   languageCode: 'pt_BR'; // Ex: 'pt_BR', 'en_US'
 
   @IsArray()
-  components: TemplateComponent[];
+  @IsOptional()
+  components?: TemplateComponent[]
 }

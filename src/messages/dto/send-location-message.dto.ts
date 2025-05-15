@@ -4,20 +4,20 @@ import { SendBaseMessageDto } from './send-base-message.dto';
 
 export class SendLocationMessageDto extends SendBaseMessageDto {
 
-  @ApiProperty()
-  @IsNumber()
+  @ApiProperty({ description: 'Latitude', example: '37.7749' })
+  @IsString()
   latitude: number;
 
-  @ApiProperty()
-  @IsNumber()
+  @ApiProperty({ description: 'Longitude', example: '-122.4194' })
+  @IsString()
   longitude: number;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ description: 'Nome do local', example: 'Padaria Real Sorocaba', required: false })
   @IsOptional()
   @IsString()
   name?: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ description: 'Endereço do local', example: 'Rua das Flores, 123, Sorocaba - SP', required: false })
   @IsOptional()
   @IsString()
   address?: string;

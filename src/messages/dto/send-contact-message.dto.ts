@@ -1,93 +1,112 @@
-import { IsString, IsNotEmpty, ValidateNested, IsArray, IsOptional } from 'class-validator';
+import { IsString, IsNotEmpty, ValidateNested, IsArray, IsOptional, IsEmail } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { SendBaseMessageDto } from './send-base-message.dto';
 
 class ContactPhoneDto {
-  @ApiProperty({ example: 'CELL' })
+  @ApiProperty({ description: 'Categoria', example: 'WORK|HOME', required: false })
   @IsString()
-  type: string;
+  @IsOptional()
+  type?: string;
 
-  @ApiProperty({ example: '+5511999999999' })
+  @ApiProperty({ description: 'Número de telefone', example: '+5511999999999' })
   @IsString()
+  @IsNotEmpty({ message: 'O número de telefone é obrigatório' })
   phone: string;
 
-  @ApiProperty({ example: '5511999999999' })
+  @ApiProperty({ description: 'Id do whatsapp', example: '5511999999999', required: false })
   @IsString()
-  wa_id: string;
+  @IsOptional()
+  wa_id?: string;
 }
 
 class ContactNameDto {
-  @ApiProperty({ example: 'João Silva' })
+  @ApiProperty({ description: 'Nome completo', example: 'João Silva', required: false })
   @IsString()
-  formatted_name: string;
+  @IsOptional()
+  formatted_name?: string;
 
-  @ApiProperty({ example: 'João' })
+  @ApiProperty({ description: 'Primeiro nome', example: 'João', required: false })
   @IsString()
-  first_name: string;
+  @IsOptional()
+  first_name?: string;
 
-  @ApiProperty({ example: 'Silva' })
+  @ApiProperty({ description: 'Último nome ou sobrenome', example: 'da Silva', required: false })
   @IsString()
-  last_name: string;
+  @IsOptional()
+  last_name?: string;
 }
 
 class ContactOrgDto {
-    @ApiProperty({ example: 'Meta' })
+    @ApiProperty({ description: 'Nome da empresa', example: 'Meta', required: false })
     @IsString()
+    @IsOptional()
     company?: string;
   
-    @ApiProperty({ example: 'Sales' })
+    @ApiProperty({ description: 'Nome do departamento', example: 'Sales', required: false })
     @IsString()
+    @IsOptional()
     department?: string;
   
-    @ApiProperty({ example: 'Manager' })
+    @ApiProperty({ description: 'Cargo', example: 'Manager', required: false })
     @IsString()
+    @IsOptional()
     title?: string;
 }
 
 class ContactEmailDto {
-    @ApiProperty({ example: 'exemplo@empresa.com' })
+    @ApiProperty({ description: 'Endereço de e-mail', example: 'exemplo@empresa.com' })
     @IsString()
+    @IsEmail({}, { message: 'O e-mail deve ser válido' })
     email?: string;
   
-    @ApiProperty({ example: 'WORK|HOME' })
+    @ApiProperty({ description: 'Categoria do email', example: 'WORK|HOME', required: false })
     @IsString()
+    @IsOptional()
     type?: string;
 }
 
 class ContactAddressDto {
-    @ApiProperty({ example: 'Rua Luis III, 147' })
+    @ApiProperty({ description: 'Rua (Logradouro)', example: 'Rua Luis III, 147', required: false  })
     @IsString()
+    @IsOptional()
     street?: string;
   
-    @ApiProperty({ example: 'WORK|HOME' })
+    @ApiProperty({ description: 'Cidade', example: 'Sorocaba', required: false  })
     @IsString()
+    @IsOptional()
     city?: string;
 
-    @ApiProperty({ example: 'SP' })
+    @ApiProperty({ description: 'Estado', example: 'São Paulo', required: false  })
     @IsString()
+    @IsOptional()
     state?: string;
 
-    @ApiProperty({ example: '11111-999' })
+    @ApiProperty({ description: 'CEP', example: '18110-000', required: false  })
     @IsString()
+    @IsOptional()
     zip?: string;
 
-    @ApiProperty({ example: 'Brasil' })
+    @ApiProperty({ description: 'País', example: 'Brasil', required: false  })
     @IsString()
+    @IsOptional()
     country?: string;
 
-    @ApiProperty({ example: '+55' })
+    @ApiProperty({ description: 'Código do país', example: '+55', required: false  })
     @IsString()
+    @IsOptional()
     country_code?: string;
 }
 
 class ContactUrlDto {
-    @ApiProperty({ example: 'https://site.com' })
+    @ApiProperty({ description: 'Site', example: 'https://www.empresa.com.br', required: false  })
     @IsString()
+    @IsOptional()
     url?: string;
   
-    @ApiProperty({ example: 'WORK|HOME' })
+    @ApiProperty({ description: 'Categoria do site', example: 'WORK|HOME', required: false  })
     @IsString()
+    @IsOptional()
     type?: string;
 }
 
@@ -139,5 +158,5 @@ export class SendContactMessageDto extends SendBaseMessageDto {
   @ApiProperty({ type: SendContactDto })
   @ValidateNested({ each: true })
   @Type(() => SendContactDto)
-  contact: SendContactDto;
+  contacts: SendContactDto[];
 }

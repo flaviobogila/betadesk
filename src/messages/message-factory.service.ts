@@ -46,7 +46,7 @@ export class MessageFactoryService {
       case MessageType.location:
         return this.buildLocationMessage(dto as SendLocationMessageDto, sender)
     
-      case MessageType.button:
+      case MessageType.buttons:
         return this.buildButtonMessage(dto as SendButtonMessageDto, sender);
     
       case MessageType.template:
@@ -58,7 +58,7 @@ export class MessageFactoryService {
       case MessageType.list:
         return this.buildButtonListMessage(dto as SendListButtonMessageDto, sender)
 
-      case MessageType.contact:
+      case MessageType.contacts:
         return this.buildContactMessage(dto as SendContactMessageDto, sender)
     
       default:
@@ -149,7 +149,7 @@ export class MessageFactoryService {
       mediaUrl: dto.documentUrl,
       mediaMimeType: dto.mimeType,
       metadata: {
-        filename: dto.filename,
+        caption: dto.caption,
       } as unknown as InputJsonValue,
       status: 'pending',
     };
@@ -191,7 +191,7 @@ export class MessageFactoryService {
       senderType: 'agent',
       senderId: sender.id,
       senderName: sender.name,
-      messageType: 'button',
+      messageType: 'buttons',
       content: dto.content,
       metadata: {
         buttons: dto.buttons, // [{ type, text, payload }]
@@ -239,9 +239,9 @@ export class MessageFactoryService {
       senderType: 'agent',
       senderId: sender.id,
       senderName: sender.name,
-      messageType: 'contact',
+      messageType: 'contacts',
       metadata: {
-        ...dto.contact
+        contact: dto.contacts[0]
       } as unknown as InputJsonValue,
       status: 'pending',
     };

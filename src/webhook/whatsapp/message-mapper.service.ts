@@ -101,15 +101,25 @@ export class MessageWhatsAppMapperService {
                         messageId: msg.reaction?.message_id,
                     },
                 };
+            
+            case 'contacts':
+                const contact = msg.contacts![0];
+                return {
+                    ...common,
+                    metadata: {
+                        contact
+                    },
+                };
 
             default:
                 return {
                     ...common,
                     messageType: MessageType.text,
-                    content: '[Tipo de mensagem não mapeado]',
+                    content: '[Tipo de mensagem não suportada]',
                     metadata: {
                         type: msg.type,
-                        ...msg[msg.type]
+                        ...msg[msg.type as any],
+                        errors: msg.errors
                     }
                 };
         }

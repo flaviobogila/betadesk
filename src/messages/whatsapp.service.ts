@@ -12,7 +12,7 @@ import { SendLocationMessageDto } from './dto/send-location-message.dto';
 import { SendButtonMessageDto } from './dto/send-button-message.dto';
 import { SendComponentMessageDto } from './dto/send-component-message.dto';
 
-import FormData from 'form-data';
+import * as FormData from 'form-data';
 import { SendListButtonMessageDto } from './dto/send-list-button-message.dto';
 import { SendContactMessageDto } from './dto/send-contact-message.dto';
 import { WhatsAppMediaDownloadResponse } from 'src/webhook/dto/whatsapp-webhook.dto';
@@ -73,14 +73,14 @@ export class WhatsappService {
     const { to, audioUrl, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
 
-    const audioId = await this.getAudioId(audioUrl, channelId);
+    //const audioId = await this.getAudioId(audioUrl, channelId);
   
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
       type: 'audio',
       audio: {
-        id: audioId,
+        link: audioUrl,
       },
       context: replyTo ? { message_id: replyTo } : undefined,
     });
@@ -103,7 +103,7 @@ export class WhatsappService {
   }
 
   async sendDocumentMessage(dto: SendDocumentMessageDto) {
-    const { to, documentUrl, filename, replyTo, channelId } = dto;
+    const { to, documentUrl, caption, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
@@ -112,7 +112,7 @@ export class WhatsappService {
       type: 'document',
       document: {
         link: documentUrl,
-        filename,
+        caption,
       },
       context: replyTo ? { message_id: replyTo } : undefined,
     });
@@ -239,16 +239,14 @@ export class WhatsappService {
   }
 
   async sendContactMessage(dto: SendContactMessageDto) {
-    const { to, contact, replyTo, channelId } = dto;
+    const { to, contacts, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
   
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
       type: 'contacts',
-      contacts: [
-        contact
-      ],
+      contacts,
       context: replyTo ? { message_id: replyTo } : undefined,
     });
   }

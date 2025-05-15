@@ -6,9 +6,10 @@ export enum MessageType {
   audio = 'audio',
   sticker = 'sticker',
   location = 'location',
-  button = 'button',
   template = 'template',
   component = 'component',
-  contact = 'contact',
+  contacts = 'contacts',
   list = 'list',
+  buttons = 'buttons',
+  reaction = 'reaction',
 }

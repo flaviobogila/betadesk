@@ -30,11 +30,11 @@ export class MessageDispatcherService implements OnModuleInit {
     this.registry.register(MessageType.document, new DocumentMessageCommand(this.whatsappService));
     this.registry.register(MessageType.sticker, new StickerMessageCommand(this.whatsappService));
     this.registry.register(MessageType.location, new LocationMessageCommand(this.whatsappService));
-    this.registry.register(MessageType.button, new ButtonMessageCommand(this.whatsappService));
+    this.registry.register(MessageType.buttons, new ButtonMessageCommand(this.whatsappService));
     this.registry.register(MessageType.list, new ButtonListMessageCommand(this.whatsappService));
     this.registry.register(MessageType.template, new TemplateMessageCommand(this.whatsappService));
     this.registry.register(MessageType.component, new ComponentMessageCommand(this.whatsappService));
-    this.registry.register(MessageType.contact, new ContactMessageCommand(this.whatsappService));
+    this.registry.register(MessageType.contacts, new ContactMessageCommand(this.whatsappService));
   }
 
   async dispatch(type: MessageType, dto: any) {

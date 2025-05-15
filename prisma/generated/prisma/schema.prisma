@@ -175,6 +175,7 @@ enum MessageType {
   contact
   contacts
   button
+  buttons
   template
   component
   list

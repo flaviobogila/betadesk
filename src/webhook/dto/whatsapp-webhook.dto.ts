@@ -41,7 +41,7 @@ export interface WhatsAppMessage {
     | 'document'
     | 'sticker'
     | 'location'
-    | 'contact'
+    | 'contacts'
     | 'button'
     | 'interactive'
     | 'reaction';
@@ -86,15 +86,40 @@ export interface WhatsAppMessage {
         address?: string;
     };
 
-    contact?: {
-        // Exemplo simplificado
-        profile: {
-            name: string;
+    contacts?: {
+        addresses?: {
+            city?: string;
+            country?: string;
+            zip?: string;
+            state?: string;
+            street?: string;
+            type?: string;
+        }
+        birthday?: string;
+        emails?: {
+            email: string;
+            type: string;
+        }[];
+        name?: {
+            first_name?: string;
+            formatted_name?: string;
+            last_name?: string;
         };
-        wa_id?: string;
-    };
-
-    contacts?: WhatsAppMessage['contact'][];
+        org?: {
+            company?: string;
+            department?: string;
+            title?: string;
+        };
+        phones?: {
+            phone: string;
+            wa_id?: string ,
+            type?: 'HOME' | 'WORK' | 'OTHER' | string;
+        }[];
+        urls?: {
+            url: string;
+            type?: 'HOME' | 'WORK' | 'OTHER' | string;
+        }[]
+    }[];
 
     button?: {
         payload: string;
@@ -123,6 +148,16 @@ export interface WhatsAppMessage {
         from: string;
         id: string;
     };
+
+    errors?: {
+        code: number;
+        title: string;
+        message?: string;
+        error_data?: {
+            details?: string;
+        }
+    }[];
+
 }
 
 export type WhatsAppMessageStatus = {

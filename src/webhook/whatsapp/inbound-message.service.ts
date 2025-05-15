@@ -70,17 +70,11 @@ export class InboundMessageService {
   }
 
   async updateStatus(status: WhatsAppMessageStatus) {
-    // const { phone_number_id } = change.metadata;
-    // const from = status.recipient_id;
     const externalId = status.id;
-  
-    // const conversation = await this.conversationService.findOneActive(from, phone_number_id);
-    // if (!conversation) {
-    //   return;
-    // }
     
     await this.messageService.updateMessageStatusByExternalId(externalId, status.status, {
       metadata: {
+        errors: status.errors,
         timestamp: status.timestamp,
         conversation: status.conversation,
         pricing: status.pricing,

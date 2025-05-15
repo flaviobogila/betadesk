@@ -3,8 +3,6 @@ import { IsUUID, IsEnum, IsNotEmpty, IsOptional, ValidateIf, IsString, IsUrl, Is
 import { MessageType } from './message-type.enum';
 import { ApiProperty } from '@nestjs/swagger';
 import { SendContactMessageDto } from './send-contact-message.dto';
-import { Type } from 'class-transformer';
-import { ButtonItem } from './send-button-message.dto';
 
 export class SendMessageBaseDto {
   @ApiProperty({ example: '296d5f0c-ad78-4d31-9dfd-c996aa074857' })
@@ -25,7 +23,7 @@ export class SendMessageBaseDto {
   to: string;
 
   @ApiProperty({example: 'oi, tudo bem?'})
-  @ValidateIf((o) => o.messageType === MessageType.text || o.messageType === MessageType.button || o.messageType === MessageType.list)
+  @ValidateIf((o) => o.messageType === MessageType.text || o.messageType === MessageType.buttons || o.messageType === MessageType.list)
   @IsNotEmpty({ message: 'O campo content não pode estar vazio para mensagens de texto.' })
   content?: string;
 
@@ -90,7 +88,7 @@ export class SendMessageBaseDto {
   caption?: string;
 
   @ApiProperty({example: [{id: '1', title: 'Botão 1'}, {id: '2', title: 'Botão 2'}]})
-  @ValidateIf((o) => o.messageType === MessageType.button)
+  @ValidateIf((o) => o.messageType === MessageType.buttons)
   @IsArray({ message: 'O campo buttons precisa ser uma lista de botões' })
   buttons?: [{ id: string; title: string }];
 
@@ -117,7 +115,7 @@ export class SendMessageBaseDto {
   items: [{ id: string; title: string; description?: string }];
 
   @ApiProperty({example: { contact: {}}})
-  @ValidateIf((o) => o.messageType === MessageType.contact)
+  @ValidateIf((o) => o.messageType === MessageType.contacts)
   contact: SendContactMessageDto;
 
   @ApiProperty({example: "pt_BR"})

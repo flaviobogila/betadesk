@@ -21,10 +21,10 @@ export class MetaExceptionFilter implements ExceptionFilter {
             const statusMap = this.mapMetaCodeToStatus(metaError.code);
             if (statusMap) {
                 return response.status(statusMap.status).json({
-                    statusCode: statusMap.code,
-                    error: "Meta Error",
+                    statusCode: exception?.response?.status || 400,
                     message: statusMap.message,
-                    meta: { code: metaError.code, message: metaError.message, ...metaError.error_data }
+                    error: "MetaErrorException",
+                    meta: { code: metaError.code, error: statusMap.code, message: metaError.message, ...metaError.error_data }
                 });
             }
         }
