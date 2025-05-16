@@ -5,6 +5,8 @@ import { MessageFactoryService } from './message-factory.service';
 import { SendMessageBaseDto } from './dto/send-message.dto';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
 import { WhatsAppMediaDownloadResponse } from 'src/webhook/dto/whatsapp-webhook.dto';
+import { MessageEntity } from './entities/message.entity';
+import { plainToInstance } from 'class-transformer';
 
 @Injectable()
 export class MessageService {
@@ -119,12 +121,16 @@ export class MessageService {
     status: 'sent' | 'failed' | 'delivered' | 'read',
     extras?: Partial<Pick<Prisma.MessageUpdateInput, 'metadata' | 'externalId'>>,
   ) {
-    return this.prisma.message.update({
+    const message = await this.prisma.message.update({
       where: { id },
       data: {
         status,
         ...extras,
       },
+    });
+
+    return plainToInstance(MessageEntity, message, {
+      groups: [message.messageType],
     });
   }
 

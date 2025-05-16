@@ -30,9 +30,8 @@ export class WhatsappController {
     
     //TODO: refatorar usando fila
     const dto = { ...createMessageDto,  replyTo: createdMessage?.replyTo?.externalId ?? undefined}
-    const dispatchedMessage = await this.whatsappMessageDispatcher.dispatch(dto, createMessageDto.messageType);
+    const dispatchedMessage = await this.whatsappMessageDispatcher.dispatch(createMessageDto.messageType, dto);
 
     return await this.messageService.updateMessageStatus(createdMessage.id, 'sent', { externalId: dispatchedMessage?.messages[0]?.id });
-
   }
 }
