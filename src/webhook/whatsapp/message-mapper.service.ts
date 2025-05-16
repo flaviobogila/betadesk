@@ -12,14 +12,19 @@ export class MessageWhatsAppMapperService {
             externalId: msg.id,
             createdAt: new Date(Number(msg.timestamp) * 1000),
             status: MessageStatus.sent,
-            senderType: SenderType.user,
+            senderType: SenderType.user
         };
+
+        const { context } = msg;
 
         switch (msg.type) {
             case 'text':
                 return {
                     ...common,
                     content: msg.text!.body,
+                    metadata: {
+                        context
+                    }
                 };
 
             case 'image':
@@ -27,7 +32,10 @@ export class MessageWhatsAppMapperService {
                     ...common,
                     mediaId: msg.image!.id, // OBS: precisa baixar com token, isso é só o ID
                     mediaMimeType: msg.image!.mime_type,
-                    mediaCaption: msg.image!.caption
+                    mediaCaption: msg.image!.caption,
+                    metadata: {
+                        context
+                    }
                 };
 
             case 'audio':
@@ -35,6 +43,9 @@ export class MessageWhatsAppMapperService {
                     ...common,
                     mediaId: msg.audio!.id,
                     mediaMimeType: msg.audio!.mime_type,
+                    metadata: {
+                        context
+                    }
                 };
 
             case 'video':
@@ -43,6 +54,9 @@ export class MessageWhatsAppMapperService {
                     mediaId: msg.video!.id,
                     mediaMimeType: msg.video!.mime_type,
                     mediaCaption: msg.video!.caption,
+                    metadata: {
+                        context
+                    }
                 };
 
             case 'document':
@@ -52,6 +66,7 @@ export class MessageWhatsAppMapperService {
                     mediaMimeType: msg.document!.mime_type,
                     metadata: {
                         filename: msg.document?.filename,
+                        context
                     },
                 };
 
@@ -60,16 +75,22 @@ export class MessageWhatsAppMapperService {
                     ...common,
                     mediaId: msg.sticker!.id,
                     mediaMimeType: msg.sticker!.mime_type,
+                    metadata: {
+                        context
+                    }
                 };
 
             case 'location':
                 return {
                     ...common,
                     metadata: {
-                        latitude: msg.location?.latitude,
-                        longitude: msg.location?.longitude,
-                        name: msg.location?.name,
-                        address: msg.location?.address,
+                        location:{ 
+                            latitude: msg.location?.latitude,
+                            longitude: msg.location?.longitude,
+                            name: msg.location?.name,
+                            address: msg.location?.address,
+                        },
+                        context
                     },
                 };
 
@@ -78,7 +99,11 @@ export class MessageWhatsAppMapperService {
                     ...common,
                     content: msg.button!.text,
                     metadata: {
-                        payload: msg.button?.payload,
+                        button: {
+                            id: msg.button?.payload,
+                            title: msg.button?.text
+                        },
+                        context
                     },
                 };
 
@@ -88,8 +113,12 @@ export class MessageWhatsAppMapperService {
                     ...common,
                     content: reply!.title,
                     metadata: {
-                        reply_id: reply?.id,
-                        type: msg.interactive?.type,
+                        button: {
+                            id: reply?.id,
+                            title: reply?.title,
+                            type: msg.interactive?.type,
+                        },
+                        context
                     },
                 };
 
@@ -99,6 +128,7 @@ export class MessageWhatsAppMapperService {
                     metadata: {
                         emoji: msg.reaction?.emoji,
                         messageId: msg.reaction?.message_id,
+                        context
                     },
                 };
             
@@ -107,7 +137,8 @@ export class MessageWhatsAppMapperService {
                 return {
                     ...common,
                     metadata: {
-                        contact
+                        contact,
+                        context
                     },
                 };
 
@@ -117,6 +148,7 @@ export class MessageWhatsAppMapperService {
                     messageType: MessageType.text,
                     content: '[Tipo de mensagem não suportada]',
                     metadata: {
+                        context,
                         type: msg.type,
                         ...msg[msg.type as any],
                         errors: msg.errors

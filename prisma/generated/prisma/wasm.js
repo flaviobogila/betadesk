@@ -127,7 +127,8 @@ exports.Prisma.TenantScalarFieldEnum = {
   logoUrl: 'logoUrl',
   plan: 'plan',
   isActive: 'isActive',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  businessAreaId: 'businessAreaId'
 };
 
 exports.Prisma.UserScalarFieldEnum = {
@@ -270,6 +271,12 @@ exports.Prisma.ConversationLogScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.BusinessAreaScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -387,7 +394,8 @@ exports.Prisma.ModelName = {
   ConversationLabel: 'ConversationLabel',
   Mention: 'Mention',
   ConversationParticipant: 'ConversationParticipant',
-  ConversationLog: 'ConversationLog'
+  ConversationLog: 'ConversationLog',
+  BusinessArea: 'BusinessArea'
 };
 
 /**

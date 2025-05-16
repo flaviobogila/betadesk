@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
@@ -15,22 +15,22 @@ export class AuthService {
     );
   }
 
-  async register(dto: RegisterDto) {
-    const { email, password, fullName, tenantId } = dto;
+  async registerUser(dto: RegisterDto) {
+    const { email, password, fullName } = dto;
 
     const { data, error } = await this.supabase.auth.admin.createUser({
       email,
       password,
       user_metadata: {
         name: fullName,
-        tenant_id: tenantId || 'anonymous',
+        tenant_id: 'anonymous',
         role: "admin",
       },
       email_confirm: true,
     });
 
     if (error) {
-      throw new Error(`${error.message}`);
+      throw new HttpException(error.message, error.status || 400);
     }
 
     return data;
@@ -51,7 +51,7 @@ export class AuthService {
     return data; // Contém session e user
   }
 
-  async update(userId: string, tenantId: string, role: string) {
+  async updateMetadata(userId: string, tenantId: string, role: string) {
     
     const { data, error } = await this.supabase.auth.admin.updateUserById(userId, {
         user_metadata: {
@@ -85,4 +85,5 @@ export class AuthService {
 
     return data.user;
   }
+
 }

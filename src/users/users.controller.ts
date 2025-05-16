@@ -5,9 +5,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { SupabaseAuthGuard } from 'src/auth/supabase-auth.guard';
 import { TenantId } from 'src/common/decorators/tenant-id.decorator';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('users')
 @UseGuards(SupabaseAuthGuard)
+@ApiBearerAuth('access-token')
 export class UsersController {
   constructor(private readonly usersService: UsersService, private readonly authService: AuthService) {}
 

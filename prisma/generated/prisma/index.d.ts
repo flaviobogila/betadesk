@@ -78,6 +78,11 @@ export type ConversationParticipant = $Result.DefaultSelection<Prisma.$Conversat
  * 
  */
 export type ConversationLog = $Result.DefaultSelection<Prisma.$ConversationLogPayload>
+/**
+ * Model BusinessArea
+ * 
+ */
+export type BusinessArea = $Result.DefaultSelection<Prisma.$BusinessAreaPayload>
 
 /**
  * Enums
@@ -487,6 +492,16 @@ export class PrismaClient<
     * ```
     */
   get conversationLog(): Prisma.ConversationLogDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.businessArea`: Exposes CRUD operations for the **BusinessArea** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BusinessAreas
+    * const businessAreas = await prisma.businessArea.findMany()
+    * ```
+    */
+  get businessArea(): Prisma.BusinessAreaDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -939,7 +954,8 @@ export namespace Prisma {
     ConversationLabel: 'ConversationLabel',
     Mention: 'Mention',
     ConversationParticipant: 'ConversationParticipant',
-    ConversationLog: 'ConversationLog'
+    ConversationLog: 'ConversationLog',
+    BusinessArea: 'BusinessArea'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -958,7 +974,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "tenant" | "user" | "team" | "teamMember" | "contact" | "channel" | "conversation" | "message" | "label" | "conversationLabel" | "mention" | "conversationParticipant" | "conversationLog"
+      modelProps: "tenant" | "user" | "team" | "teamMember" | "contact" | "channel" | "conversation" | "message" | "label" | "conversationLabel" | "mention" | "conversationParticipant" | "conversationLog" | "businessArea"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1924,6 +1940,80 @@ export namespace Prisma {
           }
         }
       }
+      BusinessArea: {
+        payload: Prisma.$BusinessAreaPayload<ExtArgs>
+        fields: Prisma.BusinessAreaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BusinessAreaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BusinessAreaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload>
+          }
+          findFirst: {
+            args: Prisma.BusinessAreaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BusinessAreaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload>
+          }
+          findMany: {
+            args: Prisma.BusinessAreaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload>[]
+          }
+          create: {
+            args: Prisma.BusinessAreaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload>
+          }
+          createMany: {
+            args: Prisma.BusinessAreaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BusinessAreaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload>[]
+          }
+          delete: {
+            args: Prisma.BusinessAreaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload>
+          }
+          update: {
+            args: Prisma.BusinessAreaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload>
+          }
+          deleteMany: {
+            args: Prisma.BusinessAreaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BusinessAreaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BusinessAreaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload>[]
+          }
+          upsert: {
+            args: Prisma.BusinessAreaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BusinessAreaPayload>
+          }
+          aggregate: {
+            args: Prisma.BusinessAreaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBusinessArea>
+          }
+          groupBy: {
+            args: Prisma.BusinessAreaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BusinessAreaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BusinessAreaCountArgs<ExtArgs>
+            result: $Utils.Optional<BusinessAreaCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2021,6 +2111,7 @@ export namespace Prisma {
     mention?: MentionOmit
     conversationParticipant?: ConversationParticipantOmit
     conversationLog?: ConversationLogOmit
+    businessArea?: BusinessAreaOmit
   }
 
   /* Types for Logging */
@@ -2521,6 +2612,37 @@ export namespace Prisma {
 
 
   /**
+   * Count Type BusinessAreaCountOutputType
+   */
+
+  export type BusinessAreaCountOutputType = {
+    tenants: number
+  }
+
+  export type BusinessAreaCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenants?: boolean | BusinessAreaCountOutputTypeCountTenantsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * BusinessAreaCountOutputType without action
+   */
+  export type BusinessAreaCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessAreaCountOutputType
+     */
+    select?: BusinessAreaCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * BusinessAreaCountOutputType without action
+   */
+  export type BusinessAreaCountOutputTypeCountTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TenantWhereInput
+  }
+
+
+  /**
    * Models
    */
 
@@ -2542,6 +2664,7 @@ export namespace Prisma {
     plan: string | null
     isActive: boolean | null
     createdAt: Date | null
+    businessAreaId: string | null
   }
 
   export type TenantMaxAggregateOutputType = {
@@ -2552,6 +2675,7 @@ export namespace Prisma {
     plan: string | null
     isActive: boolean | null
     createdAt: Date | null
+    businessAreaId: string | null
   }
 
   export type TenantCountAggregateOutputType = {
@@ -2562,6 +2686,7 @@ export namespace Prisma {
     plan: number
     isActive: number
     createdAt: number
+    businessAreaId: number
     _all: number
   }
 
@@ -2574,6 +2699,7 @@ export namespace Prisma {
     plan?: true
     isActive?: true
     createdAt?: true
+    businessAreaId?: true
   }
 
   export type TenantMaxAggregateInputType = {
@@ -2584,6 +2710,7 @@ export namespace Prisma {
     plan?: true
     isActive?: true
     createdAt?: true
+    businessAreaId?: true
   }
 
   export type TenantCountAggregateInputType = {
@@ -2594,6 +2721,7 @@ export namespace Prisma {
     plan?: true
     isActive?: true
     createdAt?: true
+    businessAreaId?: true
     _all?: true
   }
 
@@ -2677,6 +2805,7 @@ export namespace Prisma {
     plan: string | null
     isActive: boolean
     createdAt: Date
+    businessAreaId: string | null
     _count: TenantCountAggregateOutputType | null
     _min: TenantMinAggregateOutputType | null
     _max: TenantMaxAggregateOutputType | null
@@ -2704,6 +2833,8 @@ export namespace Prisma {
     plan?: boolean
     isActive?: boolean
     createdAt?: boolean
+    businessAreaId?: boolean
+    businessArea?: boolean | Tenant$businessAreaArgs<ExtArgs>
     users?: boolean | Tenant$usersArgs<ExtArgs>
     teams?: boolean | Tenant$teamsArgs<ExtArgs>
     contacts?: boolean | Tenant$contactsArgs<ExtArgs>
@@ -2721,6 +2852,8 @@ export namespace Prisma {
     plan?: boolean
     isActive?: boolean
     createdAt?: boolean
+    businessAreaId?: boolean
+    businessArea?: boolean | Tenant$businessAreaArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2731,6 +2864,8 @@ export namespace Prisma {
     plan?: boolean
     isActive?: boolean
     createdAt?: boolean
+    businessAreaId?: boolean
+    businessArea?: boolean | Tenant$businessAreaArgs<ExtArgs>
   }, ExtArgs["result"]["tenant"]>
 
   export type TenantSelectScalar = {
@@ -2741,10 +2876,12 @@ export namespace Prisma {
     plan?: boolean
     isActive?: boolean
     createdAt?: boolean
+    businessAreaId?: boolean
   }
 
-  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "logoUrl" | "plan" | "isActive" | "createdAt", ExtArgs["result"]["tenant"]>
+  export type TenantOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "slug" | "logoUrl" | "plan" | "isActive" | "createdAt" | "businessAreaId", ExtArgs["result"]["tenant"]>
   export type TenantInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    businessArea?: boolean | Tenant$businessAreaArgs<ExtArgs>
     users?: boolean | Tenant$usersArgs<ExtArgs>
     teams?: boolean | Tenant$teamsArgs<ExtArgs>
     contacts?: boolean | Tenant$contactsArgs<ExtArgs>
@@ -2753,12 +2890,17 @@ export namespace Prisma {
     channels?: boolean | Tenant$channelsArgs<ExtArgs>
     _count?: boolean | TenantCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type TenantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type TenantIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    businessArea?: boolean | Tenant$businessAreaArgs<ExtArgs>
+  }
+  export type TenantIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    businessArea?: boolean | Tenant$businessAreaArgs<ExtArgs>
+  }
 
   export type $TenantPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Tenant"
     objects: {
+      businessArea: Prisma.$BusinessAreaPayload<ExtArgs> | null
       users: Prisma.$UserPayload<ExtArgs>[]
       teams: Prisma.$TeamPayload<ExtArgs>[]
       contacts: Prisma.$ContactPayload<ExtArgs>[]
@@ -2774,6 +2916,7 @@ export namespace Prisma {
       plan: string | null
       isActive: boolean
       createdAt: Date
+      businessAreaId: string | null
     }, ExtArgs["result"]["tenant"]>
     composites: {}
   }
@@ -3168,6 +3311,7 @@ export namespace Prisma {
    */
   export interface Prisma__TenantClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    businessArea<T extends Tenant$businessAreaArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$businessAreaArgs<ExtArgs>>): Prisma__BusinessAreaClient<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     users<T extends Tenant$usersArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     teams<T extends Tenant$teamsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$teamsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TeamPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     contacts<T extends Tenant$contactsArgs<ExtArgs> = {}>(args?: Subset<T, Tenant$contactsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ContactPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -3210,6 +3354,7 @@ export namespace Prisma {
     readonly plan: FieldRef<"Tenant", 'String'>
     readonly isActive: FieldRef<"Tenant", 'Boolean'>
     readonly createdAt: FieldRef<"Tenant", 'DateTime'>
+    readonly businessAreaId: FieldRef<"Tenant", 'String'>
   }
     
 
@@ -3459,6 +3604,10 @@ export namespace Prisma {
      */
     data: TenantCreateManyInput | TenantCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3529,6 +3678,10 @@ export namespace Prisma {
      * Limit how many Tenants to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3595,6 +3748,25 @@ export namespace Prisma {
      * Limit how many Tenants to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Tenant.businessArea
+   */
+  export type Tenant$businessAreaArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+    where?: BusinessAreaWhereInput
   }
 
   /**
@@ -17908,6 +18080,1050 @@ export namespace Prisma {
 
 
   /**
+   * Model BusinessArea
+   */
+
+  export type AggregateBusinessArea = {
+    _count: BusinessAreaCountAggregateOutputType | null
+    _min: BusinessAreaMinAggregateOutputType | null
+    _max: BusinessAreaMaxAggregateOutputType | null
+  }
+
+  export type BusinessAreaMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type BusinessAreaMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    createdAt: Date | null
+  }
+
+  export type BusinessAreaCountAggregateOutputType = {
+    id: number
+    name: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type BusinessAreaMinAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type BusinessAreaMaxAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+  }
+
+  export type BusinessAreaCountAggregateInputType = {
+    id?: true
+    name?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type BusinessAreaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BusinessArea to aggregate.
+     */
+    where?: BusinessAreaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BusinessAreas to fetch.
+     */
+    orderBy?: BusinessAreaOrderByWithRelationInput | BusinessAreaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BusinessAreaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BusinessAreas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BusinessAreas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BusinessAreas
+    **/
+    _count?: true | BusinessAreaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BusinessAreaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BusinessAreaMaxAggregateInputType
+  }
+
+  export type GetBusinessAreaAggregateType<T extends BusinessAreaAggregateArgs> = {
+        [P in keyof T & keyof AggregateBusinessArea]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBusinessArea[P]>
+      : GetScalarType<T[P], AggregateBusinessArea[P]>
+  }
+
+
+
+
+  export type BusinessAreaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BusinessAreaWhereInput
+    orderBy?: BusinessAreaOrderByWithAggregationInput | BusinessAreaOrderByWithAggregationInput[]
+    by: BusinessAreaScalarFieldEnum[] | BusinessAreaScalarFieldEnum
+    having?: BusinessAreaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BusinessAreaCountAggregateInputType | true
+    _min?: BusinessAreaMinAggregateInputType
+    _max?: BusinessAreaMaxAggregateInputType
+  }
+
+  export type BusinessAreaGroupByOutputType = {
+    id: string
+    name: string
+    createdAt: Date
+    _count: BusinessAreaCountAggregateOutputType | null
+    _min: BusinessAreaMinAggregateOutputType | null
+    _max: BusinessAreaMaxAggregateOutputType | null
+  }
+
+  type GetBusinessAreaGroupByPayload<T extends BusinessAreaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BusinessAreaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BusinessAreaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BusinessAreaGroupByOutputType[P]>
+            : GetScalarType<T[P], BusinessAreaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BusinessAreaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+    tenants?: boolean | BusinessArea$tenantsArgs<ExtArgs>
+    _count?: boolean | BusinessAreaCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["businessArea"]>
+
+  export type BusinessAreaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["businessArea"]>
+
+  export type BusinessAreaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["businessArea"]>
+
+  export type BusinessAreaSelectScalar = {
+    id?: boolean
+    name?: boolean
+    createdAt?: boolean
+  }
+
+  export type BusinessAreaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "createdAt", ExtArgs["result"]["businessArea"]>
+  export type BusinessAreaInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tenants?: boolean | BusinessArea$tenantsArgs<ExtArgs>
+    _count?: boolean | BusinessAreaCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type BusinessAreaIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type BusinessAreaIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $BusinessAreaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BusinessArea"
+    objects: {
+      tenants: Prisma.$TenantPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      createdAt: Date
+    }, ExtArgs["result"]["businessArea"]>
+    composites: {}
+  }
+
+  type BusinessAreaGetPayload<S extends boolean | null | undefined | BusinessAreaDefaultArgs> = $Result.GetResult<Prisma.$BusinessAreaPayload, S>
+
+  type BusinessAreaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BusinessAreaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BusinessAreaCountAggregateInputType | true
+    }
+
+  export interface BusinessAreaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BusinessArea'], meta: { name: 'BusinessArea' } }
+    /**
+     * Find zero or one BusinessArea that matches the filter.
+     * @param {BusinessAreaFindUniqueArgs} args - Arguments to find a BusinessArea
+     * @example
+     * // Get one BusinessArea
+     * const businessArea = await prisma.businessArea.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BusinessAreaFindUniqueArgs>(args: SelectSubset<T, BusinessAreaFindUniqueArgs<ExtArgs>>): Prisma__BusinessAreaClient<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BusinessArea that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BusinessAreaFindUniqueOrThrowArgs} args - Arguments to find a BusinessArea
+     * @example
+     * // Get one BusinessArea
+     * const businessArea = await prisma.businessArea.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BusinessAreaFindUniqueOrThrowArgs>(args: SelectSubset<T, BusinessAreaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BusinessAreaClient<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BusinessArea that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessAreaFindFirstArgs} args - Arguments to find a BusinessArea
+     * @example
+     * // Get one BusinessArea
+     * const businessArea = await prisma.businessArea.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BusinessAreaFindFirstArgs>(args?: SelectSubset<T, BusinessAreaFindFirstArgs<ExtArgs>>): Prisma__BusinessAreaClient<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BusinessArea that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessAreaFindFirstOrThrowArgs} args - Arguments to find a BusinessArea
+     * @example
+     * // Get one BusinessArea
+     * const businessArea = await prisma.businessArea.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BusinessAreaFindFirstOrThrowArgs>(args?: SelectSubset<T, BusinessAreaFindFirstOrThrowArgs<ExtArgs>>): Prisma__BusinessAreaClient<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BusinessAreas that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessAreaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BusinessAreas
+     * const businessAreas = await prisma.businessArea.findMany()
+     * 
+     * // Get first 10 BusinessAreas
+     * const businessAreas = await prisma.businessArea.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const businessAreaWithIdOnly = await prisma.businessArea.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BusinessAreaFindManyArgs>(args?: SelectSubset<T, BusinessAreaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BusinessArea.
+     * @param {BusinessAreaCreateArgs} args - Arguments to create a BusinessArea.
+     * @example
+     * // Create one BusinessArea
+     * const BusinessArea = await prisma.businessArea.create({
+     *   data: {
+     *     // ... data to create a BusinessArea
+     *   }
+     * })
+     * 
+     */
+    create<T extends BusinessAreaCreateArgs>(args: SelectSubset<T, BusinessAreaCreateArgs<ExtArgs>>): Prisma__BusinessAreaClient<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BusinessAreas.
+     * @param {BusinessAreaCreateManyArgs} args - Arguments to create many BusinessAreas.
+     * @example
+     * // Create many BusinessAreas
+     * const businessArea = await prisma.businessArea.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BusinessAreaCreateManyArgs>(args?: SelectSubset<T, BusinessAreaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BusinessAreas and returns the data saved in the database.
+     * @param {BusinessAreaCreateManyAndReturnArgs} args - Arguments to create many BusinessAreas.
+     * @example
+     * // Create many BusinessAreas
+     * const businessArea = await prisma.businessArea.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BusinessAreas and only return the `id`
+     * const businessAreaWithIdOnly = await prisma.businessArea.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BusinessAreaCreateManyAndReturnArgs>(args?: SelectSubset<T, BusinessAreaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BusinessArea.
+     * @param {BusinessAreaDeleteArgs} args - Arguments to delete one BusinessArea.
+     * @example
+     * // Delete one BusinessArea
+     * const BusinessArea = await prisma.businessArea.delete({
+     *   where: {
+     *     // ... filter to delete one BusinessArea
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BusinessAreaDeleteArgs>(args: SelectSubset<T, BusinessAreaDeleteArgs<ExtArgs>>): Prisma__BusinessAreaClient<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BusinessArea.
+     * @param {BusinessAreaUpdateArgs} args - Arguments to update one BusinessArea.
+     * @example
+     * // Update one BusinessArea
+     * const businessArea = await prisma.businessArea.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BusinessAreaUpdateArgs>(args: SelectSubset<T, BusinessAreaUpdateArgs<ExtArgs>>): Prisma__BusinessAreaClient<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BusinessAreas.
+     * @param {BusinessAreaDeleteManyArgs} args - Arguments to filter BusinessAreas to delete.
+     * @example
+     * // Delete a few BusinessAreas
+     * const { count } = await prisma.businessArea.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BusinessAreaDeleteManyArgs>(args?: SelectSubset<T, BusinessAreaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BusinessAreas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessAreaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BusinessAreas
+     * const businessArea = await prisma.businessArea.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BusinessAreaUpdateManyArgs>(args: SelectSubset<T, BusinessAreaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BusinessAreas and returns the data updated in the database.
+     * @param {BusinessAreaUpdateManyAndReturnArgs} args - Arguments to update many BusinessAreas.
+     * @example
+     * // Update many BusinessAreas
+     * const businessArea = await prisma.businessArea.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BusinessAreas and only return the `id`
+     * const businessAreaWithIdOnly = await prisma.businessArea.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BusinessAreaUpdateManyAndReturnArgs>(args: SelectSubset<T, BusinessAreaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BusinessArea.
+     * @param {BusinessAreaUpsertArgs} args - Arguments to update or create a BusinessArea.
+     * @example
+     * // Update or create a BusinessArea
+     * const businessArea = await prisma.businessArea.upsert({
+     *   create: {
+     *     // ... data to create a BusinessArea
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BusinessArea we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BusinessAreaUpsertArgs>(args: SelectSubset<T, BusinessAreaUpsertArgs<ExtArgs>>): Prisma__BusinessAreaClient<$Result.GetResult<Prisma.$BusinessAreaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BusinessAreas.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessAreaCountArgs} args - Arguments to filter BusinessAreas to count.
+     * @example
+     * // Count the number of BusinessAreas
+     * const count = await prisma.businessArea.count({
+     *   where: {
+     *     // ... the filter for the BusinessAreas we want to count
+     *   }
+     * })
+    **/
+    count<T extends BusinessAreaCountArgs>(
+      args?: Subset<T, BusinessAreaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BusinessAreaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BusinessArea.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessAreaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BusinessAreaAggregateArgs>(args: Subset<T, BusinessAreaAggregateArgs>): Prisma.PrismaPromise<GetBusinessAreaAggregateType<T>>
+
+    /**
+     * Group by BusinessArea.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BusinessAreaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BusinessAreaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BusinessAreaGroupByArgs['orderBy'] }
+        : { orderBy?: BusinessAreaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BusinessAreaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBusinessAreaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BusinessArea model
+   */
+  readonly fields: BusinessAreaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BusinessArea.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BusinessAreaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    tenants<T extends BusinessArea$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, BusinessArea$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BusinessArea model
+   */
+  interface BusinessAreaFieldRefs {
+    readonly id: FieldRef<"BusinessArea", 'String'>
+    readonly name: FieldRef<"BusinessArea", 'String'>
+    readonly createdAt: FieldRef<"BusinessArea", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BusinessArea findUnique
+   */
+  export type BusinessAreaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+    /**
+     * Filter, which BusinessArea to fetch.
+     */
+    where: BusinessAreaWhereUniqueInput
+  }
+
+  /**
+   * BusinessArea findUniqueOrThrow
+   */
+  export type BusinessAreaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+    /**
+     * Filter, which BusinessArea to fetch.
+     */
+    where: BusinessAreaWhereUniqueInput
+  }
+
+  /**
+   * BusinessArea findFirst
+   */
+  export type BusinessAreaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+    /**
+     * Filter, which BusinessArea to fetch.
+     */
+    where?: BusinessAreaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BusinessAreas to fetch.
+     */
+    orderBy?: BusinessAreaOrderByWithRelationInput | BusinessAreaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BusinessAreas.
+     */
+    cursor?: BusinessAreaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BusinessAreas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BusinessAreas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BusinessAreas.
+     */
+    distinct?: BusinessAreaScalarFieldEnum | BusinessAreaScalarFieldEnum[]
+  }
+
+  /**
+   * BusinessArea findFirstOrThrow
+   */
+  export type BusinessAreaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+    /**
+     * Filter, which BusinessArea to fetch.
+     */
+    where?: BusinessAreaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BusinessAreas to fetch.
+     */
+    orderBy?: BusinessAreaOrderByWithRelationInput | BusinessAreaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BusinessAreas.
+     */
+    cursor?: BusinessAreaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BusinessAreas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BusinessAreas.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BusinessAreas.
+     */
+    distinct?: BusinessAreaScalarFieldEnum | BusinessAreaScalarFieldEnum[]
+  }
+
+  /**
+   * BusinessArea findMany
+   */
+  export type BusinessAreaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+    /**
+     * Filter, which BusinessAreas to fetch.
+     */
+    where?: BusinessAreaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BusinessAreas to fetch.
+     */
+    orderBy?: BusinessAreaOrderByWithRelationInput | BusinessAreaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BusinessAreas.
+     */
+    cursor?: BusinessAreaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BusinessAreas from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BusinessAreas.
+     */
+    skip?: number
+    distinct?: BusinessAreaScalarFieldEnum | BusinessAreaScalarFieldEnum[]
+  }
+
+  /**
+   * BusinessArea create
+   */
+  export type BusinessAreaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BusinessArea.
+     */
+    data: XOR<BusinessAreaCreateInput, BusinessAreaUncheckedCreateInput>
+  }
+
+  /**
+   * BusinessArea createMany
+   */
+  export type BusinessAreaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BusinessAreas.
+     */
+    data: BusinessAreaCreateManyInput | BusinessAreaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BusinessArea createManyAndReturn
+   */
+  export type BusinessAreaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * The data used to create many BusinessAreas.
+     */
+    data: BusinessAreaCreateManyInput | BusinessAreaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BusinessArea update
+   */
+  export type BusinessAreaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BusinessArea.
+     */
+    data: XOR<BusinessAreaUpdateInput, BusinessAreaUncheckedUpdateInput>
+    /**
+     * Choose, which BusinessArea to update.
+     */
+    where: BusinessAreaWhereUniqueInput
+  }
+
+  /**
+   * BusinessArea updateMany
+   */
+  export type BusinessAreaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BusinessAreas.
+     */
+    data: XOR<BusinessAreaUpdateManyMutationInput, BusinessAreaUncheckedUpdateManyInput>
+    /**
+     * Filter which BusinessAreas to update
+     */
+    where?: BusinessAreaWhereInput
+    /**
+     * Limit how many BusinessAreas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BusinessArea updateManyAndReturn
+   */
+  export type BusinessAreaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * The data used to update BusinessAreas.
+     */
+    data: XOR<BusinessAreaUpdateManyMutationInput, BusinessAreaUncheckedUpdateManyInput>
+    /**
+     * Filter which BusinessAreas to update
+     */
+    where?: BusinessAreaWhereInput
+    /**
+     * Limit how many BusinessAreas to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BusinessArea upsert
+   */
+  export type BusinessAreaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BusinessArea to update in case it exists.
+     */
+    where: BusinessAreaWhereUniqueInput
+    /**
+     * In case the BusinessArea found by the `where` argument doesn't exist, create a new BusinessArea with this data.
+     */
+    create: XOR<BusinessAreaCreateInput, BusinessAreaUncheckedCreateInput>
+    /**
+     * In case the BusinessArea was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BusinessAreaUpdateInput, BusinessAreaUncheckedUpdateInput>
+  }
+
+  /**
+   * BusinessArea delete
+   */
+  export type BusinessAreaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+    /**
+     * Filter which BusinessArea to delete.
+     */
+    where: BusinessAreaWhereUniqueInput
+  }
+
+  /**
+   * BusinessArea deleteMany
+   */
+  export type BusinessAreaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BusinessAreas to delete
+     */
+    where?: BusinessAreaWhereInput
+    /**
+     * Limit how many BusinessAreas to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BusinessArea.tenants
+   */
+  export type BusinessArea$tenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Tenant
+     */
+    select?: TenantSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Tenant
+     */
+    omit?: TenantOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TenantInclude<ExtArgs> | null
+    where?: TenantWhereInput
+    orderBy?: TenantOrderByWithRelationInput | TenantOrderByWithRelationInput[]
+    cursor?: TenantWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
+  }
+
+  /**
+   * BusinessArea without action
+   */
+  export type BusinessAreaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BusinessArea
+     */
+    select?: BusinessAreaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BusinessArea
+     */
+    omit?: BusinessAreaOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BusinessAreaInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -17928,7 +19144,8 @@ export namespace Prisma {
     logoUrl: 'logoUrl',
     plan: 'plan',
     isActive: 'isActive',
-    createdAt: 'createdAt'
+    createdAt: 'createdAt',
+    businessAreaId: 'businessAreaId'
   };
 
   export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
@@ -18108,6 +19325,15 @@ export namespace Prisma {
   };
 
   export type ConversationLogScalarFieldEnum = (typeof ConversationLogScalarFieldEnum)[keyof typeof ConversationLogScalarFieldEnum]
+
+
+  export const BusinessAreaScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    createdAt: 'createdAt'
+  };
+
+  export type BusinessAreaScalarFieldEnum = (typeof BusinessAreaScalarFieldEnum)[keyof typeof BusinessAreaScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -18387,6 +19613,8 @@ export namespace Prisma {
     plan?: StringNullableFilter<"Tenant"> | string | null
     isActive?: BoolFilter<"Tenant"> | boolean
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
+    businessAreaId?: StringNullableFilter<"Tenant"> | string | null
+    businessArea?: XOR<BusinessAreaNullableScalarRelationFilter, BusinessAreaWhereInput> | null
     users?: UserListRelationFilter
     teams?: TeamListRelationFilter
     contacts?: ContactListRelationFilter
@@ -18403,6 +19631,8 @@ export namespace Prisma {
     plan?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
+    businessAreaId?: SortOrderInput | SortOrder
+    businessArea?: BusinessAreaOrderByWithRelationInput
     users?: UserOrderByRelationAggregateInput
     teams?: TeamOrderByRelationAggregateInput
     contacts?: ContactOrderByRelationAggregateInput
@@ -18422,6 +19652,8 @@ export namespace Prisma {
     plan?: StringNullableFilter<"Tenant"> | string | null
     isActive?: BoolFilter<"Tenant"> | boolean
     createdAt?: DateTimeFilter<"Tenant"> | Date | string
+    businessAreaId?: StringNullableFilter<"Tenant"> | string | null
+    businessArea?: XOR<BusinessAreaNullableScalarRelationFilter, BusinessAreaWhereInput> | null
     users?: UserListRelationFilter
     teams?: TeamListRelationFilter
     contacts?: ContactListRelationFilter
@@ -18438,6 +19670,7 @@ export namespace Prisma {
     plan?: SortOrderInput | SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
+    businessAreaId?: SortOrderInput | SortOrder
     _count?: TenantCountOrderByAggregateInput
     _max?: TenantMaxOrderByAggregateInput
     _min?: TenantMinOrderByAggregateInput
@@ -18454,6 +19687,7 @@ export namespace Prisma {
     plan?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
     isActive?: BoolWithAggregatesFilter<"Tenant"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Tenant"> | Date | string
+    businessAreaId?: StringNullableWithAggregatesFilter<"Tenant"> | string | null
   }
 
   export type UserWhereInput = {
@@ -19444,6 +20678,51 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"ConversationLog"> | Date | string
   }
 
+  export type BusinessAreaWhereInput = {
+    AND?: BusinessAreaWhereInput | BusinessAreaWhereInput[]
+    OR?: BusinessAreaWhereInput[]
+    NOT?: BusinessAreaWhereInput | BusinessAreaWhereInput[]
+    id?: StringFilter<"BusinessArea"> | string
+    name?: StringFilter<"BusinessArea"> | string
+    createdAt?: DateTimeFilter<"BusinessArea"> | Date | string
+    tenants?: TenantListRelationFilter
+  }
+
+  export type BusinessAreaOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    tenants?: TenantOrderByRelationAggregateInput
+  }
+
+  export type BusinessAreaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: BusinessAreaWhereInput | BusinessAreaWhereInput[]
+    OR?: BusinessAreaWhereInput[]
+    NOT?: BusinessAreaWhereInput | BusinessAreaWhereInput[]
+    createdAt?: DateTimeFilter<"BusinessArea"> | Date | string
+    tenants?: TenantListRelationFilter
+  }, "id" | "name">
+
+  export type BusinessAreaOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+    _count?: BusinessAreaCountOrderByAggregateInput
+    _max?: BusinessAreaMaxOrderByAggregateInput
+    _min?: BusinessAreaMinOrderByAggregateInput
+  }
+
+  export type BusinessAreaScalarWhereWithAggregatesInput = {
+    AND?: BusinessAreaScalarWhereWithAggregatesInput | BusinessAreaScalarWhereWithAggregatesInput[]
+    OR?: BusinessAreaScalarWhereWithAggregatesInput[]
+    NOT?: BusinessAreaScalarWhereWithAggregatesInput | BusinessAreaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BusinessArea"> | string
+    name?: StringWithAggregatesFilter<"BusinessArea"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"BusinessArea"> | Date | string
+  }
+
   export type TenantCreateInput = {
     id?: string
     name: string
@@ -19452,6 +20731,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessArea?: BusinessAreaCreateNestedOneWithoutTenantsInput
     users?: UserCreateNestedManyWithoutTenantInput
     teams?: TeamCreateNestedManyWithoutTenantInput
     contacts?: ContactCreateNestedManyWithoutTenantInput
@@ -19468,6 +20748,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessAreaId?: string | null
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     teams?: TeamUncheckedCreateNestedManyWithoutTenantInput
     contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
@@ -19484,6 +20765,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessArea?: BusinessAreaUpdateOneWithoutTenantsNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     teams?: TeamUpdateManyWithoutTenantNestedInput
     contacts?: ContactUpdateManyWithoutTenantNestedInput
@@ -19500,6 +20782,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessAreaId?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     teams?: TeamUncheckedUpdateManyWithoutTenantNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
@@ -19516,6 +20799,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessAreaId?: string | null
   }
 
   export type TenantUpdateManyMutationInput = {
@@ -19536,6 +20820,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessAreaId?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UserCreateInput = {
@@ -20572,6 +21857,52 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BusinessAreaCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    tenants?: TenantCreateNestedManyWithoutBusinessAreaInput
+  }
+
+  export type BusinessAreaUncheckedCreateInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+    tenants?: TenantUncheckedCreateNestedManyWithoutBusinessAreaInput
+  }
+
+  export type BusinessAreaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenants?: TenantUpdateManyWithoutBusinessAreaNestedInput
+  }
+
+  export type BusinessAreaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenants?: TenantUncheckedUpdateManyWithoutBusinessAreaNestedInput
+  }
+
+  export type BusinessAreaCreateManyInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type BusinessAreaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BusinessAreaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -20616,6 +21947,11 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type BusinessAreaNullableScalarRelationFilter = {
+    is?: BusinessAreaWhereInput | null
+    isNot?: BusinessAreaWhereInput | null
   }
 
   export type UserListRelationFilter = {
@@ -20691,6 +22027,7 @@ export namespace Prisma {
     plan?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
+    businessAreaId?: SortOrder
   }
 
   export type TenantMaxOrderByAggregateInput = {
@@ -20701,6 +22038,7 @@ export namespace Prisma {
     plan?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
+    businessAreaId?: SortOrder
   }
 
   export type TenantMinOrderByAggregateInput = {
@@ -20711,6 +22049,7 @@ export namespace Prisma {
     plan?: SortOrder
     isActive?: SortOrder
     createdAt?: SortOrder
+    businessAreaId?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -21604,6 +22943,40 @@ export namespace Prisma {
     _max?: NestedEnumLogTypeFilter<$PrismaModel>
   }
 
+  export type TenantListRelationFilter = {
+    every?: TenantWhereInput
+    some?: TenantWhereInput
+    none?: TenantWhereInput
+  }
+
+  export type TenantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BusinessAreaCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BusinessAreaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BusinessAreaMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type BusinessAreaCreateNestedOneWithoutTenantsInput = {
+    create?: XOR<BusinessAreaCreateWithoutTenantsInput, BusinessAreaUncheckedCreateWithoutTenantsInput>
+    connectOrCreate?: BusinessAreaCreateOrConnectWithoutTenantsInput
+    connect?: BusinessAreaWhereUniqueInput
+  }
+
   export type UserCreateNestedManyWithoutTenantInput = {
     create?: XOR<UserCreateWithoutTenantInput, UserUncheckedCreateWithoutTenantInput> | UserCreateWithoutTenantInput[] | UserUncheckedCreateWithoutTenantInput[]
     connectOrCreate?: UserCreateOrConnectWithoutTenantInput | UserCreateOrConnectWithoutTenantInput[]
@@ -21702,6 +23075,16 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
+  }
+
+  export type BusinessAreaUpdateOneWithoutTenantsNestedInput = {
+    create?: XOR<BusinessAreaCreateWithoutTenantsInput, BusinessAreaUncheckedCreateWithoutTenantsInput>
+    connectOrCreate?: BusinessAreaCreateOrConnectWithoutTenantsInput
+    upsert?: BusinessAreaUpsertWithoutTenantsInput
+    disconnect?: BusinessAreaWhereInput | boolean
+    delete?: BusinessAreaWhereInput | boolean
+    connect?: BusinessAreaWhereUniqueInput
+    update?: XOR<XOR<BusinessAreaUpdateToOneWithWhereWithoutTenantsInput, BusinessAreaUpdateWithoutTenantsInput>, BusinessAreaUncheckedUpdateWithoutTenantsInput>
   }
 
   export type UserUpdateManyWithoutTenantNestedInput = {
@@ -23146,6 +24529,48 @@ export namespace Prisma {
     update?: XOR<XOR<ConversationUpdateToOneWithWhereWithoutLogsInput, ConversationUpdateWithoutLogsInput>, ConversationUncheckedUpdateWithoutLogsInput>
   }
 
+  export type TenantCreateNestedManyWithoutBusinessAreaInput = {
+    create?: XOR<TenantCreateWithoutBusinessAreaInput, TenantUncheckedCreateWithoutBusinessAreaInput> | TenantCreateWithoutBusinessAreaInput[] | TenantUncheckedCreateWithoutBusinessAreaInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutBusinessAreaInput | TenantCreateOrConnectWithoutBusinessAreaInput[]
+    createMany?: TenantCreateManyBusinessAreaInputEnvelope
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+  }
+
+  export type TenantUncheckedCreateNestedManyWithoutBusinessAreaInput = {
+    create?: XOR<TenantCreateWithoutBusinessAreaInput, TenantUncheckedCreateWithoutBusinessAreaInput> | TenantCreateWithoutBusinessAreaInput[] | TenantUncheckedCreateWithoutBusinessAreaInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutBusinessAreaInput | TenantCreateOrConnectWithoutBusinessAreaInput[]
+    createMany?: TenantCreateManyBusinessAreaInputEnvelope
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+  }
+
+  export type TenantUpdateManyWithoutBusinessAreaNestedInput = {
+    create?: XOR<TenantCreateWithoutBusinessAreaInput, TenantUncheckedCreateWithoutBusinessAreaInput> | TenantCreateWithoutBusinessAreaInput[] | TenantUncheckedCreateWithoutBusinessAreaInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutBusinessAreaInput | TenantCreateOrConnectWithoutBusinessAreaInput[]
+    upsert?: TenantUpsertWithWhereUniqueWithoutBusinessAreaInput | TenantUpsertWithWhereUniqueWithoutBusinessAreaInput[]
+    createMany?: TenantCreateManyBusinessAreaInputEnvelope
+    set?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    disconnect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    delete?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    update?: TenantUpdateWithWhereUniqueWithoutBusinessAreaInput | TenantUpdateWithWhereUniqueWithoutBusinessAreaInput[]
+    updateMany?: TenantUpdateManyWithWhereWithoutBusinessAreaInput | TenantUpdateManyWithWhereWithoutBusinessAreaInput[]
+    deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  }
+
+  export type TenantUncheckedUpdateManyWithoutBusinessAreaNestedInput = {
+    create?: XOR<TenantCreateWithoutBusinessAreaInput, TenantUncheckedCreateWithoutBusinessAreaInput> | TenantCreateWithoutBusinessAreaInput[] | TenantUncheckedCreateWithoutBusinessAreaInput[]
+    connectOrCreate?: TenantCreateOrConnectWithoutBusinessAreaInput | TenantCreateOrConnectWithoutBusinessAreaInput[]
+    upsert?: TenantUpsertWithWhereUniqueWithoutBusinessAreaInput | TenantUpsertWithWhereUniqueWithoutBusinessAreaInput[]
+    createMany?: TenantCreateManyBusinessAreaInputEnvelope
+    set?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    disconnect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    delete?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+    update?: TenantUpdateWithWhereUniqueWithoutBusinessAreaInput | TenantUpdateWithWhereUniqueWithoutBusinessAreaInput[]
+    updateMany?: TenantUpdateManyWithWhereWithoutBusinessAreaInput | TenantUpdateManyWithWhereWithoutBusinessAreaInput[]
+    deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -23513,6 +24938,23 @@ export namespace Prisma {
     _max?: NestedEnumLogTypeFilter<$PrismaModel>
   }
 
+  export type BusinessAreaCreateWithoutTenantsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type BusinessAreaUncheckedCreateWithoutTenantsInput = {
+    id?: string
+    name: string
+    createdAt?: Date | string
+  }
+
+  export type BusinessAreaCreateOrConnectWithoutTenantsInput = {
+    where: BusinessAreaWhereUniqueInput
+    create: XOR<BusinessAreaCreateWithoutTenantsInput, BusinessAreaUncheckedCreateWithoutTenantsInput>
+  }
+
   export type UserCreateWithoutTenantInput = {
     id?: string
     name: string
@@ -23735,6 +25177,29 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BusinessAreaUpsertWithoutTenantsInput = {
+    update: XOR<BusinessAreaUpdateWithoutTenantsInput, BusinessAreaUncheckedUpdateWithoutTenantsInput>
+    create: XOR<BusinessAreaCreateWithoutTenantsInput, BusinessAreaUncheckedCreateWithoutTenantsInput>
+    where?: BusinessAreaWhereInput
+  }
+
+  export type BusinessAreaUpdateToOneWithWhereWithoutTenantsInput = {
+    where?: BusinessAreaWhereInput
+    data: XOR<BusinessAreaUpdateWithoutTenantsInput, BusinessAreaUncheckedUpdateWithoutTenantsInput>
+  }
+
+  export type BusinessAreaUpdateWithoutTenantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BusinessAreaUncheckedUpdateWithoutTenantsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UserUpsertWithWhereUniqueWithoutTenantInput = {
     where: UserWhereUniqueInput
     update: XOR<UserUpdateWithoutTenantInput, UserUncheckedUpdateWithoutTenantInput>
@@ -23926,6 +25391,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessArea?: BusinessAreaCreateNestedOneWithoutTenantsInput
     teams?: TeamCreateNestedManyWithoutTenantInput
     contacts?: ContactCreateNestedManyWithoutTenantInput
     conversations?: ConversationCreateNestedManyWithoutTenantInput
@@ -23941,6 +25407,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessAreaId?: string | null
     teams?: TeamUncheckedCreateNestedManyWithoutTenantInput
     contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
@@ -24226,6 +25693,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessArea?: BusinessAreaUpdateOneWithoutTenantsNestedInput
     teams?: TeamUpdateManyWithoutTenantNestedInput
     contacts?: ContactUpdateManyWithoutTenantNestedInput
     conversations?: ConversationUpdateManyWithoutTenantNestedInput
@@ -24241,6 +25709,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessAreaId?: NullableStringFieldUpdateOperationsInput | string | null
     teams?: TeamUncheckedUpdateManyWithoutTenantNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
@@ -24443,6 +25912,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessArea?: BusinessAreaCreateNestedOneWithoutTenantsInput
     users?: UserCreateNestedManyWithoutTenantInput
     contacts?: ContactCreateNestedManyWithoutTenantInput
     conversations?: ConversationCreateNestedManyWithoutTenantInput
@@ -24458,6 +25928,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessAreaId?: string | null
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
@@ -24559,6 +26030,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessArea?: BusinessAreaUpdateOneWithoutTenantsNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     contacts?: ContactUpdateManyWithoutTenantNestedInput
     conversations?: ConversationUpdateManyWithoutTenantNestedInput
@@ -24574,6 +26046,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessAreaId?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
@@ -24765,6 +26238,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessArea?: BusinessAreaCreateNestedOneWithoutTenantsInput
     users?: UserCreateNestedManyWithoutTenantInput
     teams?: TeamCreateNestedManyWithoutTenantInput
     conversations?: ConversationCreateNestedManyWithoutTenantInput
@@ -24780,6 +26254,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessAreaId?: string | null
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     teams?: TeamUncheckedCreateNestedManyWithoutTenantInput
     conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
@@ -24902,6 +26377,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessArea?: BusinessAreaUpdateOneWithoutTenantsNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     teams?: TeamUpdateManyWithoutTenantNestedInput
     conversations?: ConversationUpdateManyWithoutTenantNestedInput
@@ -24917,6 +26393,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessAreaId?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     teams?: TeamUncheckedUpdateManyWithoutTenantNestedInput
     conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
@@ -24997,6 +26474,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessArea?: BusinessAreaCreateNestedOneWithoutTenantsInput
     users?: UserCreateNestedManyWithoutTenantInput
     teams?: TeamCreateNestedManyWithoutTenantInput
     contacts?: ContactCreateNestedManyWithoutTenantInput
@@ -25012,6 +26490,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessAreaId?: string | null
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     teams?: TeamUncheckedCreateNestedManyWithoutTenantInput
     contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
@@ -25091,6 +26570,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessArea?: BusinessAreaUpdateOneWithoutTenantsNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     teams?: TeamUpdateManyWithoutTenantNestedInput
     contacts?: ContactUpdateManyWithoutTenantNestedInput
@@ -25106,6 +26586,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessAreaId?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     teams?: TeamUncheckedUpdateManyWithoutTenantNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
@@ -25137,6 +26618,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessArea?: BusinessAreaCreateNestedOneWithoutTenantsInput
     users?: UserCreateNestedManyWithoutTenantInput
     teams?: TeamCreateNestedManyWithoutTenantInput
     contacts?: ContactCreateNestedManyWithoutTenantInput
@@ -25152,6 +26634,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessAreaId?: string | null
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     teams?: TeamUncheckedCreateNestedManyWithoutTenantInput
     contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
@@ -25459,6 +26942,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessArea?: BusinessAreaUpdateOneWithoutTenantsNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     teams?: TeamUpdateManyWithoutTenantNestedInput
     contacts?: ContactUpdateManyWithoutTenantNestedInput
@@ -25474,6 +26958,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessAreaId?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     teams?: TeamUncheckedUpdateManyWithoutTenantNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
@@ -26095,6 +27580,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessArea?: BusinessAreaCreateNestedOneWithoutTenantsInput
     users?: UserCreateNestedManyWithoutTenantInput
     teams?: TeamCreateNestedManyWithoutTenantInput
     contacts?: ContactCreateNestedManyWithoutTenantInput
@@ -26110,6 +27596,7 @@ export namespace Prisma {
     plan?: string | null
     isActive?: boolean
     createdAt?: Date | string
+    businessAreaId?: string | null
     users?: UserUncheckedCreateNestedManyWithoutTenantInput
     teams?: TeamUncheckedCreateNestedManyWithoutTenantInput
     contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
@@ -26210,6 +27697,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessArea?: BusinessAreaUpdateOneWithoutTenantsNestedInput
     users?: UserUpdateManyWithoutTenantNestedInput
     teams?: TeamUpdateManyWithoutTenantNestedInput
     contacts?: ContactUpdateManyWithoutTenantNestedInput
@@ -26225,6 +27713,7 @@ export namespace Prisma {
     plan?: NullableStringFieldUpdateOperationsInput | string | null
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    businessAreaId?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUncheckedUpdateManyWithoutTenantNestedInput
     teams?: TeamUncheckedUpdateManyWithoutTenantNestedInput
     contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
@@ -27215,6 +28704,78 @@ export namespace Prisma {
     messages?: MessageUncheckedUpdateManyWithoutConversationNestedInput
     labels?: ConversationLabelUncheckedUpdateManyWithoutConversationNestedInput
     participants?: ConversationParticipantUncheckedUpdateManyWithoutConversationNestedInput
+  }
+
+  export type TenantCreateWithoutBusinessAreaInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    plan?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    users?: UserCreateNestedManyWithoutTenantInput
+    teams?: TeamCreateNestedManyWithoutTenantInput
+    contacts?: ContactCreateNestedManyWithoutTenantInput
+    conversations?: ConversationCreateNestedManyWithoutTenantInput
+    labels?: LabelCreateNestedManyWithoutTenantInput
+    channels?: ChannelCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantUncheckedCreateWithoutBusinessAreaInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    plan?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    users?: UserUncheckedCreateNestedManyWithoutTenantInput
+    teams?: TeamUncheckedCreateNestedManyWithoutTenantInput
+    contacts?: ContactUncheckedCreateNestedManyWithoutTenantInput
+    conversations?: ConversationUncheckedCreateNestedManyWithoutTenantInput
+    labels?: LabelUncheckedCreateNestedManyWithoutTenantInput
+    channels?: ChannelUncheckedCreateNestedManyWithoutTenantInput
+  }
+
+  export type TenantCreateOrConnectWithoutBusinessAreaInput = {
+    where: TenantWhereUniqueInput
+    create: XOR<TenantCreateWithoutBusinessAreaInput, TenantUncheckedCreateWithoutBusinessAreaInput>
+  }
+
+  export type TenantCreateManyBusinessAreaInputEnvelope = {
+    data: TenantCreateManyBusinessAreaInput | TenantCreateManyBusinessAreaInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TenantUpsertWithWhereUniqueWithoutBusinessAreaInput = {
+    where: TenantWhereUniqueInput
+    update: XOR<TenantUpdateWithoutBusinessAreaInput, TenantUncheckedUpdateWithoutBusinessAreaInput>
+    create: XOR<TenantCreateWithoutBusinessAreaInput, TenantUncheckedCreateWithoutBusinessAreaInput>
+  }
+
+  export type TenantUpdateWithWhereUniqueWithoutBusinessAreaInput = {
+    where: TenantWhereUniqueInput
+    data: XOR<TenantUpdateWithoutBusinessAreaInput, TenantUncheckedUpdateWithoutBusinessAreaInput>
+  }
+
+  export type TenantUpdateManyWithWhereWithoutBusinessAreaInput = {
+    where: TenantScalarWhereInput
+    data: XOR<TenantUpdateManyMutationInput, TenantUncheckedUpdateManyWithoutBusinessAreaInput>
+  }
+
+  export type TenantScalarWhereInput = {
+    AND?: TenantScalarWhereInput | TenantScalarWhereInput[]
+    OR?: TenantScalarWhereInput[]
+    NOT?: TenantScalarWhereInput | TenantScalarWhereInput[]
+    id?: StringFilter<"Tenant"> | string
+    name?: StringFilter<"Tenant"> | string
+    slug?: StringFilter<"Tenant"> | string
+    logoUrl?: StringNullableFilter<"Tenant"> | string | null
+    plan?: StringNullableFilter<"Tenant"> | string | null
+    isActive?: BoolFilter<"Tenant"> | boolean
+    createdAt?: DateTimeFilter<"Tenant"> | Date | string
+    businessAreaId?: StringNullableFilter<"Tenant"> | string | null
   }
 
   export type UserCreateManyTenantInput = {
@@ -28431,6 +29992,58 @@ export namespace Prisma {
     createdById?: NullableStringFieldUpdateOperationsInput | string | null
     removedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     removedById?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type TenantCreateManyBusinessAreaInput = {
+    id?: string
+    name: string
+    slug: string
+    logoUrl?: string | null
+    plan?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+  }
+
+  export type TenantUpdateWithoutBusinessAreaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUpdateManyWithoutTenantNestedInput
+    teams?: TeamUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUpdateManyWithoutTenantNestedInput
+    labels?: LabelUpdateManyWithoutTenantNestedInput
+    channels?: ChannelUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateWithoutBusinessAreaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    users?: UserUncheckedUpdateManyWithoutTenantNestedInput
+    teams?: TeamUncheckedUpdateManyWithoutTenantNestedInput
+    contacts?: ContactUncheckedUpdateManyWithoutTenantNestedInput
+    conversations?: ConversationUncheckedUpdateManyWithoutTenantNestedInput
+    labels?: LabelUncheckedUpdateManyWithoutTenantNestedInput
+    channels?: ChannelUncheckedUpdateManyWithoutTenantNestedInput
+  }
+
+  export type TenantUncheckedUpdateManyWithoutBusinessAreaInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    slug?: StringFieldUpdateOperationsInput | string
+    logoUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    plan?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

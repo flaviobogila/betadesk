@@ -1,24 +1,11 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsString, IsUUID, IsEnum, IsOptional } from 'class-validator';
-import { UserRole } from 'src/common/enums/user-role.enum';
+import { SignupDto } from './signupDto';
 
-export class RegisterDto {
+export class RegisterDto extends SignupDto {
+
+  @ApiProperty({description: 'Id do usuário', example: '123e4567-e89b-12d3-a456-426614174000', required: false})
   @IsUUID()
   @IsOptional()
-  userId: string;
-
-  @IsEmail()
-  email: string;
-
-  @IsString()
-  password: string;
-
-  @IsString()
-  fullName: string;
-
-  @IsString()
-  companyName: string;
-
-  @IsOptional()
-  @IsUUID()
-  tenantId: string;
+  userId?: string;
 }

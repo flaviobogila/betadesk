@@ -10,7 +10,6 @@ async function bootstrap() {
 
   app.useGlobalFilters(new PrismaClientExceptionFilter());
 
-
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -31,8 +30,19 @@ async function bootstrap() {
     .setDescription('API RESTful para o sistema BetaDesk: plataforma SaaS de atendimento multicanal com automação inteligente e suporte humanizado.')
     .setVersion('1.0')
     .addTag('betadesk')
+    .addBearerAuth(  // ⬅️ Adiciona o esquema de autenticação
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        description: 'Insira o token do supabase auth no campo abaixo',
+      },
+      'access-token', // nome que você usará para referenciar essa auth
+    )
     .build();
+
   const documentFactory = () => SwaggerModule.createDocument(app, config);
+
   SwaggerModule.setup('api', app, documentFactory);
 
   await app.listen(process.env.PORT ?? 3000);

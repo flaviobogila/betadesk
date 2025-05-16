@@ -21,7 +21,6 @@ export class InboundMessageService {
     private readonly messageService: MessageService,
     private readonly messageWhatsappMapper: MessageWhatsAppMapperService,
     private readonly whatsappService: WhatsappService,
-
   ) { }
 
   async process({ change, message }: { change: WhatsAppChangeValue, message: WhatsAppMessage }) {
@@ -42,13 +41,13 @@ export class InboundMessageService {
     //configura o id do contato e o nome do remetente
     const senderData = { senderId: conversation.contactId, senderName: name };
     //concatenando os dados da mensagem com os dados do remetente
-    const replyTo = message.context?.id ?? undefined;
-    const messageCreateInput = { ...messageData, ...senderData, replyTo };
+    const messageReplyExternalId = message.context?.id;
+    const messageCreateInput = { ...messageData, ...senderData };
 
     if(message.type === 'reaction') {
       await this.messageService.updateReaction(messageCreateInput);
     }else{
-      const stored = await this.messageService.upsert(messageCreateInput, conversation.id, replyTo);
+      const stored = await this.messageService.upsert(messageCreateInput, conversation.id, messageReplyExternalId);
       if (stored != null) {
         await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
         //baixando media do whatsapp caso seja do tipo media

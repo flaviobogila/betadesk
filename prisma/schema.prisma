@@ -21,8 +21,10 @@ model Tenant {
   logoUrl       String?
   plan          String?
   isActive      Boolean    @default(true)
-  createdAt     DateTime   @default(now())
+  createdAt     DateTime   @default(now()) 
+  businessAreaId String?   
 
+  businessArea   BusinessArea? @relation(fields: [businessAreaId], references: [id])
   users          User[]
   teams          Team[]
   contacts       Contact[]
@@ -315,5 +317,13 @@ enum LogType {
   LABEL_ADDED
   LABEL_REMOVED
   CUSTOM
+}
+
+model BusinessArea {
+  id        String    @id @default(uuid())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+
+  tenants   Tenant[]
 }
 

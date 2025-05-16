@@ -15,18 +15,19 @@ export class UsersService {
     });
   }
 
-  async createTenantWithAdminUser(createUserDto: RegisterDto) {
+  async createUserAuth(registerDto: RegisterDto) {
 
     return this.prisma.$transaction(async (tx) => {
-      const { userId, companyName, fullName, email } = createUserDto;
+      const { userId, companyName, fullName, email, businessAreaId } = registerDto;
 
       const tenant = await tx.tenant.create({
-        data: { name: companyName, slug: generateSlug(companyName), isActive: true },
+        data: { name: companyName, businessAreaId, slug: generateSlug(companyName), isActive: true },
+        include: { businessArea: true },
       });
     
       const user = await tx.user.create({
         data: {
-          id:userId,
+          id: userId,
           tenantId: tenant.id,
           name: fullName,
           email,

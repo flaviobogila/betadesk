@@ -37,7 +37,7 @@ export class MessageService {
     });
   }
 
-  async upsert(input: Prisma.MessageCreateInput, conversationId: string, replyTo?: string) {
+  async upsert(input: Prisma.MessageCreateInput, conversationId: string, messageReplyExternalId?: string) {
     const existing = await this.prisma.message.findFirst({
       where: {
         conversationId: conversationId,
@@ -49,12 +49,12 @@ export class MessageService {
     if (existing) {
       return existing;
     }
-
-    if (replyTo) {
+    
+    if (messageReplyExternalId) {
       const replyMessage = await this.prisma.message.findFirst({
         where: {
           conversationId: conversationId,
-          externalId: replyTo,
+          externalId: messageReplyExternalId,
         },
       });
 
