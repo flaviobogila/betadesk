@@ -10,11 +10,19 @@ import { WhatsAppMediaDownloadResponse } from 'src/webhook/dto/whatsapp-webhook.
 export class MessageService {
   constructor(private readonly prisma: PrismaService, private readonly factory: MessageFactoryService) { }
 
-  async create(data: Prisma.MessageCreateInput) {
+  async save(messageDto: SendMessageBaseDto, user: SupabaseUser) {
+    const entityMessage = await this.factory.buildMessage(messageDto.messageType, messageDto, user);
+    if(messageDto.isPrivate) {
+      return this.createPrivateMessageWithMention(entityMessage, messageDto.mentionedUserId!);
+    }
+    return this.create(entityMessage);
+  }
+
+  private create(data: Prisma.MessageCreateInput) {
     return this.prisma.message.create({ data, include: { replyTo: true } });
   }
 
-  async createPrivateMessageWithMention(data: Prisma.MessageCreateInput, mentionedUserId: string) {
+  private createPrivateMessageWithMention(data: Prisma.MessageCreateInput, mentionedUserId: string) {
     return this.prisma.$transaction(async (tx) => {
       const message = await tx.message.create({
         data, include: { replyTo: true }
@@ -25,20 +33,11 @@ export class MessageService {
           mentionedId: mentionedUserId,
         },
       });
-      return { message, mention };
+      return message;
     });
   }
 
-  async buildAndCreate(messageDto: SendMessageBaseDto, user: SupabaseUser) {
-    const entityMessage = await this.factory.buildMessage(messageDto.messageType, messageDto, user);
-    if(messageDto.isPrivate) {
-      const messageAndMention = await this.createPrivateMessageWithMention(entityMessage, messageDto.mentionedUserId!);
-      return messageAndMention.message;
-    }
-    return await this.create(entityMessage);
-  }
-
-  async createIfNotExists(input: Prisma.MessageCreateInput, conversationId: string, replyTo?: string) {
+  async upsert(input: Prisma.MessageCreateInput, conversationId: string, replyTo?: string) {
     const existing = await this.prisma.message.findFirst({
       where: {
         conversationId: conversationId,

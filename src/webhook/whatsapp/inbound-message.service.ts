@@ -43,12 +43,12 @@ export class InboundMessageService {
     const senderData = { senderId: conversation.contactId, senderName: name };
     //concatenando os dados da mensagem com os dados do remetente
     const replyTo = message.context?.id ?? undefined;
-    const data = { ...messageData, ...senderData, replyTo };
+    const messageCreateInput = { ...messageData, ...senderData, replyTo };
 
     if(message.type === 'reaction') {
-      await this.messageService.updateReaction(data);
+      await this.messageService.updateReaction(messageCreateInput);
     }else{
-      const stored = await this.messageService.createIfNotExists(data, conversation.id, replyTo);
+      const stored = await this.messageService.upsert(messageCreateInput, conversation.id, replyTo);
       if (stored != null) {
         await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
         //baixando media do whatsapp caso seja do tipo media

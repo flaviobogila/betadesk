@@ -29,6 +29,6 @@ export class MessagesController {
     const tenantId = user.tenantId
     const messageDto = { ...body, tenantId }
 
-    return await this.messageService.buildAndCreate(messageDto, user);
+    return await this.messageService.save(messageDto, user);
   }
 }
