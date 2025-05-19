@@ -3,8 +3,8 @@ import { BullMQService } from './bullmq.service';
 import { MessageDispatcherService } from 'src/messages/message-dispatcher.service';
 import { MessageService } from 'src/messages/message.service';
 import { SendBaseMessageDto } from 'src/messages/dto/send-base-message.dto';
-import { MessageType } from '@prisma/client';
 import { WhatsappService } from 'src/messages/whatsapp.service';
+import { MessageType } from 'prisma/generated/prisma';
 
 @Injectable()
 export class BullMQChatService {
