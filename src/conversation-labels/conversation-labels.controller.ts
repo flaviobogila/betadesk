@@ -5,14 +5,14 @@ import { SupabaseAuthGuard } from 'src/auth/supabase-auth.guard';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
 
-@Controller('conversations/:conversationId/labels')
+@Controller('conversations/:id/labels')
 @UseGuards(SupabaseAuthGuard)
 export class ConversationLabelsController {
   constructor(private readonly conversationLabelsService: ConversationLabelsService) {}
 
   @Post()
   create(
-    @Param('conversationId') conversationId: string, 
+    @Param('id') conversationId: string, 
     @Body() createConversationLabelDto: CreateConversationLabelDto, 
     @CurrentUser() user: SupabaseUser) {
     return this.conversationLabelsService.create(
@@ -24,13 +24,13 @@ export class ConversationLabelsController {
   }
 
   @Get()
-  findAll(@Param('conversationId') conversationId: string) {
+  findAll(@Param('id') conversationId: string) {
     return this.conversationLabelsService.findAll(conversationId);
   }
 
   @Delete(':labelId')
   remove(
-    @Param('conversationId') conversationId: string, 
+    @Param('id') conversationId: string, 
     @Param('labelId') labelId: string, 
     @CurrentUser() user: SupabaseUser) {
     return this.conversationLabelsService.remove(conversationId, labelId, user.id);

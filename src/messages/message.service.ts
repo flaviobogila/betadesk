@@ -129,6 +129,19 @@ export class MessageService {
       },
     });
 
+    if(extras?.metadata){
+
+      const currentMetadata = (message.metadata || {}) as Prisma.JsonObject;
+      const newMetadata = (extras.metadata || {}) as Prisma.JsonObject;
+
+      const mergedMetadata: Prisma.JsonObject = {
+        ...currentMetadata,
+        ...newMetadata,
+      };
+
+      extras.metadata = mergedMetadata;
+    }
+
     return plainToInstance(MessageEntity, message, {
       groups: [message.messageType],
     });
@@ -145,7 +158,20 @@ export class MessageService {
 
     if(!message) {
       return null;
-    } 
+    }
+
+    if(extras?.metadata){
+
+      const currentMetadata = (message.metadata || {}) as Prisma.JsonObject;
+      const newMetadata = (extras.metadata || {}) as Prisma.JsonObject;
+
+      const mergedMetadata: Prisma.JsonObject = {
+        ...currentMetadata,
+        ...newMetadata,
+      };
+
+      extras.metadata = mergedMetadata;
+    }
 
     return this.prisma.message.update({
       where: { id: message?.id },
@@ -166,6 +192,15 @@ export class MessageService {
         mediaUrl: url,
         mediaCaption: caption,
         mediaStatus: 'downloaded'
+      },
+    });
+  }
+
+  updateMediaStatus(id: string, status: 'downloaded' | 'failed' | 'downloading') {
+    return this.prisma.message.update({
+      where: { id },
+      data: {
+        mediaStatus: status
       },
     });
   }

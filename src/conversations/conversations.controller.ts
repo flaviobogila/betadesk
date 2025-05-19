@@ -6,7 +6,6 @@ import { CreateConversationAssingnedUserDto } from './dto/create-conversation-as
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
 import { SupabaseAuthGuard } from 'src/auth/supabase-auth.guard';
-import { ConversationStatus } from 'prisma/generated/prisma';
 import { UpdateConversationStatusDto } from './dto/update-conversation-status.dto';
 
 @UseGuards(SupabaseAuthGuard)

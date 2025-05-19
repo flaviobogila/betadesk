@@ -9,6 +9,7 @@ import { MessageEntity } from "src/messages/entities/message.entity";
 import { MessageType } from "prisma/generated/prisma/client";
 import { WhatsappService } from "src/messages/whatsapp.service";
 import { plainToInstance } from "class-transformer";
+import { BullMQChatService } from "src/messages/queues/bullmq/conversation.bullmq.service";
 
 
 @Injectable()
@@ -21,6 +22,7 @@ export class InboundMessageService {
     private readonly messageService: MessageService,
     private readonly messageWhatsappMapper: MessageWhatsAppMapperService,
     private readonly whatsappService: WhatsappService,
+    private readonly bullmqService: BullMQChatService
   ) { }
 
   async process({ change, message }: { change: WhatsAppChangeValue, message: WhatsAppMessage }) {
@@ -51,7 +53,8 @@ export class InboundMessageService {
       if (stored != null) {
         await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
         //baixando media do whatsapp caso seja do tipo media
-        await this.downloadMedia(plainToInstance(MessageEntity, {...stored, channelId: conversation.channelId}));
+        //await this.downloadMedia(plainToInstance(MessageEntity, {...stored, channelId: conversation.channelId}));
+        await this.bullmqService.handleDownloadMessage(conversation.id, {...stored, channelId: conversation.channelId});
       }
     }
   }

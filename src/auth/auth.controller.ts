@@ -9,7 +9,6 @@ import { SignupDto } from './dto/signupDto';
 import { SupabaseAuthExceptionFilter } from 'src/common/filters/supabase-auth-exception.filter';
 
 @Controller('auth')
-
 export class AuthController {
   constructor(
     private readonly authService: AuthService,

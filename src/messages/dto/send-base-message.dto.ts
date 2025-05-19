@@ -26,6 +26,11 @@ export class SendBaseMessageDto {
     @IsUUID()
     @IsOptional()
     replyTo: string;
+
+    @ApiProperty({ description: 'Id da mensagem', example: 'e6106c10-00aa-4230-8b9d-23ea24267bd3' })
+    @IsUUID()
+    @IsOptional()
+    messageId?: string;
 }
 
 
