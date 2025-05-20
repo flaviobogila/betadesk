@@ -12,7 +12,7 @@ export class BullMQChatService {
 
   async handleIncomingMessage(chatId: string, message: SendBaseMessageDto) {
     await this.bullmq.addMessage(chatId, message);
-    await this.bullmq.registerWorker(chatId, async (job) => {
+    return this.bullmq.registerWorker(chatId, async (job) => {
       console.log(`Processando chat ${chatId}:`, job.data.message);
 
       try {
@@ -35,21 +35,20 @@ export class BullMQChatService {
   }
 
   async handleDownloadMessage(chatId: string, message: any) {
+    if (![MessageType.image, MessageType.audio, MessageType.video, MessageType.document, MessageType.sticker].includes(message.messageType)) {
+      return Promise.resolve();
+    }
     await this.bullmq.addDownloadMessage(chatId, message);
-    await this.bullmq.registerWorker(chatId, async (job) => {
+    return this.bullmq.registerWorker(chatId, async (job) => {
       console.log(`Processando chat ${chatId}:`, job.data.message);
       await this.messageService.updateMediaStatus(job.data.message.id, 'downloading');
 
       try {
-        const type = job.data.message.messageType as MessageType as any;
-        if ([MessageType.image, MessageType.audio, MessageType.video, MessageType.document, MessageType.sticker].includes(type)) {
-          //TODO: salvar media no storage
-          const media = await this.whatsappService.downloadMediaFromMeta(job.data.message.mediaId!, job.data.message.channelId);
-          if (media) {
-            await this.messageService.updateMedia(job.data.message.id, media);
-          }else{
-            await this.messageService.updateMediaStatus(job.data.message.id, 'failed');
-          }
+        const media = await this.whatsappService.downloadMediaFromMeta(job.data.message.mediaId!, job.data.message.channelId);
+        if (media) {
+          await this.messageService.updateMedia(job.data.message.id, media);
+        } else {
+          await this.messageService.updateMediaStatus(job.data.message.id, 'failed');
         }
       } catch (error) {
         await this.messageService.updateMediaStatus(job.data.message.id, 'failed');

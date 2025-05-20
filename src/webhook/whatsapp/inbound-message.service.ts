@@ -54,7 +54,7 @@ export class InboundMessageService {
         await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
         //baixando media do whatsapp caso seja do tipo media
         //await this.downloadMedia(plainToInstance(MessageEntity, {...stored, channelId: conversation.channelId}));
-        await this.bullmqService.handleDownloadMessage(conversation.id, {...stored, channelId: conversation.channelId});
+        this.bullmqService.handleDownloadMessage(conversation.id, {...stored, channelId: conversation.channelId});
       }
     }
   }

@@ -33,7 +33,7 @@ export class WhatsappController {
 
     const dto = { ...createMessageDto,  replyTo: createdMessage?.replyTo?.externalId ?? undefined}
 
-    await this.bullmqService.handleIncomingMessage(createdMessage.conversationId, { ...dto, messageId: createdMessage.id });
+    this.bullmqService.handleIncomingMessage(createdMessage.conversationId, { ...dto, messageId: createdMessage.id });
     return { status: 'created', message: createdMessage };
   }
 }
