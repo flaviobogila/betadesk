@@ -1,6 +1,6 @@
 
 import { ApiProperty } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsUUID, IsOptional, IsEnum } from 'class-validator';
+import { IsString, IsNotEmpty, IsUUID, IsOptional, IsEnum, ValidateIf } from 'class-validator';
 import { MessageType } from 'prisma/generated/prisma';
 
 export class SendBaseMessageDto {
@@ -9,6 +9,7 @@ export class SendBaseMessageDto {
     channelId: string;
 
     @ApiProperty({ description: 'Id do conversa', example: 'e6106c10-00aa-4230-8b9d-23ea24267bd3' })
+    @ValidateIf((o) => o.messageType !== MessageType.template)
     @IsUUID()
     conversationId: string;
 

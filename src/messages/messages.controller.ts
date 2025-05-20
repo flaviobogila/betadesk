@@ -1,34 +1,31 @@
-import {
-  Controller,
-  Post,
-  Body,
-  UseGuards,
-  HttpCode,
-  HttpStatus,
-  Get,
-  Param,
-} from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Param, Get } from '@nestjs/common';
 import { SupabaseAuthGuard } from 'src/auth/supabase-auth.guard';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
-import { SendMessageBaseDto } from './dto/send-message.dto';
 import { MessageService } from './message.service';
+import { SendMessageValidationPipe } from './pipes/send-message-validation.pipe';
+import { BullMQChatService } from './queues/bullmq/conversation.bullmq.service';
+import { SendMessageBaseDto } from './dto/send-message.dto';
 
-@Controller('conversations/:id/messages')
+@Controller('conversations/:id')
 @UseGuards(SupabaseAuthGuard)
 export class MessagesController {
-  constructor(private readonly messageService: MessageService) { }
+  constructor(private readonly messageService: MessageService, private readonly bullmqService: BullMQChatService) { }
 
-  @Get()
+  @Get('messages')
   findAll(@Param('id') id: string) {
     return this.messageService.findAll(id)
   }
 
-  @Post()
-  async sendMessage(@Body() body: SendMessageBaseDto, @CurrentUser() user: SupabaseUser) {
-    const tenantId = user.tenantId
-    const messageDto = { ...body, tenantId }
+  @Post('messages')
+  async sendMessage(@Param('id') conversationId: string, @Body(new SendMessageValidationPipe()) body: SendMessageBaseDto, @CurrentUser() user: SupabaseUser) {
 
-    return await this.messageService.save(messageDto, user);
+    const createMessageDto = { ...body, tenantId: user.tenantId, conversationId }
+    const createdMessage = await this.messageService.save(createMessageDto, user);
+
+    const dto = { ...createMessageDto, replyTo: createdMessage?.replyTo?.externalId ?? undefined }
+
+    this.bullmqService.handleOutcomingWhatsappMessage(conversationId, { ...dto, messageId: createdMessage.id } as any);
+    return { status: 'created', message: createdMessage };
   }
 }

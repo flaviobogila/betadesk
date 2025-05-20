@@ -16,12 +16,13 @@ import * as FormData from 'form-data';
 import { SendListButtonMessageDto } from './dto/send-list-button-message.dto';
 import { SendContactMessageDto } from './dto/send-contact-message.dto';
 import { WhatsAppMediaDownloadResponse } from 'src/webhook/dto/whatsapp-webhook.dto';
+import { TranslateMetaError } from 'src/common/utils/translate-meta-error.util';
 
 @Injectable()
 export class WhatsappService {
   private readonly logger = new Logger(WhatsappService.name);
 
-  constructor(private readonly channelService: ChannelsService) {}
+  constructor(private readonly channelService: ChannelsService) { }
 
   async sendTextMessage(dto: SendTextMessageDto) {
     const { to, content, replyTo, channelId } = dto;
@@ -53,7 +54,7 @@ export class WhatsappService {
   }
 
   async sendTemplateMessage(dto: SendTemplateMessageDto) {
-    const { to, templateName, languageCode, components, replyTo, channelId } = dto;
+    const { to, templateName, language: languageCode, components, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
 
     return this.sendRequest(token, externalId, {
@@ -74,7 +75,7 @@ export class WhatsappService {
     const { externalId, token } = await this.getChannelAuth(channelId);
 
     //const audioId = await this.getAudioId(audioUrl, channelId);
-  
+
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
@@ -89,7 +90,7 @@ export class WhatsappService {
   async sendVideoMessage(dto: SendVideoMessageDto) {
     const { to, videoUrl, caption, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
-  
+
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
@@ -105,7 +106,7 @@ export class WhatsappService {
   async sendDocumentMessage(dto: SendDocumentMessageDto) {
     const { to, documentUrl, caption, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
-  
+
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
@@ -117,11 +118,11 @@ export class WhatsappService {
       context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
-  
+
   async sendStickerMessage(dto: SendStickerMessageDto) {
     const { to, stickerUrl, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
-  
+
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
@@ -136,7 +137,7 @@ export class WhatsappService {
   async sendLocationMessage(dto: SendLocationMessageDto) {
     const { to, latitude, longitude, name, address, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
-  
+
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
@@ -154,7 +155,7 @@ export class WhatsappService {
   async sendButtonMessage(dto: SendButtonMessageDto) {
     const { to, content, buttons, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
-  
+
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
@@ -179,7 +180,7 @@ export class WhatsappService {
   async sendListButtonMessage(dto: SendListButtonMessageDto) {
     const { to, content, buttonText, header, footer, items, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
-  
+
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
@@ -205,11 +206,11 @@ export class WhatsappService {
       context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
-  
+
   async sendComponentMessage(dto: SendComponentMessageDto) {
     const { to, body, header, footer, buttons, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
-  
+
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
@@ -223,14 +224,14 @@ export class WhatsappService {
           ...(footer ? [{ type: 'footer', parameters: [{ type: 'text', text: footer }] }] : []),
           ...(buttons?.length
             ? [{
-                type: 'button',
-                sub_type: 'quick_reply',
-                index: '0',
-                parameters: buttons.map((b) => ({
-                  type: 'payload',
-                  payload: b.payload,
-                })),
-              }]
+              type: 'button',
+              sub_type: 'quick_reply',
+              index: '0',
+              parameters: buttons.map((b) => ({
+                type: 'payload',
+                payload: b.payload,
+              })),
+            }]
             : []),
         ],
       },
@@ -241,7 +242,7 @@ export class WhatsappService {
   async sendContactMessage(dto: SendContactMessageDto) {
     const { to, contacts, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
-  
+
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
@@ -251,6 +252,14 @@ export class WhatsappService {
     });
   }
 
+  buildMetaError(error: any) {
+    const metaError = new TranslateMetaError().map(error)
+    return {
+      message: metaError?.message || 'Erro desconhecido',
+      meta: metaError
+    }
+  }
+
   async getAudioId(audioUrl: string, channelId: string) {
     try {
       const { externalId, token } = await this.getChannelAuth(channelId);
@@ -258,7 +267,7 @@ export class WhatsappService {
       const responseAudio = await axios.get(audioUrl, {
         responseType: 'arraybuffer',
       });
-  
+
       const buffer = Buffer.from(responseAudio.data);
 
       const form = new FormData();
@@ -268,7 +277,7 @@ export class WhatsappService {
         filename: 'voice.ogg',
         knownLength: buffer.length
       });
-      
+
       const response = await axios.post(
         `https://graph.facebook.com/v19.0/${externalId}/media`,
         form,
@@ -280,7 +289,7 @@ export class WhatsappService {
           maxBodyLength: Infinity // necessário para uploads grandes
         }
       );
-    
+
       return response.data.id;
     } catch (error) {
       console.error('Erro ao baixar mídia:', error?.response?.data || error);
@@ -291,7 +300,7 @@ export class WhatsappService {
   async downloadMediaFromMeta(mediaId: string, channelId: string): Promise<WhatsAppMediaDownloadResponse> {
     try {
       const { externalId, token } = await this.getChannelAuth(channelId);
-      
+
       // 1. Buscar a URL temporária da mídia
       const mediaMetaUrl = `https://graph.facebook.com/v19.0/${mediaId}`;
       const mediaMetaResponse = await axios.get(mediaMetaUrl, {
@@ -340,13 +349,13 @@ export class WhatsappService {
   private async sendRequest(token: string, phoneNumberId: string, payload: any) {
     const url = `https://graph.facebook.com/v19.0/${phoneNumberId}/messages`;
 
-      const response = await axios.post(url, payload, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
+    const response = await axios.post(url, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
 
-      return response.data;
+    return response.data;
   }
 }

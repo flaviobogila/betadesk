@@ -1,5 +1,7 @@
 import { IsString, IsNotEmpty, IsUUID, IsOptional, IsArray } from 'class-validator';
 import { SendBaseMessageDto } from './send-base-message.dto';
+import { PartialType, PickType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
 
 export class TemplateComponentParameter {
   @IsString()
@@ -34,14 +36,17 @@ export class TemplateComponent {
 
 export class SendTemplateMessageDto extends SendBaseMessageDto {
 
+  @ApiProperty({ description: 'Nome do template', example: 'boas_vindas' })
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty({ message: 'Nome do template é obrigatório' })
   templateName: string;
 
+  @ApiProperty({ description: 'Idioma do template', example: 'pt_BR' })
   @IsString()
-  @IsNotEmpty()
-  languageCode: 'pt_BR'; // Ex: 'pt_BR', 'en_US'
+  @IsNotEmpty({ message: 'Idioma do template é obrigatório' })
+  language: 'pt_BR' | string; // Ex: 'pt_BR', 'en_US'
 
+  @ApiProperty({ description: 'Componentes do template', example: '{"type": "body", "parameters": [ { "type": "text", "text": "João" }]}' })
   @IsArray()
   @IsOptional()
   components?: TemplateComponent[]

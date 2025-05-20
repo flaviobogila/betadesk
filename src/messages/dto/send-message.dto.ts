@@ -1,8 +1,8 @@
 // src/messages/dto/send-message-base.dto.ts
 import { IsUUID, IsEnum, IsNotEmpty, IsOptional, ValidateIf, IsString, IsUrl, IsObject, IsArray, ValidateNested, isNotEmpty, IsBoolean } from 'class-validator';
-import { MessageType } from './message-type.enum';
 import { ApiProperty } from '@nestjs/swagger';
 import { SendContactMessageDto } from './send-contact-message.dto';
+import { MessageType } from 'prisma/generated/prisma';
 
 export class SendMessageBaseDto {
   @ApiProperty({ example: '296d5f0c-ad78-4d31-9dfd-c996aa074857' })

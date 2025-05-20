@@ -4,10 +4,17 @@ import { Channel, Contact, ConversationStatus, LogType, ParticipantRole } from '
 import { HttpStatusCode } from 'axios';
 import { ConversationsLogService } from './conversations-logs.service';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
+import { ChannelsService } from 'src/channels/channels.service';
+import { ContactsService } from 'src/contacts/contacts.service';
 
 @Injectable()
 export class ConversationsService {
-  constructor(private readonly prisma: PrismaService, private readonly conversationLogService: ConversationsLogService) { }
+  constructor(
+    private readonly prisma: PrismaService, 
+    private readonly conversationLogService: ConversationsLogService,
+    private readonly channelService: ChannelsService,
+    private readonly contactService: ContactsService,
+  ) { }
 
   findOne(id: string) {
     return this.prisma.conversation.findFirst({
@@ -74,6 +81,48 @@ export class ConversationsService {
         status: 'in_queue'
       },
     });
+  }
+
+  async findOneActiveOrCreateByChannelId({ channelId, clientPhone, clientName, origin }: { channelId: string, clientPhone: string, clientName: string, origin: "user" | "business" }) {
+    const conversation = await this.prisma.conversation.findFirst({
+      where: {
+        externalId: clientPhone,
+        channelId,
+        status: { in: ['open', 'in_queue', 'bot'] },
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+    
+    if (!conversation) {
+      const channel = await this.channelService.findById(channelId)
+      if (!channel) {
+        throw new HttpException('Canal não encontrado', HttpStatusCode.NotFound);
+      }
+      const contact = await this.contactService.findOrCreate(channel.tenantId, clientPhone, clientName, origin);
+      return await this.create(contact, channel);
+    }
+
+    return conversation;
+  }
+
+  async findOneActiveOrCreateByExternalChannelId({ externalChannelId, clientPhone, clientName, origin }: { externalChannelId: string, clientPhone: string, clientName: string, origin: "user" | "business" }) {
+    let conversation = this.prisma.conversation.findFirst({
+      where: {
+        externalId: clientPhone,
+        externalChannelId,
+        status: { in: ['open', 'in_queue', 'bot'] },
+      },
+      orderBy: { createdAt: 'desc' }
+    });
+    
+    if (!conversation) {
+      const channel = await this.channelService.findByExternalId(externalChannelId)
+      if (!channel) {
+        throw new HttpException('Canal não encontrado', HttpStatusCode.NotFound);
+      }
+      const contact = await this.contactService.findOrCreate(channel.tenantId, clientPhone, clientName, origin);
+      return await this.create(contact, channel);
+    }
   }
 
   update(id: string, data: any) {

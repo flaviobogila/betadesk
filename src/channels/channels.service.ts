@@ -75,6 +75,24 @@ export class ChannelsService {
     };
   }
 
+  async findByIdOrExternalId(id: string) {
+    let channel = await this.prisma.channel.findUnique({
+      where: { id },
+    });
+    if(!channel) {
+      channel = await this.prisma.channel.findFirst({
+        where: { externalId: id },
+      });
+    }
+    return channel;
+  }
+
+  async findById(id: string) {
+    return await this.prisma.channel.findUnique({
+      where: { id },
+    });
+  }
+
   async findByExternalId(externalId: string) {
     const channel = await this.prisma.channel.findFirst({
       where: { externalId },

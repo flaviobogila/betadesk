@@ -1,9 +1,8 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { MessageType } from './dto/message-type.enum';
 import { SendImageMessageDto } from './dto/send-image-message.dto';
 import { SendTemplateMessageDto } from './dto/send-template-message.dto';
 import { SendTextMessageDto } from './dto/send-text-message.dto';
-import { Prisma } from 'prisma/generated/prisma/client';
+import { MessageType, Prisma } from 'prisma/generated/prisma/client';
 import { InputJsonValue } from 'prisma/generated/prisma/runtime/library';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
 import { SendAudioMessageDto } from './dto/send-audio-message.dto';
@@ -19,7 +18,7 @@ import { SendContactMessageDto } from './dto/send-contact-message.dto';
 @Injectable()
 export class MessageFactoryService {
 
-  buildMessage(
+  buildModelMessage(
     messageType: MessageType,
     dto: any,
     sender: SupabaseUser
@@ -102,9 +101,11 @@ export class MessageFactoryService {
       senderName: sender?.name,
       messageType: 'template',
       metadata: {
-        templateName: dto.templateName,
-        languageCode: dto.languageCode,
-        components: dto.components,
+        template: {
+          templateName: dto.templateName,
+          language: dto.language,
+          components: dto.components,
+        }
       } as unknown as InputJsonValue,
       status: 'pending',
     };

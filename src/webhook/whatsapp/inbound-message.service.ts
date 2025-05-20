@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { HttpException, Injectable } from "@nestjs/common";
 import { ChannelsService } from "src/channels/channels.service";
 import { ContactsService } from "src/contacts/contacts.service";
 import { ConversationsService } from "src/conversations/conversations.service";
@@ -8,7 +8,6 @@ import { WhatsAppChangeValue, WhatsAppMessage, WhatsAppMessageStatus } from "../
 import { MessageEntity } from "src/messages/entities/message.entity";
 import { MessageType } from "prisma/generated/prisma/client";
 import { WhatsappService } from "src/messages/whatsapp.service";
-import { plainToInstance } from "class-transformer";
 import { BullMQChatService } from "src/messages/queues/bullmq/conversation.bullmq.service";
 
 
@@ -16,8 +15,7 @@ import { BullMQChatService } from "src/messages/queues/bullmq/conversation.bullm
 export class InboundMessageService {
 
   constructor(
-    private readonly channelService: ChannelsService, 
-    private readonly contactService: ContactsService,
+    private readonly channelService: ChannelsService,
     private readonly conversationService: ConversationsService,
     private readonly messageService: MessageService,
     private readonly messageWhatsappMapper: MessageWhatsAppMapperService,
@@ -26,18 +24,26 @@ export class InboundMessageService {
   ) { }
 
   async process({ change, message }: { change: WhatsAppChangeValue, message: WhatsAppMessage }) {
-    const { phone_number_id } = change.metadata;
+    const { phone_number_id: externalChannelId } = change.metadata;
     const from = message.from;
     const name = change.contacts?.[0]?.profile?.name
-  
-    let conversation = await this.conversationService.findOneActive(from, phone_number_id);
-  
-    if (!conversation) {
-      const channel = await this.channelService.findByExternalId(phone_number_id);
-      const contact = await this.contactService.findOrCreate(from, channel.tenantId, name);
-      conversation = await this.conversationService.create(contact, channel);
+
+    const channel = await this.channelService.findByExternalId(externalChannelId);
+    if (!channel) {
+      throw new HttpException(`Canal não encontrado para o id ${externalChannelId}`, 404);
     }
-  
+
+    const conversation = await this.conversationService.findOneActiveOrCreateByExternalChannelId({
+        externalChannelId: channel.id,
+        clientPhone: from,
+        clientName: name || '',
+        origin: 'user'
+    });
+
+    if (!conversation) {
+      throw new HttpException(`Não foi possível encontrar ou criar a conversa no canal: ${externalChannelId}`, 404);
+    }
+
     //converte whatsapp message para o formato do sistema
     const messageData = this.messageWhatsappMapper.map(message) as any;
     //configura o id do contato e o nome do remetente
@@ -46,15 +52,15 @@ export class InboundMessageService {
     const messageReplyExternalId = message.context?.id;
     const messageCreateInput = { ...messageData, ...senderData };
 
-    if(message.type === 'reaction') {
+    if (message.type === 'reaction') {
       await this.messageService.updateReaction(messageCreateInput);
-    }else{
+    } else {
       const stored = await this.messageService.upsert(messageCreateInput, conversation.id, messageReplyExternalId);
       if (stored != null) {
         await this.conversationService.updateLastMessageDate(conversation.id, message.timestamp);
         //baixando media do whatsapp caso seja do tipo media
         //await this.downloadMedia(plainToInstance(MessageEntity, {...stored, channelId: conversation.channelId}));
-        this.bullmqService.handleDownloadMessage(conversation.id, {...stored, channelId: conversation.channelId});
+        this.bullmqService.handleDownloadWhatsappMessage(conversation.id, { ...stored, channelId: conversation.channelId });
       }
     }
   }
@@ -73,15 +79,18 @@ export class InboundMessageService {
 
   async updateStatus(status: WhatsAppMessageStatus) {
     const externalId = status.id;
-    
+    let error = status?.errors?.[0] ?? status.errors as any;
+    if(error) {
+      error = this.whatsappService.buildMetaError(status.errors?.[0]);
+    }
     await this.messageService.updateMessageStatusByExternalId(externalId, status.status, {
       metadata: {
-        errors: status.errors,
+        error,
         timestamp: status.timestamp,
         conversation: status.conversation,
         pricing: status.pricing,
       }
     });
   }
-  
+
 }

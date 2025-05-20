@@ -1,51 +1,14 @@
-// src/whatsapp/filters/meta-exception.filter.ts
-import {
-    ExceptionFilter,
-    Catch,
-    ArgumentsHost,
-    HttpException,
-    HttpStatus,
-} from '@nestjs/common';
-import { Request, Response } from 'express';
+import { HttpStatus } from "@nestjs/common";
 
-@Catch()
-export class MetaExceptionFilter implements ExceptionFilter {
-    catch(exception: any, host: ArgumentsHost) {
-        const ctx = host.switchToHttp();
-        const response = ctx.getResponse<Response>();
-        const request = ctx.getRequest<Request>();
+export interface MetaResponseError {
+    code: string;
+    message: string;
+    title: string;
+    error_data: any;
+}
 
-        const metaError = exception?.response?.data?.error;
-
-        if (metaError?.code) {
-            const statusMap = this.mapMetaCodeToStatus(metaError.code);
-            if (statusMap) {
-                return response.status(statusMap.status).json({
-                    statusCode: exception?.response?.status || 400,
-                    message: statusMap.message,
-                    error: "MetaErrorException",
-                    meta: { code: metaError.code, error: statusMap.code, message: metaError.message, ...metaError.error_data }
-                });
-            }
-        }
-
-        // fallback
-        const status = exception instanceof HttpException
-            ? exception.getStatus()
-            : HttpStatus.INTERNAL_SERVER_ERROR;
-
-        response.status(status).json({
-            statusCode: status,
-            message: exception.message || 'Erro interno do servidor',
-            error: exception.name || 'Internal Server Error',
-        });
-    }
-
-    public getMessage(code: number) {
-        return this.mapMetaCodeToStatus(code);
-    }
-
-    private mapMetaCodeToStatus(code: number) {
+export class TranslateMetaError {
+    public map(error: MetaResponseError) {
         const errorMap: Record<number, { code: string; message: string; status: number }> = {
             0: { code: 'AUTH_EXCEPTION', message: 'Não foi possível autenticar o usuário do app.', status: HttpStatus.UNAUTHORIZED },
             1: { code: 'UNKNOWN_API', message: 'Solicitação inválida ou possível erro do servidor.', status: HttpStatus.BAD_REQUEST },
@@ -92,6 +55,11 @@ export class MetaExceptionFilter implements ExceptionFilter {
             135000: { code: 'GENERIC_USER_ERROR', message: 'Erro genérico no envio da mensagem.', status: HttpStatus.BAD_REQUEST }
         };
 
-        return errorMap[code] ?? null;
+        const map = errorMap[error.code] ?? null;
+        if (map) {
+            error.message = map.message;
+        }
+
+        return error;
     }
 }
