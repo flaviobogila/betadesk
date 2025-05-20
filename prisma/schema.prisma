@@ -137,6 +137,7 @@ enum ConversationStatus {
   in_queue
   closed
   bot
+  start_failed
 }
 
 model Conversation {
@@ -221,7 +222,7 @@ model Message {
   mediaMimeType     String?
   mediaSize         Int?
   mediaDuration     Int?
-  mediaStatus       MediaStatus @default(pending) // 'pending', 'downloading', 'downloaded', 'failed'
+  mediaStatus       MediaStatus? // 'pending', 'downloading', 'downloaded', 'failed'
   componentHeader   String?
   componentFooter   String?
   componentButtons  Json?

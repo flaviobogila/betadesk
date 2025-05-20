@@ -50,7 +50,7 @@ export class ConversationsService {
   }
 
   findAll(tenantId: string) {
-    return this.prisma.conversation.findFirst({
+    return this.prisma.conversation.findMany({
       where: {
         tenantId
       },

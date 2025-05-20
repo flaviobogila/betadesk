@@ -324,7 +324,8 @@ exports.ConversationStatus = exports.$Enums.ConversationStatus = {
   open: 'open',
   in_queue: 'in_queue',
   closed: 'closed',
-  bot: 'bot'
+  bot: 'bot',
+  start_failed: 'start_failed'
 };
 
 exports.SenderType = exports.$Enums.SenderType = {
