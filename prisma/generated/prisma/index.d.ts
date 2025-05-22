@@ -83,6 +83,11 @@ export type ConversationLog = $Result.DefaultSelection<Prisma.$ConversationLogPa
  * 
  */
 export type BusinessArea = $Result.DefaultSelection<Prisma.$BusinessAreaPayload>
+/**
+ * Model MessageTemplate
+ * 
+ */
+export type MessageTemplate = $Result.DefaultSelection<Prisma.$MessageTemplatePayload>
 
 /**
  * Enums
@@ -197,6 +202,25 @@ export const LogType: {
 
 export type LogType = (typeof LogType)[keyof typeof LogType]
 
+
+export const TemplateCategory: {
+  MARKETING: 'MARKETING',
+  TRANSACTIONAL: 'TRANSACTIONAL',
+  OTP: 'OTP'
+};
+
+export type TemplateCategory = (typeof TemplateCategory)[keyof typeof TemplateCategory]
+
+
+export const TemplateStatus: {
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected',
+  disabled: 'disabled'
+};
+
+export type TemplateStatus = (typeof TemplateStatus)[keyof typeof TemplateStatus]
+
 }
 
 export type UserRole = $Enums.UserRole
@@ -238,6 +262,14 @@ export const ParticipantRole: typeof $Enums.ParticipantRole
 export type LogType = $Enums.LogType
 
 export const LogType: typeof $Enums.LogType
+
+export type TemplateCategory = $Enums.TemplateCategory
+
+export const TemplateCategory: typeof $Enums.TemplateCategory
+
+export type TemplateStatus = $Enums.TemplateStatus
+
+export const TemplateStatus: typeof $Enums.TemplateStatus
 
 /**
  * ##  Prisma Client ʲˢ
@@ -503,6 +535,16 @@ export class PrismaClient<
     * ```
     */
   get businessArea(): Prisma.BusinessAreaDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.messageTemplate`: Exposes CRUD operations for the **MessageTemplate** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MessageTemplates
+    * const messageTemplates = await prisma.messageTemplate.findMany()
+    * ```
+    */
+  get messageTemplate(): Prisma.MessageTemplateDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -956,7 +998,8 @@ export namespace Prisma {
     Mention: 'Mention',
     ConversationParticipant: 'ConversationParticipant',
     ConversationLog: 'ConversationLog',
-    BusinessArea: 'BusinessArea'
+    BusinessArea: 'BusinessArea',
+    MessageTemplate: 'MessageTemplate'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -975,7 +1018,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "tenant" | "user" | "team" | "teamMember" | "contact" | "channel" | "conversation" | "message" | "label" | "conversationLabel" | "mention" | "conversationParticipant" | "conversationLog" | "businessArea"
+      modelProps: "tenant" | "user" | "team" | "teamMember" | "contact" | "channel" | "conversation" | "message" | "label" | "conversationLabel" | "mention" | "conversationParticipant" | "conversationLog" | "businessArea" | "messageTemplate"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -2015,6 +2058,80 @@ export namespace Prisma {
           }
         }
       }
+      MessageTemplate: {
+        payload: Prisma.$MessageTemplatePayload<ExtArgs>
+        fields: Prisma.MessageTemplateFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessageTemplateFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessageTemplateFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          findFirst: {
+            args: Prisma.MessageTemplateFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessageTemplateFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          findMany: {
+            args: Prisma.MessageTemplateFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>[]
+          }
+          create: {
+            args: Prisma.MessageTemplateCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          createMany: {
+            args: Prisma.MessageTemplateCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessageTemplateCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>[]
+          }
+          delete: {
+            args: Prisma.MessageTemplateDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          update: {
+            args: Prisma.MessageTemplateUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          deleteMany: {
+            args: Prisma.MessageTemplateDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessageTemplateUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MessageTemplateUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>[]
+          }
+          upsert: {
+            args: Prisma.MessageTemplateUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageTemplatePayload>
+          }
+          aggregate: {
+            args: Prisma.MessageTemplateAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessageTemplate>
+          }
+          groupBy: {
+            args: Prisma.MessageTemplateGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessageTemplateGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessageTemplateCountArgs<ExtArgs>
+            result: $Utils.Optional<MessageTemplateCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2113,6 +2230,7 @@ export namespace Prisma {
     conversationParticipant?: ConversationParticipantOmit
     conversationLog?: ConversationLogOmit
     businessArea?: BusinessAreaOmit
+    messageTemplate?: MessageTemplateOmit
   }
 
   /* Types for Logging */
@@ -2292,6 +2410,7 @@ export namespace Prisma {
     conversationlabelsRemoved: number
     participantAssignments: number
     conversationParticipated: number
+    messageTemplatesCreated: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2304,6 +2423,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: boolean | UserCountOutputTypeCountConversationlabelsRemovedArgs
     participantAssignments?: boolean | UserCountOutputTypeCountParticipantAssignmentsArgs
     conversationParticipated?: boolean | UserCountOutputTypeCountConversationParticipatedArgs
+    messageTemplatesCreated?: boolean | UserCountOutputTypeCountMessageTemplatesCreatedArgs
   }
 
   // Custom InputTypes
@@ -2378,6 +2498,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountConversationParticipatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConversationParticipantWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountMessageTemplatesCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageTemplateWhereInput
   }
 
 
@@ -2458,10 +2585,12 @@ export namespace Prisma {
 
   export type ChannelCountOutputType = {
     conversations: number
+    messageTemplates: number
   }
 
   export type ChannelCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     conversations?: boolean | ChannelCountOutputTypeCountConversationsArgs
+    messageTemplates?: boolean | ChannelCountOutputTypeCountMessageTemplatesArgs
   }
 
   // Custom InputTypes
@@ -2480,6 +2609,13 @@ export namespace Prisma {
    */
   export type ChannelCountOutputTypeCountConversationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: ConversationWhereInput
+  }
+
+  /**
+   * ChannelCountOutputType without action
+   */
+  export type ChannelCountOutputTypeCountMessageTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageTemplateWhereInput
   }
 
 
@@ -4131,6 +4267,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: boolean | User$conversationlabelsRemovedArgs<ExtArgs>
     participantAssignments?: boolean | User$participantAssignmentsArgs<ExtArgs>
     conversationParticipated?: boolean | User$conversationParticipatedArgs<ExtArgs>
+    messageTemplatesCreated?: boolean | User$messageTemplatesCreatedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -4181,6 +4318,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: boolean | User$conversationlabelsRemovedArgs<ExtArgs>
     participantAssignments?: boolean | User$participantAssignmentsArgs<ExtArgs>
     conversationParticipated?: boolean | User$conversationParticipatedArgs<ExtArgs>
+    messageTemplatesCreated?: boolean | User$messageTemplatesCreatedArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4203,6 +4341,7 @@ export namespace Prisma {
       conversationlabelsRemoved: Prisma.$ConversationLabelPayload<ExtArgs>[]
       participantAssignments: Prisma.$ConversationParticipantPayload<ExtArgs>[]
       conversationParticipated: Prisma.$ConversationParticipantPayload<ExtArgs>[]
+      messageTemplatesCreated: Prisma.$MessageTemplatePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -4617,6 +4756,7 @@ export namespace Prisma {
     conversationlabelsRemoved<T extends User$conversationlabelsRemovedArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationlabelsRemovedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationLabelPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     participantAssignments<T extends User$participantAssignmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$participantAssignmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     conversationParticipated<T extends User$conversationParticipatedArgs<ExtArgs> = {}>(args?: Subset<T, User$conversationParticipatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationParticipantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messageTemplatesCreated<T extends User$messageTemplatesCreatedArgs<ExtArgs> = {}>(args?: Subset<T, User$messageTemplatesCreatedArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5263,6 +5403,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ConversationParticipantScalarFieldEnum | ConversationParticipantScalarFieldEnum[]
+  }
+
+  /**
+   * User.messageTemplatesCreated
+   */
+  export type User$messageTemplatesCreatedArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    where?: MessageTemplateWhereInput
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    cursor?: MessageTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
   }
 
   /**
@@ -8822,6 +8986,7 @@ export namespace Prisma {
     metadata?: boolean
     tenant?: boolean | Channel$tenantArgs<ExtArgs>
     conversations?: boolean | Channel$conversationsArgs<ExtArgs>
+    messageTemplates?: boolean | Channel$messageTemplatesArgs<ExtArgs>
     _count?: boolean | ChannelCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["channel"]>
 
@@ -8870,6 +9035,7 @@ export namespace Prisma {
   export type ChannelInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tenant?: boolean | Channel$tenantArgs<ExtArgs>
     conversations?: boolean | Channel$conversationsArgs<ExtArgs>
+    messageTemplates?: boolean | Channel$messageTemplatesArgs<ExtArgs>
     _count?: boolean | ChannelCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type ChannelIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -8884,6 +9050,7 @@ export namespace Prisma {
     objects: {
       tenant: Prisma.$TenantPayload<ExtArgs> | null
       conversations: Prisma.$ConversationPayload<ExtArgs>[]
+      messageTemplates: Prisma.$MessageTemplatePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9292,6 +9459,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     tenant<T extends Channel$tenantArgs<ExtArgs> = {}>(args?: Subset<T, Channel$tenantArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     conversations<T extends Channel$conversationsArgs<ExtArgs> = {}>(args?: Subset<T, Channel$conversationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ConversationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    messageTemplates<T extends Channel$messageTemplatesArgs<ExtArgs> = {}>(args?: Subset<T, Channel$messageTemplatesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9767,6 +9935,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ConversationScalarFieldEnum | ConversationScalarFieldEnum[]
+  }
+
+  /**
+   * Channel.messageTemplates
+   */
+  export type Channel$messageTemplatesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    where?: MessageTemplateWhereInput
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    cursor?: MessageTemplateWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
   }
 
   /**
@@ -19125,6 +19317,1164 @@ export namespace Prisma {
 
 
   /**
+   * Model MessageTemplate
+   */
+
+  export type AggregateMessageTemplate = {
+    _count: MessageTemplateCountAggregateOutputType | null
+    _min: MessageTemplateMinAggregateOutputType | null
+    _max: MessageTemplateMaxAggregateOutputType | null
+  }
+
+  export type MessageTemplateMinAggregateOutputType = {
+    id: string | null
+    channelId: string | null
+    createdById: string | null
+    name: string | null
+    title: string | null
+    category: $Enums.TemplateCategory | null
+    language: string | null
+    status: $Enums.TemplateStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MessageTemplateMaxAggregateOutputType = {
+    id: string | null
+    channelId: string | null
+    createdById: string | null
+    name: string | null
+    title: string | null
+    category: $Enums.TemplateCategory | null
+    language: string | null
+    status: $Enums.TemplateStatus | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type MessageTemplateCountAggregateOutputType = {
+    id: number
+    channelId: number
+    createdById: number
+    name: number
+    title: number
+    category: number
+    language: number
+    components: number
+    parameters: number
+    status: number
+    metadata: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type MessageTemplateMinAggregateInputType = {
+    id?: true
+    channelId?: true
+    createdById?: true
+    name?: true
+    title?: true
+    category?: true
+    language?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MessageTemplateMaxAggregateInputType = {
+    id?: true
+    channelId?: true
+    createdById?: true
+    name?: true
+    title?: true
+    category?: true
+    language?: true
+    status?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type MessageTemplateCountAggregateInputType = {
+    id?: true
+    channelId?: true
+    createdById?: true
+    name?: true
+    title?: true
+    category?: true
+    language?: true
+    components?: true
+    parameters?: true
+    status?: true
+    metadata?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type MessageTemplateAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessageTemplate to aggregate.
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageTemplates to fetch.
+     */
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessageTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MessageTemplates
+    **/
+    _count?: true | MessageTemplateCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessageTemplateMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessageTemplateMaxAggregateInputType
+  }
+
+  export type GetMessageTemplateAggregateType<T extends MessageTemplateAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessageTemplate]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessageTemplate[P]>
+      : GetScalarType<T[P], AggregateMessageTemplate[P]>
+  }
+
+
+
+
+  export type MessageTemplateGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageTemplateWhereInput
+    orderBy?: MessageTemplateOrderByWithAggregationInput | MessageTemplateOrderByWithAggregationInput[]
+    by: MessageTemplateScalarFieldEnum[] | MessageTemplateScalarFieldEnum
+    having?: MessageTemplateScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessageTemplateCountAggregateInputType | true
+    _min?: MessageTemplateMinAggregateInputType
+    _max?: MessageTemplateMaxAggregateInputType
+  }
+
+  export type MessageTemplateGroupByOutputType = {
+    id: string
+    channelId: string
+    createdById: string
+    name: string
+    title: string
+    category: $Enums.TemplateCategory
+    language: string
+    components: JsonValue
+    parameters: JsonValue | null
+    status: $Enums.TemplateStatus
+    metadata: JsonValue | null
+    createdAt: Date
+    updatedAt: Date
+    _count: MessageTemplateCountAggregateOutputType | null
+    _min: MessageTemplateMinAggregateOutputType | null
+    _max: MessageTemplateMaxAggregateOutputType | null
+  }
+
+  type GetMessageTemplateGroupByPayload<T extends MessageTemplateGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessageTemplateGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessageTemplateGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessageTemplateGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageTemplateGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessageTemplateSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    channelId?: boolean
+    createdById?: boolean
+    name?: boolean
+    title?: boolean
+    category?: boolean
+    language?: boolean
+    components?: boolean
+    parameters?: boolean
+    status?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageTemplate"]>
+
+  export type MessageTemplateSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    channelId?: boolean
+    createdById?: boolean
+    name?: boolean
+    title?: boolean
+    category?: boolean
+    language?: boolean
+    components?: boolean
+    parameters?: boolean
+    status?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageTemplate"]>
+
+  export type MessageTemplateSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    channelId?: boolean
+    createdById?: boolean
+    name?: boolean
+    title?: boolean
+    category?: boolean
+    language?: boolean
+    components?: boolean
+    parameters?: boolean
+    status?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageTemplate"]>
+
+  export type MessageTemplateSelectScalar = {
+    id?: boolean
+    channelId?: boolean
+    createdById?: boolean
+    name?: boolean
+    title?: boolean
+    category?: boolean
+    language?: boolean
+    components?: boolean
+    parameters?: boolean
+    status?: boolean
+    metadata?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type MessageTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "channelId" | "createdById" | "name" | "title" | "category" | "language" | "components" | "parameters" | "status" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["messageTemplate"]>
+  export type MessageTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MessageTemplateIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type MessageTemplateIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    channel?: boolean | ChannelDefaultArgs<ExtArgs>
+    createdBy?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $MessageTemplatePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MessageTemplate"
+    objects: {
+      channel: Prisma.$ChannelPayload<ExtArgs>
+      createdBy: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      channelId: string
+      createdById: string
+      name: string
+      title: string
+      category: $Enums.TemplateCategory
+      language: string
+      components: Prisma.JsonValue
+      parameters: Prisma.JsonValue | null
+      status: $Enums.TemplateStatus
+      metadata: Prisma.JsonValue | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["messageTemplate"]>
+    composites: {}
+  }
+
+  type MessageTemplateGetPayload<S extends boolean | null | undefined | MessageTemplateDefaultArgs> = $Result.GetResult<Prisma.$MessageTemplatePayload, S>
+
+  type MessageTemplateCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MessageTemplateFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MessageTemplateCountAggregateInputType | true
+    }
+
+  export interface MessageTemplateDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MessageTemplate'], meta: { name: 'MessageTemplate' } }
+    /**
+     * Find zero or one MessageTemplate that matches the filter.
+     * @param {MessageTemplateFindUniqueArgs} args - Arguments to find a MessageTemplate
+     * @example
+     * // Get one MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessageTemplateFindUniqueArgs>(args: SelectSubset<T, MessageTemplateFindUniqueArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MessageTemplate that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MessageTemplateFindUniqueOrThrowArgs} args - Arguments to find a MessageTemplate
+     * @example
+     * // Get one MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessageTemplateFindUniqueOrThrowArgs>(args: SelectSubset<T, MessageTemplateFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MessageTemplate that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateFindFirstArgs} args - Arguments to find a MessageTemplate
+     * @example
+     * // Get one MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessageTemplateFindFirstArgs>(args?: SelectSubset<T, MessageTemplateFindFirstArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MessageTemplate that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateFindFirstOrThrowArgs} args - Arguments to find a MessageTemplate
+     * @example
+     * // Get one MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessageTemplateFindFirstOrThrowArgs>(args?: SelectSubset<T, MessageTemplateFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MessageTemplates that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MessageTemplates
+     * const messageTemplates = await prisma.messageTemplate.findMany()
+     * 
+     * // Get first 10 MessageTemplates
+     * const messageTemplates = await prisma.messageTemplate.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const messageTemplateWithIdOnly = await prisma.messageTemplate.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MessageTemplateFindManyArgs>(args?: SelectSubset<T, MessageTemplateFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MessageTemplate.
+     * @param {MessageTemplateCreateArgs} args - Arguments to create a MessageTemplate.
+     * @example
+     * // Create one MessageTemplate
+     * const MessageTemplate = await prisma.messageTemplate.create({
+     *   data: {
+     *     // ... data to create a MessageTemplate
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessageTemplateCreateArgs>(args: SelectSubset<T, MessageTemplateCreateArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MessageTemplates.
+     * @param {MessageTemplateCreateManyArgs} args - Arguments to create many MessageTemplates.
+     * @example
+     * // Create many MessageTemplates
+     * const messageTemplate = await prisma.messageTemplate.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessageTemplateCreateManyArgs>(args?: SelectSubset<T, MessageTemplateCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MessageTemplates and returns the data saved in the database.
+     * @param {MessageTemplateCreateManyAndReturnArgs} args - Arguments to create many MessageTemplates.
+     * @example
+     * // Create many MessageTemplates
+     * const messageTemplate = await prisma.messageTemplate.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MessageTemplates and only return the `id`
+     * const messageTemplateWithIdOnly = await prisma.messageTemplate.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessageTemplateCreateManyAndReturnArgs>(args?: SelectSubset<T, MessageTemplateCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MessageTemplate.
+     * @param {MessageTemplateDeleteArgs} args - Arguments to delete one MessageTemplate.
+     * @example
+     * // Delete one MessageTemplate
+     * const MessageTemplate = await prisma.messageTemplate.delete({
+     *   where: {
+     *     // ... filter to delete one MessageTemplate
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessageTemplateDeleteArgs>(args: SelectSubset<T, MessageTemplateDeleteArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MessageTemplate.
+     * @param {MessageTemplateUpdateArgs} args - Arguments to update one MessageTemplate.
+     * @example
+     * // Update one MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessageTemplateUpdateArgs>(args: SelectSubset<T, MessageTemplateUpdateArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MessageTemplates.
+     * @param {MessageTemplateDeleteManyArgs} args - Arguments to filter MessageTemplates to delete.
+     * @example
+     * // Delete a few MessageTemplates
+     * const { count } = await prisma.messageTemplate.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessageTemplateDeleteManyArgs>(args?: SelectSubset<T, MessageTemplateDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MessageTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MessageTemplates
+     * const messageTemplate = await prisma.messageTemplate.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessageTemplateUpdateManyArgs>(args: SelectSubset<T, MessageTemplateUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MessageTemplates and returns the data updated in the database.
+     * @param {MessageTemplateUpdateManyAndReturnArgs} args - Arguments to update many MessageTemplates.
+     * @example
+     * // Update many MessageTemplates
+     * const messageTemplate = await prisma.messageTemplate.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MessageTemplates and only return the `id`
+     * const messageTemplateWithIdOnly = await prisma.messageTemplate.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MessageTemplateUpdateManyAndReturnArgs>(args: SelectSubset<T, MessageTemplateUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MessageTemplate.
+     * @param {MessageTemplateUpsertArgs} args - Arguments to update or create a MessageTemplate.
+     * @example
+     * // Update or create a MessageTemplate
+     * const messageTemplate = await prisma.messageTemplate.upsert({
+     *   create: {
+     *     // ... data to create a MessageTemplate
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MessageTemplate we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessageTemplateUpsertArgs>(args: SelectSubset<T, MessageTemplateUpsertArgs<ExtArgs>>): Prisma__MessageTemplateClient<$Result.GetResult<Prisma.$MessageTemplatePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MessageTemplates.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateCountArgs} args - Arguments to filter MessageTemplates to count.
+     * @example
+     * // Count the number of MessageTemplates
+     * const count = await prisma.messageTemplate.count({
+     *   where: {
+     *     // ... the filter for the MessageTemplates we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessageTemplateCountArgs>(
+      args?: Subset<T, MessageTemplateCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessageTemplateCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MessageTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessageTemplateAggregateArgs>(args: Subset<T, MessageTemplateAggregateArgs>): Prisma.PrismaPromise<GetMessageTemplateAggregateType<T>>
+
+    /**
+     * Group by MessageTemplate.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageTemplateGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessageTemplateGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessageTemplateGroupByArgs['orderBy'] }
+        : { orderBy?: MessageTemplateGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessageTemplateGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageTemplateGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MessageTemplate model
+   */
+  readonly fields: MessageTemplateFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MessageTemplate.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessageTemplateClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    channel<T extends ChannelDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ChannelDefaultArgs<ExtArgs>>): Prisma__ChannelClient<$Result.GetResult<Prisma.$ChannelPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    createdBy<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MessageTemplate model
+   */
+  interface MessageTemplateFieldRefs {
+    readonly id: FieldRef<"MessageTemplate", 'String'>
+    readonly channelId: FieldRef<"MessageTemplate", 'String'>
+    readonly createdById: FieldRef<"MessageTemplate", 'String'>
+    readonly name: FieldRef<"MessageTemplate", 'String'>
+    readonly title: FieldRef<"MessageTemplate", 'String'>
+    readonly category: FieldRef<"MessageTemplate", 'TemplateCategory'>
+    readonly language: FieldRef<"MessageTemplate", 'String'>
+    readonly components: FieldRef<"MessageTemplate", 'Json'>
+    readonly parameters: FieldRef<"MessageTemplate", 'Json'>
+    readonly status: FieldRef<"MessageTemplate", 'TemplateStatus'>
+    readonly metadata: FieldRef<"MessageTemplate", 'Json'>
+    readonly createdAt: FieldRef<"MessageTemplate", 'DateTime'>
+    readonly updatedAt: FieldRef<"MessageTemplate", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MessageTemplate findUnique
+   */
+  export type MessageTemplateFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageTemplate to fetch.
+     */
+    where: MessageTemplateWhereUniqueInput
+  }
+
+  /**
+   * MessageTemplate findUniqueOrThrow
+   */
+  export type MessageTemplateFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageTemplate to fetch.
+     */
+    where: MessageTemplateWhereUniqueInput
+  }
+
+  /**
+   * MessageTemplate findFirst
+   */
+  export type MessageTemplateFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageTemplate to fetch.
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageTemplates to fetch.
+     */
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessageTemplates.
+     */
+    cursor?: MessageTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageTemplates.
+     */
+    distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * MessageTemplate findFirstOrThrow
+   */
+  export type MessageTemplateFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageTemplate to fetch.
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageTemplates to fetch.
+     */
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessageTemplates.
+     */
+    cursor?: MessageTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageTemplates.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageTemplates.
+     */
+    distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * MessageTemplate findMany
+   */
+  export type MessageTemplateFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageTemplates to fetch.
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageTemplates to fetch.
+     */
+    orderBy?: MessageTemplateOrderByWithRelationInput | MessageTemplateOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MessageTemplates.
+     */
+    cursor?: MessageTemplateWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageTemplates from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageTemplates.
+     */
+    skip?: number
+    distinct?: MessageTemplateScalarFieldEnum | MessageTemplateScalarFieldEnum[]
+  }
+
+  /**
+   * MessageTemplate create
+   */
+  export type MessageTemplateCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MessageTemplate.
+     */
+    data: XOR<MessageTemplateCreateInput, MessageTemplateUncheckedCreateInput>
+  }
+
+  /**
+   * MessageTemplate createMany
+   */
+  export type MessageTemplateCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MessageTemplates.
+     */
+    data: MessageTemplateCreateManyInput | MessageTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MessageTemplate createManyAndReturn
+   */
+  export type MessageTemplateCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to create many MessageTemplates.
+     */
+    data: MessageTemplateCreateManyInput | MessageTemplateCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MessageTemplate update
+   */
+  export type MessageTemplateUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MessageTemplate.
+     */
+    data: XOR<MessageTemplateUpdateInput, MessageTemplateUncheckedUpdateInput>
+    /**
+     * Choose, which MessageTemplate to update.
+     */
+    where: MessageTemplateWhereUniqueInput
+  }
+
+  /**
+   * MessageTemplate updateMany
+   */
+  export type MessageTemplateUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MessageTemplates.
+     */
+    data: XOR<MessageTemplateUpdateManyMutationInput, MessageTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which MessageTemplates to update
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * Limit how many MessageTemplates to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MessageTemplate updateManyAndReturn
+   */
+  export type MessageTemplateUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * The data used to update MessageTemplates.
+     */
+    data: XOR<MessageTemplateUpdateManyMutationInput, MessageTemplateUncheckedUpdateManyInput>
+    /**
+     * Filter which MessageTemplates to update
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * Limit how many MessageTemplates to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MessageTemplate upsert
+   */
+  export type MessageTemplateUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MessageTemplate to update in case it exists.
+     */
+    where: MessageTemplateWhereUniqueInput
+    /**
+     * In case the MessageTemplate found by the `where` argument doesn't exist, create a new MessageTemplate with this data.
+     */
+    create: XOR<MessageTemplateCreateInput, MessageTemplateUncheckedCreateInput>
+    /**
+     * In case the MessageTemplate was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessageTemplateUpdateInput, MessageTemplateUncheckedUpdateInput>
+  }
+
+  /**
+   * MessageTemplate delete
+   */
+  export type MessageTemplateDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+    /**
+     * Filter which MessageTemplate to delete.
+     */
+    where: MessageTemplateWhereUniqueInput
+  }
+
+  /**
+   * MessageTemplate deleteMany
+   */
+  export type MessageTemplateDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessageTemplates to delete
+     */
+    where?: MessageTemplateWhereInput
+    /**
+     * Limit how many MessageTemplates to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MessageTemplate without action
+   */
+  export type MessageTemplateDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageTemplate
+     */
+    select?: MessageTemplateSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageTemplate
+     */
+    omit?: MessageTemplateOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageTemplateInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19337,6 +20687,25 @@ export namespace Prisma {
   export type BusinessAreaScalarFieldEnum = (typeof BusinessAreaScalarFieldEnum)[keyof typeof BusinessAreaScalarFieldEnum]
 
 
+  export const MessageTemplateScalarFieldEnum: {
+    id: 'id',
+    channelId: 'channelId',
+    createdById: 'createdById',
+    name: 'name',
+    title: 'title',
+    category: 'category',
+    language: 'language',
+    components: 'components',
+    parameters: 'parameters',
+    status: 'status',
+    metadata: 'metadata',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type MessageTemplateScalarFieldEnum = (typeof MessageTemplateScalarFieldEnum)[keyof typeof MessageTemplateScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -19351,6 +20720,13 @@ export namespace Prisma {
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -19587,6 +20963,34 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'TemplateCategory'
+   */
+  export type EnumTemplateCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TemplateCategory'>
+    
+
+
+  /**
+   * Reference to a field of type 'TemplateCategory[]'
+   */
+  export type ListEnumTemplateCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TemplateCategory[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TemplateStatus'
+   */
+  export type EnumTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TemplateStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'TemplateStatus[]'
+   */
+  export type ListEnumTemplateStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TemplateStatus[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -19713,6 +21117,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelListRelationFilter
     participantAssignments?: ConversationParticipantListRelationFilter
     conversationParticipated?: ConversationParticipantListRelationFilter
+    messageTemplatesCreated?: MessageTemplateListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -19734,6 +21139,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelOrderByRelationAggregateInput
     participantAssignments?: ConversationParticipantOrderByRelationAggregateInput
     conversationParticipated?: ConversationParticipantOrderByRelationAggregateInput
+    messageTemplatesCreated?: MessageTemplateOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -19758,6 +21164,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelListRelationFilter
     participantAssignments?: ConversationParticipantListRelationFilter
     conversationParticipated?: ConversationParticipantListRelationFilter
+    messageTemplatesCreated?: MessageTemplateListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -20001,6 +21408,7 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"Channel">
     tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
     conversations?: ConversationListRelationFilter
+    messageTemplates?: MessageTemplateListRelationFilter
   }
 
   export type ChannelOrderByWithRelationInput = {
@@ -20016,6 +21424,7 @@ export namespace Prisma {
     metadata?: SortOrderInput | SortOrder
     tenant?: TenantOrderByWithRelationInput
     conversations?: ConversationOrderByRelationAggregateInput
+    messageTemplates?: MessageTemplateOrderByRelationAggregateInput
   }
 
   export type ChannelWhereUniqueInput = Prisma.AtLeast<{
@@ -20034,6 +21443,7 @@ export namespace Prisma {
     metadata?: JsonNullableFilter<"Channel">
     tenant?: XOR<TenantNullableScalarRelationFilter, TenantWhereInput> | null
     conversations?: ConversationListRelationFilter
+    messageTemplates?: MessageTemplateListRelationFilter
   }, "id">
 
   export type ChannelOrderByWithAggregationInput = {
@@ -20724,6 +22134,104 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"BusinessArea"> | Date | string
   }
 
+  export type MessageTemplateWhereInput = {
+    AND?: MessageTemplateWhereInput | MessageTemplateWhereInput[]
+    OR?: MessageTemplateWhereInput[]
+    NOT?: MessageTemplateWhereInput | MessageTemplateWhereInput[]
+    id?: StringFilter<"MessageTemplate"> | string
+    channelId?: StringFilter<"MessageTemplate"> | string
+    createdById?: StringFilter<"MessageTemplate"> | string
+    name?: StringFilter<"MessageTemplate"> | string
+    title?: StringFilter<"MessageTemplate"> | string
+    category?: EnumTemplateCategoryFilter<"MessageTemplate"> | $Enums.TemplateCategory
+    language?: StringFilter<"MessageTemplate"> | string
+    components?: JsonFilter<"MessageTemplate">
+    parameters?: JsonNullableFilter<"MessageTemplate">
+    status?: EnumTemplateStatusFilter<"MessageTemplate"> | $Enums.TemplateStatus
+    metadata?: JsonNullableFilter<"MessageTemplate">
+    createdAt?: DateTimeFilter<"MessageTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"MessageTemplate"> | Date | string
+    channel?: XOR<ChannelScalarRelationFilter, ChannelWhereInput>
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type MessageTemplateOrderByWithRelationInput = {
+    id?: SortOrder
+    channelId?: SortOrder
+    createdById?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    category?: SortOrder
+    language?: SortOrder
+    components?: SortOrder
+    parameters?: SortOrderInput | SortOrder
+    status?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    channel?: ChannelOrderByWithRelationInput
+    createdBy?: UserOrderByWithRelationInput
+  }
+
+  export type MessageTemplateWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    name?: string
+    AND?: MessageTemplateWhereInput | MessageTemplateWhereInput[]
+    OR?: MessageTemplateWhereInput[]
+    NOT?: MessageTemplateWhereInput | MessageTemplateWhereInput[]
+    channelId?: StringFilter<"MessageTemplate"> | string
+    createdById?: StringFilter<"MessageTemplate"> | string
+    title?: StringFilter<"MessageTemplate"> | string
+    category?: EnumTemplateCategoryFilter<"MessageTemplate"> | $Enums.TemplateCategory
+    language?: StringFilter<"MessageTemplate"> | string
+    components?: JsonFilter<"MessageTemplate">
+    parameters?: JsonNullableFilter<"MessageTemplate">
+    status?: EnumTemplateStatusFilter<"MessageTemplate"> | $Enums.TemplateStatus
+    metadata?: JsonNullableFilter<"MessageTemplate">
+    createdAt?: DateTimeFilter<"MessageTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"MessageTemplate"> | Date | string
+    channel?: XOR<ChannelScalarRelationFilter, ChannelWhereInput>
+    createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "name">
+
+  export type MessageTemplateOrderByWithAggregationInput = {
+    id?: SortOrder
+    channelId?: SortOrder
+    createdById?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    category?: SortOrder
+    language?: SortOrder
+    components?: SortOrder
+    parameters?: SortOrderInput | SortOrder
+    status?: SortOrder
+    metadata?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: MessageTemplateCountOrderByAggregateInput
+    _max?: MessageTemplateMaxOrderByAggregateInput
+    _min?: MessageTemplateMinOrderByAggregateInput
+  }
+
+  export type MessageTemplateScalarWhereWithAggregatesInput = {
+    AND?: MessageTemplateScalarWhereWithAggregatesInput | MessageTemplateScalarWhereWithAggregatesInput[]
+    OR?: MessageTemplateScalarWhereWithAggregatesInput[]
+    NOT?: MessageTemplateScalarWhereWithAggregatesInput | MessageTemplateScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    channelId?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    createdById?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    name?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    title?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    category?: EnumTemplateCategoryWithAggregatesFilter<"MessageTemplate"> | $Enums.TemplateCategory
+    language?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    components?: JsonWithAggregatesFilter<"MessageTemplate">
+    parameters?: JsonNullableWithAggregatesFilter<"MessageTemplate">
+    status?: EnumTemplateStatusWithAggregatesFilter<"MessageTemplate"> | $Enums.TemplateStatus
+    metadata?: JsonNullableWithAggregatesFilter<"MessageTemplate">
+    createdAt?: DateTimeWithAggregatesFilter<"MessageTemplate"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"MessageTemplate"> | Date | string
+  }
+
   export type TenantCreateInput = {
     id?: string
     name: string
@@ -20842,6 +22350,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -20862,6 +22371,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUpdateInput = {
@@ -20882,6 +22392,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -20902,6 +22413,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -21144,6 +22656,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     tenant?: TenantCreateNestedOneWithoutChannelsInput
     conversations?: ConversationCreateNestedManyWithoutChannelInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateInput = {
@@ -21158,6 +22671,7 @@ export namespace Prisma {
     createdAt?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     conversations?: ConversationUncheckedCreateNestedManyWithoutChannelInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUpdateInput = {
@@ -21172,6 +22686,7 @@ export namespace Prisma {
     metadata?: NullableJsonNullValueInput | InputJsonValue
     tenant?: TenantUpdateOneWithoutChannelsNestedInput
     conversations?: ConversationUpdateManyWithoutChannelNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateInput = {
@@ -21186,6 +22701,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     conversations?: ConversationUncheckedUpdateManyWithoutChannelNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelCreateManyInput = {
@@ -21904,6 +23420,116 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MessageTemplateCreateInput = {
+    id?: string
+    name: string
+    title: string
+    category: $Enums.TemplateCategory
+    language: string
+    components: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    channel: ChannelCreateNestedOneWithoutMessageTemplatesInput
+    createdBy: UserCreateNestedOneWithoutMessageTemplatesCreatedInput
+  }
+
+  export type MessageTemplateUncheckedCreateInput = {
+    id?: string
+    channelId: string
+    createdById: string
+    name: string
+    title: string
+    category: $Enums.TemplateCategory
+    language: string
+    components: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageTemplateUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
+    language?: StringFieldUpdateOperationsInput | string
+    components?: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    channel?: ChannelUpdateOneRequiredWithoutMessageTemplatesNestedInput
+    createdBy?: UserUpdateOneRequiredWithoutMessageTemplatesCreatedNestedInput
+  }
+
+  export type MessageTemplateUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    channelId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
+    language?: StringFieldUpdateOperationsInput | string
+    components?: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageTemplateCreateManyInput = {
+    id?: string
+    channelId: string
+    createdById: string
+    name: string
+    title: string
+    category: $Enums.TemplateCategory
+    language: string
+    components: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageTemplateUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
+    language?: StringFieldUpdateOperationsInput | string
+    components?: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageTemplateUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    channelId?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
+    language?: StringFieldUpdateOperationsInput | string
+    components?: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -22147,6 +23773,12 @@ export namespace Prisma {
     none?: ConversationParticipantWhereInput
   }
 
+  export type MessageTemplateListRelationFilter = {
+    every?: MessageTemplateWhereInput
+    some?: MessageTemplateWhereInput
+    none?: MessageTemplateWhereInput
+  }
+
   export type TeamMemberOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -22160,6 +23792,10 @@ export namespace Prisma {
   }
 
   export type ConversationParticipantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type MessageTemplateOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -22972,6 +24608,131 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
+  export type EnumTemplateCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateCategory | EnumTemplateCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateCategory[] | ListEnumTemplateCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateCategory[] | ListEnumTemplateCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateCategoryFilter<$PrismaModel> | $Enums.TemplateCategory
+  }
+  export type JsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type EnumTemplateStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateStatus | EnumTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateStatusFilter<$PrismaModel> | $Enums.TemplateStatus
+  }
+
+  export type MessageTemplateCountOrderByAggregateInput = {
+    id?: SortOrder
+    channelId?: SortOrder
+    createdById?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    category?: SortOrder
+    language?: SortOrder
+    components?: SortOrder
+    parameters?: SortOrder
+    status?: SortOrder
+    metadata?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MessageTemplateMaxOrderByAggregateInput = {
+    id?: SortOrder
+    channelId?: SortOrder
+    createdById?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    category?: SortOrder
+    language?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type MessageTemplateMinOrderByAggregateInput = {
+    id?: SortOrder
+    channelId?: SortOrder
+    createdById?: SortOrder
+    name?: SortOrder
+    title?: SortOrder
+    category?: SortOrder
+    language?: SortOrder
+    status?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type EnumTemplateCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateCategory | EnumTemplateCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateCategory[] | ListEnumTemplateCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateCategory[] | ListEnumTemplateCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateCategoryWithAggregatesFilter<$PrismaModel> | $Enums.TemplateCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTemplateCategoryFilter<$PrismaModel>
+    _max?: NestedEnumTemplateCategoryFilter<$PrismaModel>
+  }
+  export type JsonWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedJsonFilter<$PrismaModel>
+    _max?: NestedJsonFilter<$PrismaModel>
+  }
+
+  export type EnumTemplateStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateStatus | EnumTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateStatusWithAggregatesFilter<$PrismaModel> | $Enums.TemplateStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTemplateStatusFilter<$PrismaModel>
+    _max?: NestedEnumTemplateStatusFilter<$PrismaModel>
+  }
+
   export type BusinessAreaCreateNestedOneWithoutTenantsInput = {
     create?: XOR<BusinessAreaCreateWithoutTenantsInput, BusinessAreaUncheckedCreateWithoutTenantsInput>
     connectOrCreate?: BusinessAreaCreateOrConnectWithoutTenantsInput
@@ -23325,6 +25086,13 @@ export namespace Prisma {
     connect?: ConversationParticipantWhereUniqueInput | ConversationParticipantWhereUniqueInput[]
   }
 
+  export type MessageTemplateCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<MessageTemplateCreateWithoutCreatedByInput, MessageTemplateUncheckedCreateWithoutCreatedByInput> | MessageTemplateCreateWithoutCreatedByInput[] | MessageTemplateUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutCreatedByInput | MessageTemplateCreateOrConnectWithoutCreatedByInput[]
+    createMany?: MessageTemplateCreateManyCreatedByInputEnvelope
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+  }
+
   export type TeamMemberUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput> | TeamMemberCreateWithoutUserInput[] | TeamMemberUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TeamMemberCreateOrConnectWithoutUserInput | TeamMemberCreateOrConnectWithoutUserInput[]
@@ -23386,6 +25154,13 @@ export namespace Prisma {
     connectOrCreate?: ConversationParticipantCreateOrConnectWithoutUserInput | ConversationParticipantCreateOrConnectWithoutUserInput[]
     createMany?: ConversationParticipantCreateManyUserInputEnvelope
     connect?: ConversationParticipantWhereUniqueInput | ConversationParticipantWhereUniqueInput[]
+  }
+
+  export type MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput = {
+    create?: XOR<MessageTemplateCreateWithoutCreatedByInput, MessageTemplateUncheckedCreateWithoutCreatedByInput> | MessageTemplateCreateWithoutCreatedByInput[] | MessageTemplateUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutCreatedByInput | MessageTemplateCreateOrConnectWithoutCreatedByInput[]
+    createMany?: MessageTemplateCreateManyCreatedByInputEnvelope
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
   }
 
   export type EnumUserRoleFieldUpdateOperationsInput = {
@@ -23526,6 +25301,20 @@ export namespace Prisma {
     deleteMany?: ConversationParticipantScalarWhereInput | ConversationParticipantScalarWhereInput[]
   }
 
+  export type MessageTemplateUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<MessageTemplateCreateWithoutCreatedByInput, MessageTemplateUncheckedCreateWithoutCreatedByInput> | MessageTemplateCreateWithoutCreatedByInput[] | MessageTemplateUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutCreatedByInput | MessageTemplateCreateOrConnectWithoutCreatedByInput[]
+    upsert?: MessageTemplateUpsertWithWhereUniqueWithoutCreatedByInput | MessageTemplateUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: MessageTemplateCreateManyCreatedByInputEnvelope
+    set?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    disconnect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    delete?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    update?: MessageTemplateUpdateWithWhereUniqueWithoutCreatedByInput | MessageTemplateUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: MessageTemplateUpdateManyWithWhereWithoutCreatedByInput | MessageTemplateUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+  }
+
   export type TeamMemberUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<TeamMemberCreateWithoutUserInput, TeamMemberUncheckedCreateWithoutUserInput> | TeamMemberCreateWithoutUserInput[] | TeamMemberUncheckedCreateWithoutUserInput[]
     connectOrCreate?: TeamMemberCreateOrConnectWithoutUserInput | TeamMemberCreateOrConnectWithoutUserInput[]
@@ -23650,6 +25439,20 @@ export namespace Prisma {
     update?: ConversationParticipantUpdateWithWhereUniqueWithoutUserInput | ConversationParticipantUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: ConversationParticipantUpdateManyWithWhereWithoutUserInput | ConversationParticipantUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: ConversationParticipantScalarWhereInput | ConversationParticipantScalarWhereInput[]
+  }
+
+  export type MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput = {
+    create?: XOR<MessageTemplateCreateWithoutCreatedByInput, MessageTemplateUncheckedCreateWithoutCreatedByInput> | MessageTemplateCreateWithoutCreatedByInput[] | MessageTemplateUncheckedCreateWithoutCreatedByInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutCreatedByInput | MessageTemplateCreateOrConnectWithoutCreatedByInput[]
+    upsert?: MessageTemplateUpsertWithWhereUniqueWithoutCreatedByInput | MessageTemplateUpsertWithWhereUniqueWithoutCreatedByInput[]
+    createMany?: MessageTemplateCreateManyCreatedByInputEnvelope
+    set?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    disconnect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    delete?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    update?: MessageTemplateUpdateWithWhereUniqueWithoutCreatedByInput | MessageTemplateUpdateWithWhereUniqueWithoutCreatedByInput[]
+    updateMany?: MessageTemplateUpdateManyWithWhereWithoutCreatedByInput | MessageTemplateUpdateManyWithWhereWithoutCreatedByInput[]
+    deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutTeamsInput = {
@@ -23871,11 +25674,25 @@ export namespace Prisma {
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
   }
 
+  export type MessageTemplateCreateNestedManyWithoutChannelInput = {
+    create?: XOR<MessageTemplateCreateWithoutChannelInput, MessageTemplateUncheckedCreateWithoutChannelInput> | MessageTemplateCreateWithoutChannelInput[] | MessageTemplateUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutChannelInput | MessageTemplateCreateOrConnectWithoutChannelInput[]
+    createMany?: MessageTemplateCreateManyChannelInputEnvelope
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+  }
+
   export type ConversationUncheckedCreateNestedManyWithoutChannelInput = {
     create?: XOR<ConversationCreateWithoutChannelInput, ConversationUncheckedCreateWithoutChannelInput> | ConversationCreateWithoutChannelInput[] | ConversationUncheckedCreateWithoutChannelInput[]
     connectOrCreate?: ConversationCreateOrConnectWithoutChannelInput | ConversationCreateOrConnectWithoutChannelInput[]
     createMany?: ConversationCreateManyChannelInputEnvelope
     connect?: ConversationWhereUniqueInput | ConversationWhereUniqueInput[]
+  }
+
+  export type MessageTemplateUncheckedCreateNestedManyWithoutChannelInput = {
+    create?: XOR<MessageTemplateCreateWithoutChannelInput, MessageTemplateUncheckedCreateWithoutChannelInput> | MessageTemplateCreateWithoutChannelInput[] | MessageTemplateUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutChannelInput | MessageTemplateCreateOrConnectWithoutChannelInput[]
+    createMany?: MessageTemplateCreateManyChannelInputEnvelope
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
   }
 
   export type EnumChannelTypeFieldUpdateOperationsInput = {
@@ -23906,6 +25723,20 @@ export namespace Prisma {
     deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
   }
 
+  export type MessageTemplateUpdateManyWithoutChannelNestedInput = {
+    create?: XOR<MessageTemplateCreateWithoutChannelInput, MessageTemplateUncheckedCreateWithoutChannelInput> | MessageTemplateCreateWithoutChannelInput[] | MessageTemplateUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutChannelInput | MessageTemplateCreateOrConnectWithoutChannelInput[]
+    upsert?: MessageTemplateUpsertWithWhereUniqueWithoutChannelInput | MessageTemplateUpsertWithWhereUniqueWithoutChannelInput[]
+    createMany?: MessageTemplateCreateManyChannelInputEnvelope
+    set?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    disconnect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    delete?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    update?: MessageTemplateUpdateWithWhereUniqueWithoutChannelInput | MessageTemplateUpdateWithWhereUniqueWithoutChannelInput[]
+    updateMany?: MessageTemplateUpdateManyWithWhereWithoutChannelInput | MessageTemplateUpdateManyWithWhereWithoutChannelInput[]
+    deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+  }
+
   export type ConversationUncheckedUpdateManyWithoutChannelNestedInput = {
     create?: XOR<ConversationCreateWithoutChannelInput, ConversationUncheckedCreateWithoutChannelInput> | ConversationCreateWithoutChannelInput[] | ConversationUncheckedCreateWithoutChannelInput[]
     connectOrCreate?: ConversationCreateOrConnectWithoutChannelInput | ConversationCreateOrConnectWithoutChannelInput[]
@@ -23918,6 +25749,20 @@ export namespace Prisma {
     update?: ConversationUpdateWithWhereUniqueWithoutChannelInput | ConversationUpdateWithWhereUniqueWithoutChannelInput[]
     updateMany?: ConversationUpdateManyWithWhereWithoutChannelInput | ConversationUpdateManyWithWhereWithoutChannelInput[]
     deleteMany?: ConversationScalarWhereInput | ConversationScalarWhereInput[]
+  }
+
+  export type MessageTemplateUncheckedUpdateManyWithoutChannelNestedInput = {
+    create?: XOR<MessageTemplateCreateWithoutChannelInput, MessageTemplateUncheckedCreateWithoutChannelInput> | MessageTemplateCreateWithoutChannelInput[] | MessageTemplateUncheckedCreateWithoutChannelInput[]
+    connectOrCreate?: MessageTemplateCreateOrConnectWithoutChannelInput | MessageTemplateCreateOrConnectWithoutChannelInput[]
+    upsert?: MessageTemplateUpsertWithWhereUniqueWithoutChannelInput | MessageTemplateUpsertWithWhereUniqueWithoutChannelInput[]
+    createMany?: MessageTemplateCreateManyChannelInputEnvelope
+    set?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    disconnect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    delete?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    connect?: MessageTemplateWhereUniqueInput | MessageTemplateWhereUniqueInput[]
+    update?: MessageTemplateUpdateWithWhereUniqueWithoutChannelInput | MessageTemplateUpdateWithWhereUniqueWithoutChannelInput[]
+    updateMany?: MessageTemplateUpdateManyWithWhereWithoutChannelInput | MessageTemplateUpdateManyWithWhereWithoutChannelInput[]
+    deleteMany?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
   }
 
   export type TenantCreateNestedOneWithoutConversationsInput = {
@@ -24572,6 +26417,42 @@ export namespace Prisma {
     deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
   }
 
+  export type ChannelCreateNestedOneWithoutMessageTemplatesInput = {
+    create?: XOR<ChannelCreateWithoutMessageTemplatesInput, ChannelUncheckedCreateWithoutMessageTemplatesInput>
+    connectOrCreate?: ChannelCreateOrConnectWithoutMessageTemplatesInput
+    connect?: ChannelWhereUniqueInput
+  }
+
+  export type UserCreateNestedOneWithoutMessageTemplatesCreatedInput = {
+    create?: XOR<UserCreateWithoutMessageTemplatesCreatedInput, UserUncheckedCreateWithoutMessageTemplatesCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessageTemplatesCreatedInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumTemplateCategoryFieldUpdateOperationsInput = {
+    set?: $Enums.TemplateCategory
+  }
+
+  export type EnumTemplateStatusFieldUpdateOperationsInput = {
+    set?: $Enums.TemplateStatus
+  }
+
+  export type ChannelUpdateOneRequiredWithoutMessageTemplatesNestedInput = {
+    create?: XOR<ChannelCreateWithoutMessageTemplatesInput, ChannelUncheckedCreateWithoutMessageTemplatesInput>
+    connectOrCreate?: ChannelCreateOrConnectWithoutMessageTemplatesInput
+    upsert?: ChannelUpsertWithoutMessageTemplatesInput
+    connect?: ChannelWhereUniqueInput
+    update?: XOR<XOR<ChannelUpdateToOneWithWhereWithoutMessageTemplatesInput, ChannelUpdateWithoutMessageTemplatesInput>, ChannelUncheckedUpdateWithoutMessageTemplatesInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutMessageTemplatesCreatedNestedInput = {
+    create?: XOR<UserCreateWithoutMessageTemplatesCreatedInput, UserUncheckedCreateWithoutMessageTemplatesCreatedInput>
+    connectOrCreate?: UserCreateOrConnectWithoutMessageTemplatesCreatedInput
+    upsert?: UserUpsertWithoutMessageTemplatesCreatedInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessageTemplatesCreatedInput, UserUpdateWithoutMessageTemplatesCreatedInput>, UserUncheckedUpdateWithoutMessageTemplatesCreatedInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -24939,6 +26820,63 @@ export namespace Prisma {
     _max?: NestedEnumLogTypeFilter<$PrismaModel>
   }
 
+  export type NestedEnumTemplateCategoryFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateCategory | EnumTemplateCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateCategory[] | ListEnumTemplateCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateCategory[] | ListEnumTemplateCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateCategoryFilter<$PrismaModel> | $Enums.TemplateCategory
+  }
+
+  export type NestedEnumTemplateStatusFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateStatus | EnumTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateStatusFilter<$PrismaModel> | $Enums.TemplateStatus
+  }
+
+  export type NestedEnumTemplateCategoryWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateCategory | EnumTemplateCategoryFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateCategory[] | ListEnumTemplateCategoryFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateCategory[] | ListEnumTemplateCategoryFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateCategoryWithAggregatesFilter<$PrismaModel> | $Enums.TemplateCategory
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTemplateCategoryFilter<$PrismaModel>
+    _max?: NestedEnumTemplateCategoryFilter<$PrismaModel>
+  }
+  export type NestedJsonFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type NestedEnumTemplateStatusWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateStatus | EnumTemplateStatusFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateStatusWithAggregatesFilter<$PrismaModel> | $Enums.TemplateStatus
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTemplateStatusFilter<$PrismaModel>
+    _max?: NestedEnumTemplateStatusFilter<$PrismaModel>
+  }
+
   export type BusinessAreaCreateWithoutTenantsInput = {
     id?: string
     name: string
@@ -24973,6 +26911,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutTenantInput = {
@@ -24992,6 +26931,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutTenantInput = {
@@ -25153,6 +27093,7 @@ export namespace Prisma {
     createdAt?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     conversations?: ConversationCreateNestedManyWithoutChannelInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutTenantInput = {
@@ -25166,6 +27107,7 @@ export namespace Prisma {
     createdAt?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     conversations?: ConversationUncheckedCreateNestedManyWithoutChannelInput
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelCreateOrConnectWithoutTenantInput = {
@@ -25675,6 +27617,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MessageTemplateCreateWithoutCreatedByInput = {
+    id?: string
+    name: string
+    title: string
+    category: $Enums.TemplateCategory
+    language: string
+    components: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    channel: ChannelCreateNestedOneWithoutMessageTemplatesInput
+  }
+
+  export type MessageTemplateUncheckedCreateWithoutCreatedByInput = {
+    id?: string
+    channelId: string
+    name: string
+    title: string
+    category: $Enums.TemplateCategory
+    language: string
+    components: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageTemplateCreateOrConnectWithoutCreatedByInput = {
+    where: MessageTemplateWhereUniqueInput
+    create: XOR<MessageTemplateCreateWithoutCreatedByInput, MessageTemplateUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type MessageTemplateCreateManyCreatedByInputEnvelope = {
+    data: MessageTemplateCreateManyCreatedByInput | MessageTemplateCreateManyCreatedByInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantUpsertWithoutUsersInput = {
     update: XOR<TenantUpdateWithoutUsersInput, TenantUncheckedUpdateWithoutUsersInput>
     create: XOR<TenantCreateWithoutUsersInput, TenantUncheckedCreateWithoutUsersInput>
@@ -25905,6 +27887,41 @@ export namespace Prisma {
     data: XOR<ConversationParticipantUpdateManyMutationInput, ConversationParticipantUncheckedUpdateManyWithoutUserInput>
   }
 
+  export type MessageTemplateUpsertWithWhereUniqueWithoutCreatedByInput = {
+    where: MessageTemplateWhereUniqueInput
+    update: XOR<MessageTemplateUpdateWithoutCreatedByInput, MessageTemplateUncheckedUpdateWithoutCreatedByInput>
+    create: XOR<MessageTemplateCreateWithoutCreatedByInput, MessageTemplateUncheckedCreateWithoutCreatedByInput>
+  }
+
+  export type MessageTemplateUpdateWithWhereUniqueWithoutCreatedByInput = {
+    where: MessageTemplateWhereUniqueInput
+    data: XOR<MessageTemplateUpdateWithoutCreatedByInput, MessageTemplateUncheckedUpdateWithoutCreatedByInput>
+  }
+
+  export type MessageTemplateUpdateManyWithWhereWithoutCreatedByInput = {
+    where: MessageTemplateScalarWhereInput
+    data: XOR<MessageTemplateUpdateManyMutationInput, MessageTemplateUncheckedUpdateManyWithoutCreatedByInput>
+  }
+
+  export type MessageTemplateScalarWhereInput = {
+    AND?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+    OR?: MessageTemplateScalarWhereInput[]
+    NOT?: MessageTemplateScalarWhereInput | MessageTemplateScalarWhereInput[]
+    id?: StringFilter<"MessageTemplate"> | string
+    channelId?: StringFilter<"MessageTemplate"> | string
+    createdById?: StringFilter<"MessageTemplate"> | string
+    name?: StringFilter<"MessageTemplate"> | string
+    title?: StringFilter<"MessageTemplate"> | string
+    category?: EnumTemplateCategoryFilter<"MessageTemplate"> | $Enums.TemplateCategory
+    language?: StringFilter<"MessageTemplate"> | string
+    components?: JsonFilter<"MessageTemplate">
+    parameters?: JsonNullableFilter<"MessageTemplate">
+    status?: EnumTemplateStatusFilter<"MessageTemplate"> | $Enums.TemplateStatus
+    metadata?: JsonNullableFilter<"MessageTemplate">
+    createdAt?: DateTimeFilter<"MessageTemplate"> | Date | string
+    updatedAt?: DateTimeFilter<"MessageTemplate"> | Date | string
+  }
+
   export type TenantCreateWithoutTeamsInput = {
     id?: string
     name: string
@@ -26104,6 +28121,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutTeamMembershipsInput = {
@@ -26123,6 +28141,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutTeamMembershipsInput = {
@@ -26181,6 +28200,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTeamMembershipsInput = {
@@ -26200,6 +28220,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type TeamUpsertWithoutMembersInput = {
@@ -26285,6 +28306,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutContactsCreatedInput = {
@@ -26304,6 +28326,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutContactsCreatedInput = {
@@ -26430,6 +28453,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutContactsCreatedInput = {
@@ -26449,6 +28473,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ConversationUpsertWithWhereUniqueWithoutContactInput = {
@@ -26552,6 +28577,46 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type MessageTemplateCreateWithoutChannelInput = {
+    id?: string
+    name: string
+    title: string
+    category: $Enums.TemplateCategory
+    language: string
+    components: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    createdBy: UserCreateNestedOneWithoutMessageTemplatesCreatedInput
+  }
+
+  export type MessageTemplateUncheckedCreateWithoutChannelInput = {
+    id?: string
+    createdById: string
+    name: string
+    title: string
+    category: $Enums.TemplateCategory
+    language: string
+    components: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type MessageTemplateCreateOrConnectWithoutChannelInput = {
+    where: MessageTemplateWhereUniqueInput
+    create: XOR<MessageTemplateCreateWithoutChannelInput, MessageTemplateUncheckedCreateWithoutChannelInput>
+  }
+
+  export type MessageTemplateCreateManyChannelInputEnvelope = {
+    data: MessageTemplateCreateManyChannelInput | MessageTemplateCreateManyChannelInput[]
+    skipDuplicates?: boolean
+  }
+
   export type TenantUpsertWithoutChannelsInput = {
     update: XOR<TenantUpdateWithoutChannelsInput, TenantUncheckedUpdateWithoutChannelsInput>
     create: XOR<TenantCreateWithoutChannelsInput, TenantUncheckedCreateWithoutChannelsInput>
@@ -26609,6 +28674,22 @@ export namespace Prisma {
   export type ConversationUpdateManyWithWhereWithoutChannelInput = {
     where: ConversationScalarWhereInput
     data: XOR<ConversationUpdateManyMutationInput, ConversationUncheckedUpdateManyWithoutChannelInput>
+  }
+
+  export type MessageTemplateUpsertWithWhereUniqueWithoutChannelInput = {
+    where: MessageTemplateWhereUniqueInput
+    update: XOR<MessageTemplateUpdateWithoutChannelInput, MessageTemplateUncheckedUpdateWithoutChannelInput>
+    create: XOR<MessageTemplateCreateWithoutChannelInput, MessageTemplateUncheckedCreateWithoutChannelInput>
+  }
+
+  export type MessageTemplateUpdateWithWhereUniqueWithoutChannelInput = {
+    where: MessageTemplateWhereUniqueInput
+    data: XOR<MessageTemplateUpdateWithoutChannelInput, MessageTemplateUncheckedUpdateWithoutChannelInput>
+  }
+
+  export type MessageTemplateUpdateManyWithWhereWithoutChannelInput = {
+    where: MessageTemplateScalarWhereInput
+    data: XOR<MessageTemplateUpdateManyMutationInput, MessageTemplateUncheckedUpdateManyWithoutChannelInput>
   }
 
   export type TenantCreateWithoutConversationsInput = {
@@ -26688,6 +28769,7 @@ export namespace Prisma {
     createdAt?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     tenant?: TenantCreateNestedOneWithoutChannelsInput
+    messageTemplates?: MessageTemplateCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelUncheckedCreateWithoutConversationsInput = {
@@ -26701,6 +28783,7 @@ export namespace Prisma {
     isActive?: boolean
     createdAt?: Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    messageTemplates?: MessageTemplateUncheckedCreateNestedManyWithoutChannelInput
   }
 
   export type ChannelCreateOrConnectWithoutConversationsInput = {
@@ -26725,6 +28808,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutConversationsAssignedInput = {
@@ -26744,6 +28828,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutConversationsAssignedInput = {
@@ -27024,6 +29109,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     tenant?: TenantUpdateOneWithoutChannelsNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutConversationsInput = {
@@ -27037,6 +29123,7 @@ export namespace Prisma {
     isActive?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type UserUpsertWithoutConversationsAssignedInput = {
@@ -27067,6 +29154,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationsAssignedInput = {
@@ -27086,6 +29174,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type TeamUpsertWithoutConversationsInput = {
@@ -27627,6 +29716,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutLabelsCreatedInput = {
@@ -27646,6 +29736,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutLabelsCreatedInput = {
@@ -27750,6 +29841,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutLabelsCreatedInput = {
@@ -27769,6 +29861,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ConversationLabelUpsertWithWhereUniqueWithoutLabelInput = {
@@ -27804,6 +29897,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutConversationlabelsCreatedInput = {
@@ -27823,6 +29917,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutConversationlabelsCreatedInput = {
@@ -27847,6 +29942,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
     participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutConversationlabelsRemovedInput = {
@@ -27866,6 +29962,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
     participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutConversationlabelsRemovedInput = {
@@ -27967,6 +30064,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationlabelsCreatedInput = {
@@ -27986,6 +30084,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUpsertWithoutConversationlabelsRemovedInput = {
@@ -28016,6 +30115,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
     participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationlabelsRemovedInput = {
@@ -28035,6 +30135,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
     participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ConversationUpsertWithoutLabelsInput = {
@@ -28195,6 +30296,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutMentionsInput = {
@@ -28214,6 +30316,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
     conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutMentionsInput = {
@@ -28318,6 +30421,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMentionsInput = {
@@ -28337,6 +30441,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserCreateWithoutParticipantAssignmentsInput = {
@@ -28356,6 +30461,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
     conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
     conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutParticipantAssignmentsInput = {
@@ -28375,6 +30481,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
     conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
     conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutParticipantAssignmentsInput = {
@@ -28442,6 +30549,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
     conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
+    messageTemplatesCreated?: MessageTemplateCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserUncheckedCreateWithoutConversationParticipatedInput = {
@@ -28461,6 +30569,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
     conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
     participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
+    messageTemplatesCreated?: MessageTemplateUncheckedCreateNestedManyWithoutCreatedByInput
   }
 
   export type UserCreateOrConnectWithoutConversationParticipatedInput = {
@@ -28496,6 +30605,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
     conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
     conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutParticipantAssignmentsInput = {
@@ -28515,6 +30625,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
     conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
     conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ConversationUpsertWithoutParticipantsInput = {
@@ -28594,6 +30705,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
     conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutConversationParticipatedInput = {
@@ -28613,6 +30725,7 @@ export namespace Prisma {
     conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
     conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type ConversationCreateWithoutLogsInput = {
@@ -28779,6 +30892,174 @@ export namespace Prisma {
     businessAreaId?: StringNullableFilter<"Tenant"> | string | null
   }
 
+  export type ChannelCreateWithoutMessageTemplatesInput = {
+    id?: string
+    name: string
+    type: $Enums.ChannelType
+    provider?: string | null
+    externalId?: string | null
+    token?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    tenant?: TenantCreateNestedOneWithoutChannelsInput
+    conversations?: ConversationCreateNestedManyWithoutChannelInput
+  }
+
+  export type ChannelUncheckedCreateWithoutMessageTemplatesInput = {
+    id?: string
+    tenantId: string
+    name: string
+    type: $Enums.ChannelType
+    provider?: string | null
+    externalId?: string | null
+    token?: string | null
+    isActive?: boolean
+    createdAt?: Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    conversations?: ConversationUncheckedCreateNestedManyWithoutChannelInput
+  }
+
+  export type ChannelCreateOrConnectWithoutMessageTemplatesInput = {
+    where: ChannelWhereUniqueInput
+    create: XOR<ChannelCreateWithoutMessageTemplatesInput, ChannelUncheckedCreateWithoutMessageTemplatesInput>
+  }
+
+  export type UserCreateWithoutMessageTemplatesCreatedInput = {
+    id?: string
+    name: string
+    email: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    tenant: TenantCreateNestedOneWithoutUsersInput
+    teamMemberships?: TeamMemberCreateNestedManyWithoutUserInput
+    contactsCreated?: ContactCreateNestedManyWithoutCreatedByInput
+    conversationsAssigned?: ConversationCreateNestedManyWithoutAssignedUserInput
+    labelsCreated?: LabelCreateNestedManyWithoutCreatedByInput
+    mentions?: MentionCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelCreateNestedManyWithoutRemovedByInput
+    participantAssignments?: ConversationParticipantCreateNestedManyWithoutAssignedByInput
+    conversationParticipated?: ConversationParticipantCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutMessageTemplatesCreatedInput = {
+    id?: string
+    tenantId: string
+    name: string
+    email: string
+    role?: $Enums.UserRole
+    isActive?: boolean
+    isVerified?: boolean
+    createdAt?: Date | string
+    teamMemberships?: TeamMemberUncheckedCreateNestedManyWithoutUserInput
+    contactsCreated?: ContactUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationsAssigned?: ConversationUncheckedCreateNestedManyWithoutAssignedUserInput
+    labelsCreated?: LabelUncheckedCreateNestedManyWithoutCreatedByInput
+    mentions?: MentionUncheckedCreateNestedManyWithoutMentionedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedCreateNestedManyWithoutCreatedByInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedCreateNestedManyWithoutRemovedByInput
+    participantAssignments?: ConversationParticipantUncheckedCreateNestedManyWithoutAssignedByInput
+    conversationParticipated?: ConversationParticipantUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutMessageTemplatesCreatedInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutMessageTemplatesCreatedInput, UserUncheckedCreateWithoutMessageTemplatesCreatedInput>
+  }
+
+  export type ChannelUpsertWithoutMessageTemplatesInput = {
+    update: XOR<ChannelUpdateWithoutMessageTemplatesInput, ChannelUncheckedUpdateWithoutMessageTemplatesInput>
+    create: XOR<ChannelCreateWithoutMessageTemplatesInput, ChannelUncheckedCreateWithoutMessageTemplatesInput>
+    where?: ChannelWhereInput
+  }
+
+  export type ChannelUpdateToOneWithWhereWithoutMessageTemplatesInput = {
+    where?: ChannelWhereInput
+    data: XOR<ChannelUpdateWithoutMessageTemplatesInput, ChannelUncheckedUpdateWithoutMessageTemplatesInput>
+  }
+
+  export type ChannelUpdateWithoutMessageTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChannelTypeFieldUpdateOperationsInput | $Enums.ChannelType
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    tenant?: TenantUpdateOneWithoutChannelsNestedInput
+    conversations?: ConversationUpdateManyWithoutChannelNestedInput
+  }
+
+  export type ChannelUncheckedUpdateWithoutMessageTemplatesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    type?: EnumChannelTypeFieldUpdateOperationsInput | $Enums.ChannelType
+    provider?: NullableStringFieldUpdateOperationsInput | string | null
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    token?: NullableStringFieldUpdateOperationsInput | string | null
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    conversations?: ConversationUncheckedUpdateManyWithoutChannelNestedInput
+  }
+
+  export type UserUpsertWithoutMessageTemplatesCreatedInput = {
+    update: XOR<UserUpdateWithoutMessageTemplatesCreatedInput, UserUncheckedUpdateWithoutMessageTemplatesCreatedInput>
+    create: XOR<UserCreateWithoutMessageTemplatesCreatedInput, UserUncheckedCreateWithoutMessageTemplatesCreatedInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutMessageTemplatesCreatedInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutMessageTemplatesCreatedInput, UserUncheckedUpdateWithoutMessageTemplatesCreatedInput>
+  }
+
+  export type UserUpdateWithoutMessageTemplatesCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    tenant?: TenantUpdateOneRequiredWithoutUsersNestedInput
+    teamMemberships?: TeamMemberUpdateManyWithoutUserNestedInput
+    contactsCreated?: ContactUpdateManyWithoutCreatedByNestedInput
+    conversationsAssigned?: ConversationUpdateManyWithoutAssignedUserNestedInput
+    labelsCreated?: LabelUpdateManyWithoutCreatedByNestedInput
+    mentions?: MentionUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
+    participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
+    conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutMessageTemplatesCreatedInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    tenantId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    isVerified?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    teamMemberships?: TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+    contactsCreated?: ContactUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationsAssigned?: ConversationUncheckedUpdateManyWithoutAssignedUserNestedInput
+    labelsCreated?: LabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    mentions?: MentionUncheckedUpdateManyWithoutMentionedNestedInput
+    conversationlabelsCreated?: ConversationLabelUncheckedUpdateManyWithoutCreatedByNestedInput
+    conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
+    participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
+    conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateManyTenantInput = {
     id?: string
     name: string
@@ -28859,6 +31140,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateWithoutTenantInput = {
@@ -28878,6 +31160,7 @@ export namespace Prisma {
     conversationlabelsRemoved?: ConversationLabelUncheckedUpdateManyWithoutRemovedByNestedInput
     participantAssignments?: ConversationParticipantUncheckedUpdateManyWithoutAssignedByNestedInput
     conversationParticipated?: ConversationParticipantUncheckedUpdateManyWithoutUserNestedInput
+    messageTemplatesCreated?: MessageTemplateUncheckedUpdateManyWithoutCreatedByNestedInput
   }
 
   export type UserUncheckedUpdateManyWithoutTenantInput = {
@@ -29040,6 +31323,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     conversations?: ConversationUpdateManyWithoutChannelNestedInput
+    messageTemplates?: MessageTemplateUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateWithoutTenantInput = {
@@ -29053,6 +31337,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     metadata?: NullableJsonNullValueInput | InputJsonValue
     conversations?: ConversationUncheckedUpdateManyWithoutChannelNestedInput
+    messageTemplates?: MessageTemplateUncheckedUpdateManyWithoutChannelNestedInput
   }
 
   export type ChannelUncheckedUpdateManyWithoutTenantInput = {
@@ -29141,6 +31426,21 @@ export namespace Prisma {
     role?: $Enums.ParticipantRole
     joinedAt?: Date | string
     assignedById?: string | null
+  }
+
+  export type MessageTemplateCreateManyCreatedByInput = {
+    id?: string
+    channelId: string
+    name: string
+    title: string
+    category: $Enums.TemplateCategory
+    language: string
+    components: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type TeamMemberUpdateWithoutUserInput = {
@@ -29383,6 +31683,51 @@ export namespace Prisma {
     assignedById?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
+  export type MessageTemplateUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
+    language?: StringFieldUpdateOperationsInput | string
+    components?: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    channel?: ChannelUpdateOneRequiredWithoutMessageTemplatesNestedInput
+  }
+
+  export type MessageTemplateUncheckedUpdateWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    channelId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
+    language?: StringFieldUpdateOperationsInput | string
+    components?: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageTemplateUncheckedUpdateManyWithoutCreatedByInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    channelId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
+    language?: StringFieldUpdateOperationsInput | string
+    components?: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TeamMemberCreateManyTeamInput = {
     userId: string
     role?: $Enums.TeamRole
@@ -29558,6 +31903,21 @@ export namespace Prisma {
     closedAt?: Date | string | null
   }
 
+  export type MessageTemplateCreateManyChannelInput = {
+    id?: string
+    createdById: string
+    name: string
+    title: string
+    category: $Enums.TemplateCategory
+    language: string
+    components: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ConversationUpdateWithoutChannelInput = {
     id?: StringFieldUpdateOperationsInput | string
     provider?: StringFieldUpdateOperationsInput | string
@@ -29609,6 +31969,51 @@ export namespace Prisma {
     lastMessageAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     closedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type MessageTemplateUpdateWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
+    language?: StringFieldUpdateOperationsInput | string
+    components?: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    createdBy?: UserUpdateOneRequiredWithoutMessageTemplatesCreatedNestedInput
+  }
+
+  export type MessageTemplateUncheckedUpdateWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
+    language?: StringFieldUpdateOperationsInput | string
+    components?: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MessageTemplateUncheckedUpdateManyWithoutChannelInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    createdById?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
+    language?: StringFieldUpdateOperationsInput | string
+    components?: JsonNullValueInput | InputJsonValue
+    parameters?: NullableJsonNullValueInput | InputJsonValue
+    status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    metadata?: NullableJsonNullValueInput | InputJsonValue
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type MessageCreateManyConversationInput = {

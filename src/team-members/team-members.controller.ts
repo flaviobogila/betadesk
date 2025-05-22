@@ -1,30 +1,35 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { TeamMembersService } from './team-members.service';
-import { CreateTeamMemberDto } from './dto/create-team-member.dto';
 import { SupabaseAuthGuard } from 'src/auth/supabase-auth.guard';
+import { CreateTeamMemberRoleDto } from './dto/create-team-member-role.dto';
 
-@Controller('members')
+@Controller('teams/:teamId/members')
 @UseGuards(SupabaseAuthGuard)
 export class TeamMembersController {
   constructor(private readonly teamMembersService: TeamMembersService) {}
 
   @Post()
-  create(@Body() createTeamMemberDto: CreateTeamMemberDto) {
-    return this.teamMembersService.create(createTeamMemberDto);
+  create(@Param('teamId') teamId: string, @Body() createTeamMemberDto: CreateTeamMemberRoleDto) {
+    return this.teamMembersService.create({...createTeamMemberDto, teamId});
   }
 
   @Get()
-  findAll(@Query('teamId') teamId: string) {
+  findAll(@Param('teamId') teamId: string) {
     return this.teamMembersService.findAll(teamId);
   }
 
-  @Patch()
-  update(@Body() updateTeamMemberDto: CreateTeamMemberDto) {
-    return this.teamMembersService.update(updateTeamMemberDto);
+  @Get(':userId')
+  findOne(@Param('teamId') teamId: string, @Param('userId') userId: string) {
+    return this.teamMembersService.findOne(teamId, userId);
   }
 
-  @Delete()
-  remove(@Body() updateTeamMemberDto: Partial<CreateTeamMemberDto>) {
-    return this.teamMembersService.remove(updateTeamMemberDto);
+  @Patch(':userId')
+  update(@Param('teamId') teamId: string, @Param('userId') userId: string, @Body() updateTeamMemberDto: CreateTeamMemberRoleDto) {
+    return this.teamMembersService.update({...updateTeamMemberDto, teamId, userId});
+  }
+
+  @Delete(':userId')
+  remove(@Param('teamId') teamId: string, @Param('userId') userId: string, @Body() updateTeamMemberDto: Partial<CreateTeamMemberRoleDto>) {
+    return this.teamMembersService.remove({...updateTeamMemberDto, teamId, userId});
   }
 }

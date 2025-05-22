@@ -277,6 +277,22 @@ exports.Prisma.BusinessAreaScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.MessageTemplateScalarFieldEnum = {
+  id: 'id',
+  channelId: 'channelId',
+  createdById: 'createdById',
+  name: 'name',
+  title: 'title',
+  category: 'category',
+  language: 'language',
+  components: 'components',
+  parameters: 'parameters',
+  status: 'status',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -284,6 +300,10 @@ exports.Prisma.SortOrder = {
 
 exports.Prisma.NullableJsonNullValueInput = {
   DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
+};
+
+exports.Prisma.JsonNullValueInput = {
   JsonNull: Prisma.JsonNull
 };
 
@@ -382,6 +402,19 @@ exports.LogType = exports.$Enums.LogType = {
   CUSTOM: 'CUSTOM'
 };
 
+exports.TemplateCategory = exports.$Enums.TemplateCategory = {
+  MARKETING: 'MARKETING',
+  TRANSACTIONAL: 'TRANSACTIONAL',
+  OTP: 'OTP'
+};
+
+exports.TemplateStatus = exports.$Enums.TemplateStatus = {
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected',
+  disabled: 'disabled'
+};
+
 exports.Prisma.ModelName = {
   Tenant: 'Tenant',
   User: 'User',
@@ -396,7 +429,8 @@ exports.Prisma.ModelName = {
   Mention: 'Mention',
   ConversationParticipant: 'ConversationParticipant',
   ConversationLog: 'ConversationLog',
-  BusinessArea: 'BusinessArea'
+  BusinessArea: 'BusinessArea',
+  MessageTemplate: 'MessageTemplate'
 };
 
 /**

@@ -59,6 +59,8 @@ model User {
   conversationlabelsRemoved   ConversationLabel[] @relation("ConvLabelRemovedBy")
   participantAssignments      ConversationParticipant[] @relation("ParticipantAssignedBy")
   conversationParticipated    ConversationParticipant[]
+  messageTemplatesCreated     MessageTemplate[] // opcional, para navegação reversa
+
 }
 
 model Team {
@@ -129,6 +131,8 @@ model Channel {
   metadata   Json?
 
   conversations Conversation[]
+  messageTemplates MessageTemplate[] // opcional, para navegação reversa
+
 }
 
 
@@ -327,4 +331,36 @@ model BusinessArea {
 
   tenants   Tenant[]
 }
+
+enum TemplateCategory {
+  MARKETING
+  TRANSACTIONAL
+  OTP
+}
+
+enum TemplateStatus {
+  pending
+  approved
+  rejected
+  disabled
+}
+
+model MessageTemplate {
+  id           String           @id @default(uuid())
+  channelId    String
+  channel      Channel          @relation(fields: [channelId], references: [id])
+  createdById  String
+  createdBy    User             @relation(fields: [createdById], references: [id])
+  name         String           @unique // nome técnico usado na API da Meta
+  title        String           // nome visível ao usuário no painel
+  category     TemplateCategory
+  language     String           // Ex: pt_BR
+  components   Json             // JSON estruturado com header, body, footer, buttons etc.
+  parameters   Json?            // Lista de parâmetros usados (ex: ["name", "1", "2"])
+  status       TemplateStatus   @default(pending)
+  metadata     Json?            // Dados adicionais diversos
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+}
+
 

@@ -16,6 +16,7 @@ import { TeamsModule } from './teams/teams.module';
 import { TeamMembersModule } from './team-members/team-members.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { MessageTemplatesModule } from './message-templates/message-templates.module';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { join } from 'path';
       rootPath: join(__dirname, '..', 'public'), // caminho para a pasta 'public'
       exclude: ['/api*'], // exclui rotas da API, se houver
     }),
-    PrismaModule, UsersModule, TenantsModule, ChannelsModule, MessagesModule, ContactsModule, ConversationsModule, WebhookModule, AuthModule, LabelsModule, ConversationLabelsModule, TeamsModule, TeamMembersModule],
+    PrismaModule, UsersModule, TenantsModule, ChannelsModule, MessagesModule, ContactsModule, ConversationsModule, WebhookModule, AuthModule, LabelsModule, ConversationLabelsModule, TeamsModule, TeamMembersModule, MessageTemplatesModule],
   // controllers: [AppController],
   providers: [AppService],
 })

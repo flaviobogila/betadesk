@@ -27,7 +27,7 @@ import { ROLES_KEY } from 'src/common/decorators/roles.decorator';
       const userRole = user?.user_metadata?.role;
   
       if (!userRole || !allowedRoles.includes(userRole)) {
-        throw new ForbiddenException('Acesso negado para esta função.');
+        throw new ForbiddenException('Você não tem permissão para acessar este recurso.');
       }
   
       return true;

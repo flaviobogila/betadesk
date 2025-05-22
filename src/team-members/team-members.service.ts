@@ -23,6 +23,15 @@ export class TeamMembersService {
     });
   }
 
+  findOne(teamId: string, userId: string) {
+    return this.prismaService.teamMember.findUnique({
+      where: { user_team_id: { teamId, userId } },
+      include: {
+        user: true,
+      },
+    });
+  }
+
   update(updateTeamDto: CreateTeamMemberDto) {
     const { teamId, userId, role } = updateTeamDto;
     return this.prismaService.teamMember.update({

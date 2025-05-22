@@ -34,7 +34,7 @@ export class InboundMessageService {
     }
 
     const conversation = await this.conversationService.findOneActiveOrCreateByExternalChannelId({
-        externalChannelId: channel.id,
+        externalChannelId,
         clientPhone: from,
         clientName: name || '',
         origin: 'user'

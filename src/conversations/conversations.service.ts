@@ -106,7 +106,7 @@ export class ConversationsService {
   }
 
   async findOneActiveOrCreateByExternalChannelId({ externalChannelId, clientPhone, clientName, origin }: { externalChannelId: string, clientPhone: string, clientName: string, origin: "user" | "business" }) {
-    let conversation = this.prisma.conversation.findFirst({
+    let conversation = await this.prisma.conversation.findFirst({
       where: {
         externalId: clientPhone,
         externalChannelId,
@@ -123,6 +123,8 @@ export class ConversationsService {
       const contact = await this.contactService.findOrCreate(channel.tenantId, clientPhone, clientName, origin);
       return await this.create(contact, channel);
     }
+
+    return conversation;
   }
 
   update(id: string, data: any) {
