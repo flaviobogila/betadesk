@@ -285,9 +285,12 @@ exports.Prisma.MessageTemplateScalarFieldEnum = {
   title: 'title',
   category: 'category',
   language: 'language',
+  parameterFormat: 'parameterFormat',
   components: 'components',
   parameters: 'parameters',
   status: 'status',
+  externalId: 'externalId',
+  reason: 'reason',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -404,8 +407,13 @@ exports.LogType = exports.$Enums.LogType = {
 
 exports.TemplateCategory = exports.$Enums.TemplateCategory = {
   MARKETING: 'MARKETING',
-  TRANSACTIONAL: 'TRANSACTIONAL',
+  UTILITY: 'UTILITY',
   OTP: 'OTP'
+};
+
+exports.TemplateParameterFormat = exports.$Enums.TemplateParameterFormat = {
+  POSITIONAL: 'POSITIONAL',
+  NAMED: 'NAMED'
 };
 
 exports.TemplateStatus = exports.$Enums.TemplateStatus = {

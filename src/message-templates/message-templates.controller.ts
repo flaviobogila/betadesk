@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, HttpStatus, HttpException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, HttpStatus, HttpException, UseFilters } from '@nestjs/common';
 import { MessageTemplatesService } from './message-templates.service';
 import { CreateMessageTemplateDto } from './dto/create-message-template.dto';
 import { UpdateMessageTemplateDto } from './dto/update-message-template.dto';
@@ -8,18 +8,26 @@ import { Roles } from 'src/common/decorators/roles.decorator';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
+import { WhatsappService } from 'src/messages/whatsapp.service';
+import { MetaExceptionFilter } from 'src/common/filters/meta-exception.filter';
 
 @Controller('channels/:id/templates')
 @ApiBearerAuth('access-token')
 @UseGuards(SupabaseAuthGuard, RolesGuard)
-@Roles('admin','manager')
+@Roles('admin', 'manager')
 export class MessageTemplatesController {
-  constructor(private readonly messageTemplatesService: MessageTemplatesService) {}
+  constructor(private readonly messageTemplatesService: MessageTemplatesService, private readonly whatsappService: WhatsappService) { }
 
   @Post()
-  create(@Param('id') channelId: string, @CurrentUser() user: SupabaseUser, @Body() createMessageTemplateDto: CreateMessageTemplateDto) {
+  @UseFilters(new MetaExceptionFilter)
+  async create(@Param('id') channelId: string, @CurrentUser() user: SupabaseUser, @Body() createMessageTemplateDto: CreateMessageTemplateDto) {
     const { id: createdById } = user;
-    return this.messageTemplatesService.create({...createMessageTemplateDto, channelId, createdById});
+    
+    const waTemplate = await this.whatsappService.createTemplate({ ...createMessageTemplateDto, channelId, createdById })
+    const {id: externalId} = waTemplate;
+    console.log('Whatsapp template created:', waTemplate);
+    
+    return await this.messageTemplatesService.create({ ...createMessageTemplateDto, channelId, createdById, externalId, metadata: { ...waTemplate } });
   }
 
   @Get()
@@ -34,6 +42,7 @@ export class MessageTemplatesController {
 
   @Patch(':templateId')
   update(@Param('templateId') id: string, @Body() updateMessageTemplateDto: UpdateMessageTemplateDto) {
+
     return this.messageTemplatesService.update(id, updateMessageTemplateDto);
   }
 

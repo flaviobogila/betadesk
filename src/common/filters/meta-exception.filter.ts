@@ -22,7 +22,7 @@ export class MetaExceptionFilter implements ExceptionFilter {
             if (statusMap) {
                 return response.status(statusMap.status).json({
                     statusCode: exception?.response?.status || 400,
-                    message: statusMap.message,
+                    message: metaError?.error_user_title ?? statusMap.message,
                     error: "MetaErrorException",
                     meta: { code: metaError.code, error: statusMap.code, message: metaError.message, ...metaError.error_data }
                 });

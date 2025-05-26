@@ -205,7 +205,7 @@ export type LogType = (typeof LogType)[keyof typeof LogType]
 
 export const TemplateCategory: {
   MARKETING: 'MARKETING',
-  TRANSACTIONAL: 'TRANSACTIONAL',
+  UTILITY: 'UTILITY',
   OTP: 'OTP'
 };
 
@@ -220,6 +220,14 @@ export const TemplateStatus: {
 };
 
 export type TemplateStatus = (typeof TemplateStatus)[keyof typeof TemplateStatus]
+
+
+export const TemplateParameterFormat: {
+  POSITIONAL: 'POSITIONAL',
+  NAMED: 'NAMED'
+};
+
+export type TemplateParameterFormat = (typeof TemplateParameterFormat)[keyof typeof TemplateParameterFormat]
 
 }
 
@@ -270,6 +278,10 @@ export const TemplateCategory: typeof $Enums.TemplateCategory
 export type TemplateStatus = $Enums.TemplateStatus
 
 export const TemplateStatus: typeof $Enums.TemplateStatus
+
+export type TemplateParameterFormat = $Enums.TemplateParameterFormat
+
+export const TemplateParameterFormat: typeof $Enums.TemplateParameterFormat
 
 /**
  * ##  Prisma Client ʲˢ
@@ -19334,7 +19346,10 @@ export namespace Prisma {
     title: string | null
     category: $Enums.TemplateCategory | null
     language: string | null
+    parameterFormat: $Enums.TemplateParameterFormat | null
     status: $Enums.TemplateStatus | null
+    externalId: string | null
+    reason: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -19347,7 +19362,10 @@ export namespace Prisma {
     title: string | null
     category: $Enums.TemplateCategory | null
     language: string | null
+    parameterFormat: $Enums.TemplateParameterFormat | null
     status: $Enums.TemplateStatus | null
+    externalId: string | null
+    reason: string | null
     createdAt: Date | null
     updatedAt: Date | null
   }
@@ -19360,9 +19378,12 @@ export namespace Prisma {
     title: number
     category: number
     language: number
+    parameterFormat: number
     components: number
     parameters: number
     status: number
+    externalId: number
+    reason: number
     metadata: number
     createdAt: number
     updatedAt: number
@@ -19378,7 +19399,10 @@ export namespace Prisma {
     title?: true
     category?: true
     language?: true
+    parameterFormat?: true
     status?: true
+    externalId?: true
+    reason?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -19391,7 +19415,10 @@ export namespace Prisma {
     title?: true
     category?: true
     language?: true
+    parameterFormat?: true
     status?: true
+    externalId?: true
+    reason?: true
     createdAt?: true
     updatedAt?: true
   }
@@ -19404,9 +19431,12 @@ export namespace Prisma {
     title?: true
     category?: true
     language?: true
+    parameterFormat?: true
     components?: true
     parameters?: true
     status?: true
+    externalId?: true
+    reason?: true
     metadata?: true
     createdAt?: true
     updatedAt?: true
@@ -19493,12 +19523,15 @@ export namespace Prisma {
     title: string
     category: $Enums.TemplateCategory
     language: string
+    parameterFormat: $Enums.TemplateParameterFormat
     components: JsonValue
     parameters: JsonValue | null
     status: $Enums.TemplateStatus
+    externalId: string | null
+    reason: string | null
     metadata: JsonValue | null
     createdAt: Date
-    updatedAt: Date
+    updatedAt: Date | null
     _count: MessageTemplateCountAggregateOutputType | null
     _min: MessageTemplateMinAggregateOutputType | null
     _max: MessageTemplateMaxAggregateOutputType | null
@@ -19526,9 +19559,12 @@ export namespace Prisma {
     title?: boolean
     category?: boolean
     language?: boolean
+    parameterFormat?: boolean
     components?: boolean
     parameters?: boolean
     status?: boolean
+    externalId?: boolean
+    reason?: boolean
     metadata?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -19544,9 +19580,12 @@ export namespace Prisma {
     title?: boolean
     category?: boolean
     language?: boolean
+    parameterFormat?: boolean
     components?: boolean
     parameters?: boolean
     status?: boolean
+    externalId?: boolean
+    reason?: boolean
     metadata?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -19562,9 +19601,12 @@ export namespace Prisma {
     title?: boolean
     category?: boolean
     language?: boolean
+    parameterFormat?: boolean
     components?: boolean
     parameters?: boolean
     status?: boolean
+    externalId?: boolean
+    reason?: boolean
     metadata?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -19580,15 +19622,18 @@ export namespace Prisma {
     title?: boolean
     category?: boolean
     language?: boolean
+    parameterFormat?: boolean
     components?: boolean
     parameters?: boolean
     status?: boolean
+    externalId?: boolean
+    reason?: boolean
     metadata?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MessageTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "channelId" | "createdById" | "name" | "title" | "category" | "language" | "components" | "parameters" | "status" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["messageTemplate"]>
+  export type MessageTemplateOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "channelId" | "createdById" | "name" | "title" | "category" | "language" | "parameterFormat" | "components" | "parameters" | "status" | "externalId" | "reason" | "metadata" | "createdAt" | "updatedAt", ExtArgs["result"]["messageTemplate"]>
   export type MessageTemplateInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     channel?: boolean | ChannelDefaultArgs<ExtArgs>
     createdBy?: boolean | UserDefaultArgs<ExtArgs>
@@ -19616,12 +19661,15 @@ export namespace Prisma {
       title: string
       category: $Enums.TemplateCategory
       language: string
+      parameterFormat: $Enums.TemplateParameterFormat
       components: Prisma.JsonValue
       parameters: Prisma.JsonValue | null
       status: $Enums.TemplateStatus
+      externalId: string | null
+      reason: string | null
       metadata: Prisma.JsonValue | null
       createdAt: Date
-      updatedAt: Date
+      updatedAt: Date | null
     }, ExtArgs["result"]["messageTemplate"]>
     composites: {}
   }
@@ -20054,9 +20102,12 @@ export namespace Prisma {
     readonly title: FieldRef<"MessageTemplate", 'String'>
     readonly category: FieldRef<"MessageTemplate", 'TemplateCategory'>
     readonly language: FieldRef<"MessageTemplate", 'String'>
+    readonly parameterFormat: FieldRef<"MessageTemplate", 'TemplateParameterFormat'>
     readonly components: FieldRef<"MessageTemplate", 'Json'>
     readonly parameters: FieldRef<"MessageTemplate", 'Json'>
     readonly status: FieldRef<"MessageTemplate", 'TemplateStatus'>
+    readonly externalId: FieldRef<"MessageTemplate", 'String'>
+    readonly reason: FieldRef<"MessageTemplate", 'String'>
     readonly metadata: FieldRef<"MessageTemplate", 'Json'>
     readonly createdAt: FieldRef<"MessageTemplate", 'DateTime'>
     readonly updatedAt: FieldRef<"MessageTemplate", 'DateTime'>
@@ -20695,9 +20746,12 @@ export namespace Prisma {
     title: 'title',
     category: 'category',
     language: 'language',
+    parameterFormat: 'parameterFormat',
     components: 'components',
     parameters: 'parameters',
     status: 'status',
+    externalId: 'externalId',
+    reason: 'reason',
     metadata: 'metadata',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -20973,6 +21027,20 @@ export namespace Prisma {
    * Reference to a field of type 'TemplateCategory[]'
    */
   export type ListEnumTemplateCategoryFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TemplateCategory[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'TemplateParameterFormat'
+   */
+  export type EnumTemplateParameterFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TemplateParameterFormat'>
+    
+
+
+  /**
+   * Reference to a field of type 'TemplateParameterFormat[]'
+   */
+  export type ListEnumTemplateParameterFormatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TemplateParameterFormat[]'>
     
 
 
@@ -22145,12 +22213,15 @@ export namespace Prisma {
     title?: StringFilter<"MessageTemplate"> | string
     category?: EnumTemplateCategoryFilter<"MessageTemplate"> | $Enums.TemplateCategory
     language?: StringFilter<"MessageTemplate"> | string
+    parameterFormat?: EnumTemplateParameterFormatFilter<"MessageTemplate"> | $Enums.TemplateParameterFormat
     components?: JsonFilter<"MessageTemplate">
     parameters?: JsonNullableFilter<"MessageTemplate">
     status?: EnumTemplateStatusFilter<"MessageTemplate"> | $Enums.TemplateStatus
+    externalId?: StringNullableFilter<"MessageTemplate"> | string | null
+    reason?: StringNullableFilter<"MessageTemplate"> | string | null
     metadata?: JsonNullableFilter<"MessageTemplate">
     createdAt?: DateTimeFilter<"MessageTemplate"> | Date | string
-    updatedAt?: DateTimeFilter<"MessageTemplate"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"MessageTemplate"> | Date | string | null
     channel?: XOR<ChannelScalarRelationFilter, ChannelWhereInput>
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -22163,12 +22234,15 @@ export namespace Prisma {
     title?: SortOrder
     category?: SortOrder
     language?: SortOrder
+    parameterFormat?: SortOrder
     components?: SortOrder
     parameters?: SortOrderInput | SortOrder
     status?: SortOrder
+    externalId?: SortOrderInput | SortOrder
+    reason?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
     channel?: ChannelOrderByWithRelationInput
     createdBy?: UserOrderByWithRelationInput
   }
@@ -22184,12 +22258,15 @@ export namespace Prisma {
     title?: StringFilter<"MessageTemplate"> | string
     category?: EnumTemplateCategoryFilter<"MessageTemplate"> | $Enums.TemplateCategory
     language?: StringFilter<"MessageTemplate"> | string
+    parameterFormat?: EnumTemplateParameterFormatFilter<"MessageTemplate"> | $Enums.TemplateParameterFormat
     components?: JsonFilter<"MessageTemplate">
     parameters?: JsonNullableFilter<"MessageTemplate">
     status?: EnumTemplateStatusFilter<"MessageTemplate"> | $Enums.TemplateStatus
+    externalId?: StringNullableFilter<"MessageTemplate"> | string | null
+    reason?: StringNullableFilter<"MessageTemplate"> | string | null
     metadata?: JsonNullableFilter<"MessageTemplate">
     createdAt?: DateTimeFilter<"MessageTemplate"> | Date | string
-    updatedAt?: DateTimeFilter<"MessageTemplate"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"MessageTemplate"> | Date | string | null
     channel?: XOR<ChannelScalarRelationFilter, ChannelWhereInput>
     createdBy?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "name">
@@ -22202,12 +22279,15 @@ export namespace Prisma {
     title?: SortOrder
     category?: SortOrder
     language?: SortOrder
+    parameterFormat?: SortOrder
     components?: SortOrder
     parameters?: SortOrderInput | SortOrder
     status?: SortOrder
+    externalId?: SortOrderInput | SortOrder
+    reason?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     createdAt?: SortOrder
-    updatedAt?: SortOrder
+    updatedAt?: SortOrderInput | SortOrder
     _count?: MessageTemplateCountOrderByAggregateInput
     _max?: MessageTemplateMaxOrderByAggregateInput
     _min?: MessageTemplateMinOrderByAggregateInput
@@ -22224,12 +22304,15 @@ export namespace Prisma {
     title?: StringWithAggregatesFilter<"MessageTemplate"> | string
     category?: EnumTemplateCategoryWithAggregatesFilter<"MessageTemplate"> | $Enums.TemplateCategory
     language?: StringWithAggregatesFilter<"MessageTemplate"> | string
+    parameterFormat?: EnumTemplateParameterFormatWithAggregatesFilter<"MessageTemplate"> | $Enums.TemplateParameterFormat
     components?: JsonWithAggregatesFilter<"MessageTemplate">
     parameters?: JsonNullableWithAggregatesFilter<"MessageTemplate">
     status?: EnumTemplateStatusWithAggregatesFilter<"MessageTemplate"> | $Enums.TemplateStatus
+    externalId?: StringNullableWithAggregatesFilter<"MessageTemplate"> | string | null
+    reason?: StringNullableWithAggregatesFilter<"MessageTemplate"> | string | null
     metadata?: JsonNullableWithAggregatesFilter<"MessageTemplate">
     createdAt?: DateTimeWithAggregatesFilter<"MessageTemplate"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"MessageTemplate"> | Date | string
+    updatedAt?: DateTimeNullableWithAggregatesFilter<"MessageTemplate"> | Date | string | null
   }
 
   export type TenantCreateInput = {
@@ -23426,12 +23509,15 @@ export namespace Prisma {
     title: string
     category: $Enums.TemplateCategory
     language: string
+    parameterFormat?: $Enums.TemplateParameterFormat
     components: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.TemplateStatus
+    externalId?: string | null
+    reason?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     channel: ChannelCreateNestedOneWithoutMessageTemplatesInput
     createdBy: UserCreateNestedOneWithoutMessageTemplatesCreatedInput
   }
@@ -23444,12 +23530,15 @@ export namespace Prisma {
     title: string
     category: $Enums.TemplateCategory
     language: string
+    parameterFormat?: $Enums.TemplateParameterFormat
     components: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.TemplateStatus
+    externalId?: string | null
+    reason?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type MessageTemplateUpdateInput = {
@@ -23458,12 +23547,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
     language?: StringFieldUpdateOperationsInput | string
+    parameterFormat?: EnumTemplateParameterFormatFieldUpdateOperationsInput | $Enums.TemplateParameterFormat
     components?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     channel?: ChannelUpdateOneRequiredWithoutMessageTemplatesNestedInput
     createdBy?: UserUpdateOneRequiredWithoutMessageTemplatesCreatedNestedInput
   }
@@ -23476,12 +23568,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
     language?: StringFieldUpdateOperationsInput | string
+    parameterFormat?: EnumTemplateParameterFormatFieldUpdateOperationsInput | $Enums.TemplateParameterFormat
     components?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageTemplateCreateManyInput = {
@@ -23492,12 +23587,15 @@ export namespace Prisma {
     title: string
     category: $Enums.TemplateCategory
     language: string
+    parameterFormat?: $Enums.TemplateParameterFormat
     components: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.TemplateStatus
+    externalId?: string | null
+    reason?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type MessageTemplateUpdateManyMutationInput = {
@@ -23506,12 +23604,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
     language?: StringFieldUpdateOperationsInput | string
+    parameterFormat?: EnumTemplateParameterFormatFieldUpdateOperationsInput | $Enums.TemplateParameterFormat
     components?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageTemplateUncheckedUpdateManyInput = {
@@ -23522,12 +23623,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
     language?: StringFieldUpdateOperationsInput | string
+    parameterFormat?: EnumTemplateParameterFormatFieldUpdateOperationsInput | $Enums.TemplateParameterFormat
     components?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type StringFilter<$PrismaModel = never> = {
@@ -24614,6 +24718,13 @@ export namespace Prisma {
     notIn?: $Enums.TemplateCategory[] | ListEnumTemplateCategoryFieldRefInput<$PrismaModel>
     not?: NestedEnumTemplateCategoryFilter<$PrismaModel> | $Enums.TemplateCategory
   }
+
+  export type EnumTemplateParameterFormatFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateParameterFormat | EnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateParameterFormat[] | ListEnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateParameterFormat[] | ListEnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateParameterFormatFilter<$PrismaModel> | $Enums.TemplateParameterFormat
+  }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<JsonFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -24653,9 +24764,12 @@ export namespace Prisma {
     title?: SortOrder
     category?: SortOrder
     language?: SortOrder
+    parameterFormat?: SortOrder
     components?: SortOrder
     parameters?: SortOrder
     status?: SortOrder
+    externalId?: SortOrder
+    reason?: SortOrder
     metadata?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -24669,7 +24783,10 @@ export namespace Prisma {
     title?: SortOrder
     category?: SortOrder
     language?: SortOrder
+    parameterFormat?: SortOrder
     status?: SortOrder
+    externalId?: SortOrder
+    reason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24682,7 +24799,10 @@ export namespace Prisma {
     title?: SortOrder
     category?: SortOrder
     language?: SortOrder
+    parameterFormat?: SortOrder
     status?: SortOrder
+    externalId?: SortOrder
+    reason?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
   }
@@ -24695,6 +24815,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTemplateCategoryFilter<$PrismaModel>
     _max?: NestedEnumTemplateCategoryFilter<$PrismaModel>
+  }
+
+  export type EnumTemplateParameterFormatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateParameterFormat | EnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateParameterFormat[] | ListEnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateParameterFormat[] | ListEnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateParameterFormatWithAggregatesFilter<$PrismaModel> | $Enums.TemplateParameterFormat
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTemplateParameterFormatFilter<$PrismaModel>
+    _max?: NestedEnumTemplateParameterFormatFilter<$PrismaModel>
   }
   export type JsonWithAggregatesFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -26433,6 +26563,10 @@ export namespace Prisma {
     set?: $Enums.TemplateCategory
   }
 
+  export type EnumTemplateParameterFormatFieldUpdateOperationsInput = {
+    set?: $Enums.TemplateParameterFormat
+  }
+
   export type EnumTemplateStatusFieldUpdateOperationsInput = {
     set?: $Enums.TemplateStatus
   }
@@ -26827,6 +26961,13 @@ export namespace Prisma {
     not?: NestedEnumTemplateCategoryFilter<$PrismaModel> | $Enums.TemplateCategory
   }
 
+  export type NestedEnumTemplateParameterFormatFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateParameterFormat | EnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateParameterFormat[] | ListEnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateParameterFormat[] | ListEnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateParameterFormatFilter<$PrismaModel> | $Enums.TemplateParameterFormat
+  }
+
   export type NestedEnumTemplateStatusFilter<$PrismaModel = never> = {
     equals?: $Enums.TemplateStatus | EnumTemplateStatusFieldRefInput<$PrismaModel>
     in?: $Enums.TemplateStatus[] | ListEnumTemplateStatusFieldRefInput<$PrismaModel>
@@ -26842,6 +26983,16 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTemplateCategoryFilter<$PrismaModel>
     _max?: NestedEnumTemplateCategoryFilter<$PrismaModel>
+  }
+
+  export type NestedEnumTemplateParameterFormatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.TemplateParameterFormat | EnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    in?: $Enums.TemplateParameterFormat[] | ListEnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    notIn?: $Enums.TemplateParameterFormat[] | ListEnumTemplateParameterFormatFieldRefInput<$PrismaModel>
+    not?: NestedEnumTemplateParameterFormatWithAggregatesFilter<$PrismaModel> | $Enums.TemplateParameterFormat
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumTemplateParameterFormatFilter<$PrismaModel>
+    _max?: NestedEnumTemplateParameterFormatFilter<$PrismaModel>
   }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -27623,12 +27774,15 @@ export namespace Prisma {
     title: string
     category: $Enums.TemplateCategory
     language: string
+    parameterFormat?: $Enums.TemplateParameterFormat
     components: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.TemplateStatus
+    externalId?: string | null
+    reason?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     channel: ChannelCreateNestedOneWithoutMessageTemplatesInput
   }
 
@@ -27639,12 +27793,15 @@ export namespace Prisma {
     title: string
     category: $Enums.TemplateCategory
     language: string
+    parameterFormat?: $Enums.TemplateParameterFormat
     components: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.TemplateStatus
+    externalId?: string | null
+    reason?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type MessageTemplateCreateOrConnectWithoutCreatedByInput = {
@@ -27914,12 +28071,15 @@ export namespace Prisma {
     title?: StringFilter<"MessageTemplate"> | string
     category?: EnumTemplateCategoryFilter<"MessageTemplate"> | $Enums.TemplateCategory
     language?: StringFilter<"MessageTemplate"> | string
+    parameterFormat?: EnumTemplateParameterFormatFilter<"MessageTemplate"> | $Enums.TemplateParameterFormat
     components?: JsonFilter<"MessageTemplate">
     parameters?: JsonNullableFilter<"MessageTemplate">
     status?: EnumTemplateStatusFilter<"MessageTemplate"> | $Enums.TemplateStatus
+    externalId?: StringNullableFilter<"MessageTemplate"> | string | null
+    reason?: StringNullableFilter<"MessageTemplate"> | string | null
     metadata?: JsonNullableFilter<"MessageTemplate">
     createdAt?: DateTimeFilter<"MessageTemplate"> | Date | string
-    updatedAt?: DateTimeFilter<"MessageTemplate"> | Date | string
+    updatedAt?: DateTimeNullableFilter<"MessageTemplate"> | Date | string | null
   }
 
   export type TenantCreateWithoutTeamsInput = {
@@ -28583,12 +28743,15 @@ export namespace Prisma {
     title: string
     category: $Enums.TemplateCategory
     language: string
+    parameterFormat?: $Enums.TemplateParameterFormat
     components: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.TemplateStatus
+    externalId?: string | null
+    reason?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
     createdBy: UserCreateNestedOneWithoutMessageTemplatesCreatedInput
   }
 
@@ -28599,12 +28762,15 @@ export namespace Prisma {
     title: string
     category: $Enums.TemplateCategory
     language: string
+    parameterFormat?: $Enums.TemplateParameterFormat
     components: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.TemplateStatus
+    externalId?: string | null
+    reason?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type MessageTemplateCreateOrConnectWithoutChannelInput = {
@@ -31435,12 +31601,15 @@ export namespace Prisma {
     title: string
     category: $Enums.TemplateCategory
     language: string
+    parameterFormat?: $Enums.TemplateParameterFormat
     components: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.TemplateStatus
+    externalId?: string | null
+    reason?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type TeamMemberUpdateWithoutUserInput = {
@@ -31689,12 +31858,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
     language?: StringFieldUpdateOperationsInput | string
+    parameterFormat?: EnumTemplateParameterFormatFieldUpdateOperationsInput | $Enums.TemplateParameterFormat
     components?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     channel?: ChannelUpdateOneRequiredWithoutMessageTemplatesNestedInput
   }
 
@@ -31705,12 +31877,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
     language?: StringFieldUpdateOperationsInput | string
+    parameterFormat?: EnumTemplateParameterFormatFieldUpdateOperationsInput | $Enums.TemplateParameterFormat
     components?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageTemplateUncheckedUpdateManyWithoutCreatedByInput = {
@@ -31720,12 +31895,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
     language?: StringFieldUpdateOperationsInput | string
+    parameterFormat?: EnumTemplateParameterFormatFieldUpdateOperationsInput | $Enums.TemplateParameterFormat
     components?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type TeamMemberCreateManyTeamInput = {
@@ -31910,12 +32088,15 @@ export namespace Prisma {
     title: string
     category: $Enums.TemplateCategory
     language: string
+    parameterFormat?: $Enums.TemplateParameterFormat
     components: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: $Enums.TemplateStatus
+    externalId?: string | null
+    reason?: string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: Date | string
-    updatedAt?: Date | string
+    updatedAt?: Date | string | null
   }
 
   export type ConversationUpdateWithoutChannelInput = {
@@ -31977,12 +32158,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
     language?: StringFieldUpdateOperationsInput | string
+    parameterFormat?: EnumTemplateParameterFormatFieldUpdateOperationsInput | $Enums.TemplateParameterFormat
     components?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     createdBy?: UserUpdateOneRequiredWithoutMessageTemplatesCreatedNestedInput
   }
 
@@ -31993,12 +32177,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
     language?: StringFieldUpdateOperationsInput | string
+    parameterFormat?: EnumTemplateParameterFormatFieldUpdateOperationsInput | $Enums.TemplateParameterFormat
     components?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageTemplateUncheckedUpdateManyWithoutChannelInput = {
@@ -32008,12 +32195,15 @@ export namespace Prisma {
     title?: StringFieldUpdateOperationsInput | string
     category?: EnumTemplateCategoryFieldUpdateOperationsInput | $Enums.TemplateCategory
     language?: StringFieldUpdateOperationsInput | string
+    parameterFormat?: EnumTemplateParameterFormatFieldUpdateOperationsInput | $Enums.TemplateParameterFormat
     components?: JsonNullValueInput | InputJsonValue
     parameters?: NullableJsonNullValueInput | InputJsonValue
     status?: EnumTemplateStatusFieldUpdateOperationsInput | $Enums.TemplateStatus
+    externalId?: NullableStringFieldUpdateOperationsInput | string | null
+    reason?: NullableStringFieldUpdateOperationsInput | string | null
     metadata?: NullableJsonNullValueInput | InputJsonValue
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MessageCreateManyConversationInput = {

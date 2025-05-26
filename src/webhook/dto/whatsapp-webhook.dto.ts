@@ -10,7 +10,7 @@ export class WhatsAppEntry {
 
 export class WhatsAppChange {
     field: string;
-    value: WhatsAppChangeValue;
+    value: WhatsAppChangeValue | WhatsAppEventTemplate;
 }
 
 export class WhatsAppChangeValue {
@@ -22,6 +22,14 @@ export class WhatsAppChangeValue {
     contacts?: WhatsAppContact[];
     messages?: WhatsAppMessage[];
     statuses?: WhatsAppMessageStatus[];
+}
+
+export class WhatsAppEventTemplate {
+    event: string
+    message_template_id: string
+    message_template_name: string
+    message_template_language: string
+    reason: string
 }
 
 export class WhatsAppContact {
@@ -112,7 +120,7 @@ export interface WhatsAppMessage {
         };
         phones?: {
             phone: string;
-            wa_id?: string ,
+            wa_id?: string,
             type?: 'HOME' | 'WORK' | 'OTHER' | string;
         }[];
         urls?: {

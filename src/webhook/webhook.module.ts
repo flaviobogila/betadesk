@@ -8,9 +8,10 @@ import { ChannelsModule } from 'src/channels/channels.module';
 import { ContactsModule } from 'src/contacts/contacts.module';
 import { MessagesModule } from 'src/messages/messages.module';
 import { InboundMessageService } from './whatsapp/inbound-message.service';
+import { MessageTemplatesModule } from 'src/message-templates/message-templates.module';
 
 @Module({
-    imports: [ContactsModule, ConversationsModule, ChannelsModule, MessagesModule],
+    imports: [ContactsModule, ConversationsModule, ChannelsModule, MessagesModule, MessageTemplatesModule],
     controllers: [WhatsappWebhookController],
     providers: [WebhookService, MessageWhatsAppMapperService, InboundMessageService, MessageFactoryService],
     exports: [],

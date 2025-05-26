@@ -331,7 +331,7 @@ model BusinessArea {
 
 enum TemplateCategory {
   MARKETING
-  TRANSACTIONAL
+  UTILITY
   OTP
 }
 
@@ -342,20 +342,28 @@ enum TemplateStatus {
   disabled
 }
 
+enum TemplateParameterFormat {
+  POSITIONAL
+  NAMED
+}
+
 model MessageTemplate {
-  id          String           @id @default(uuid())
-  channelId   String
-  channel     Channel          @relation(fields: [channelId], references: [id])
-  createdById String
-  createdBy   User             @relation(fields: [createdById], references: [id])
-  name        String           @unique // nome técnico usado na API da Meta
-  title       String // nome visível ao usuário no painel
-  category    TemplateCategory
-  language    String // Ex: pt_BR
-  components  Json // JSON estruturado com header, body, footer, buttons etc.
-  parameters  Json? // Lista de parâmetros usados (ex: ["name", "1", "2"])
-  status      TemplateStatus   @default(pending)
-  metadata    Json? // Dados adicionais diversos
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  id              String                  @id @default(uuid())
+  channelId       String
+  channel         Channel                 @relation(fields: [channelId], references: [id])
+  createdById     String
+  createdBy       User                    @relation(fields: [createdById], references: [id])
+  name            String                  @unique // nome técnico usado na API da Meta
+  title           String // nome visível ao usuário no painel
+  category        TemplateCategory
+  language        String // Ex: pt_BR
+  parameterFormat TemplateParameterFormat @default(POSITIONAL) // Ex: "name, 1, 2" (parâmetros esperados na ordem)
+  components      Json // JSON estruturado com header, body, footer, buttons etc.
+  parameters      Json? // Lista de parâmetros usados (ex: ["name", "1", "2"])
+  status          TemplateStatus          @default(pending)
+  externalId      String? // ID do template na API externa (Meta, Twilio etc.)
+  reason          String? // Motivo da rejeição ou desativação
+  metadata        Json? // Dados adicionais diversos
+  createdAt       DateTime                @default(now())
+  updatedAt       DateTime?
 }

@@ -17,6 +17,7 @@ import { SendListButtonMessageDto } from './dto/send-list-button-message.dto';
 import { SendContactMessageDto } from './dto/send-contact-message.dto';
 import { WhatsAppMediaDownloadResponse } from 'src/webhook/dto/whatsapp-webhook.dto';
 import { TranslateMetaError } from 'src/common/utils/translate-meta-error.util';
+import { CreateMessageTemplateDto } from 'src/message-templates/dto/create-message-template.dto';
 
 @Injectable()
 export class WhatsappService {
@@ -252,6 +253,153 @@ export class WhatsappService {
     });
   }
 
+  async createTemplate(templateDto: CreateMessageTemplateDto) {
+    // try {
+      const { channelId } = templateDto;
+      const { wabaId, token } = await this.getChannelAuth(channelId);
+
+      const templateData = this.buildTemplate(templateDto);
+
+      const response = await axios.post(
+        `https://graph.facebook.com/v19.0/${wabaId}/message_templates`,
+        templateData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      return response.data;
+    // } catch (error) {
+    //   this.logger.error('Erro ao criar template:', error?.response?.data || error);
+    //   throw new HttpException(this.buildMetaError(error), HttpStatus.BAD_REQUEST);
+    // }
+  }
+
+  private buildTemplate(template: CreateMessageTemplateDto) {
+    const components = [] as any;
+
+    if (template.components?.header) {
+      const headerType = template.components.header.type?.toUpperCase();
+
+      const headerComponent: any = {
+        type: "HEADER",
+        format: headerType
+      };
+
+      if (headerType === "TEXT") {
+        headerComponent.text = template.components.header.text;
+        if (template.components?.header?.example) {
+          if (template.parameterFormat === 'NAMED') {
+            headerComponent.example = {
+              header_text_named_params: Object.entries(template.components?.header?.example).map(([key, value]) => ({
+                param_name: key,
+                example: value
+              }))
+            };
+          } else {
+            headerComponent.example = {
+              header_text: Object.values(template.components?.header?.example) // deve conter text(s)
+            };
+          }
+        }
+      } else if (["IMAGE", "VIDEO", "DOCUMENT"].includes(headerType)) {
+        // precisa existir um ID de exemplo de mídia para a criação do template
+        headerComponent.example = {
+          header_handle: [template?.components?.header?.mediaId] // deve conter media-id(s)
+        };
+      }
+
+      components.push(headerComponent);
+    }
+
+    if (template.components?.body?.text) {
+      const componentBody: any = {
+        type: "BODY",
+        text: template.components.body.text
+      }
+
+      if(template.components?.body?.example) {
+        if(template.parameterFormat === 'NAMED'){
+
+          componentBody.example = {
+            body_text_named_params: Object.entries(template.components?.body?.example).map(([key, value]) => ({
+              param_name: key,
+              example: value
+            }))
+          };
+
+        }else{
+          componentBody.example = {
+            body_handle: Object.values(template.components.body.example) 
+          };
+        }
+      }
+
+      components.push(componentBody);
+    }
+
+    if (template.parameters?.footer) {
+      components.push({
+        type: "FOOTER",
+        text: template.components?.footer?.text || ''
+      });
+    }
+
+    if (template.components?.buttons?.length) {
+      components.push({
+        type: "BUTTONS",
+        buttons: template.components.buttons.map((btn: any) => {
+          if (btn.type === 'quick_reply') {
+            return {
+              type: 'QUICK_REPLY',
+              text: btn.text.substring(0, 25)
+            };
+          }
+          if (btn.type === 'phone_number') {
+            return {
+              type: 'PHONE_NUMBER',
+              text: btn.text.substring(0, 25),
+              phone_number: btn.phone_number
+            };
+          }
+          if (btn.type === 'url') {
+            return {
+              type: 'URL',
+              url: btn.url,
+              text: btn.text.substring(0, 25),
+              example: [btn.example]
+            };
+          }
+          if (btn.type === 'copy_code') {
+            return {
+              type: 'COPY_CODE',
+              text: btn.text.substring(0, 15),
+              example: [btn.example]
+            };
+          }
+          if (btn.type === 'catalog' || btn.type === 'mpm' || btn.type === 'spm') {
+            return {
+              type: btn.type.toUpperCase(),
+              text: btn.text.substring(0, 25),
+            };
+          }
+        })
+      });
+    }
+
+    return {
+      name: template.name,
+      language: template.language,
+      category: template.category,
+      parameter_format: template.parameterFormat,
+      components
+    };
+  }
+
+
   buildMetaError(error: any) {
     const metaError = new TranslateMetaError().map(error)
     return {
@@ -341,6 +489,7 @@ export class WhatsappService {
 
     return {
       externalId: channel.externalId, // phone_number_id
+      wabaId: channel?.metadata?.['wabaId'], // waba_id
       token: channel.token,
     };
   }

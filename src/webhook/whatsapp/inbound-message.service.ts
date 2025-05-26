@@ -1,14 +1,14 @@
 import { HttpException, Injectable } from "@nestjs/common";
 import { ChannelsService } from "src/channels/channels.service";
-import { ContactsService } from "src/contacts/contacts.service";
 import { ConversationsService } from "src/conversations/conversations.service";
 import { MessageService } from "src/messages/message.service";
 import { MessageWhatsAppMapperService } from "./message-mapper.service";
-import { WhatsAppChangeValue, WhatsAppMessage, WhatsAppMessageStatus } from "../dto/whatsapp-webhook.dto";
+import { WhatsAppChangeValue, WhatsAppEventTemplate, WhatsAppMessage, WhatsAppMessageStatus } from "../dto/whatsapp-webhook.dto";
 import { MessageEntity } from "src/messages/entities/message.entity";
 import { MessageType } from "prisma/generated/prisma/client";
 import { WhatsappService } from "src/messages/whatsapp.service";
 import { BullMQChatService } from "src/messages/queues/bullmq/conversation.bullmq.service";
+import { MessageTemplatesService } from "src/message-templates/message-templates.service";
 
 
 @Injectable()
@@ -20,7 +20,8 @@ export class InboundMessageService {
     private readonly messageService: MessageService,
     private readonly messageWhatsappMapper: MessageWhatsAppMapperService,
     private readonly whatsappService: WhatsappService,
-    private readonly bullmqService: BullMQChatService
+    private readonly bullmqService: BullMQChatService,
+    private readonly templatesService: MessageTemplatesService
   ) { }
 
   async process({ change, message }: { change: WhatsAppChangeValue, message: WhatsAppMessage }) {
@@ -34,10 +35,10 @@ export class InboundMessageService {
     }
 
     const conversation = await this.conversationService.findOneActiveOrCreateByExternalChannelId({
-        externalChannelId,
-        clientPhone: from,
-        clientName: name || '',
-        origin: 'user'
+      externalChannelId,
+      clientPhone: from,
+      clientName: name || '',
+      origin: 'user'
     });
 
     if (!conversation) {
@@ -80,7 +81,7 @@ export class InboundMessageService {
   async updateStatus(status: WhatsAppMessageStatus) {
     const externalId = status.id;
     let error = status?.errors?.[0] ?? status.errors as any;
-    if(error) {
+    if (error) {
       error = this.whatsappService.buildMetaError(status.errors?.[0]);
     }
     await this.messageService.updateMessageStatusByExternalId(externalId, status.status, {
@@ -93,4 +94,12 @@ export class InboundMessageService {
     });
   }
 
+  async updateTemplateStatus(eventTemplate: WhatsAppEventTemplate) {
+    const { event, message_template_id, reason } = eventTemplate;
+    const template = await this.templatesService.findByExternalId(message_template_id.toString());
+    if (template) {
+      const status = event.toLocaleLowerCase() as any;
+      await this.templatesService.update(template.id, { status: status, reason});
+    }
+  }
 }

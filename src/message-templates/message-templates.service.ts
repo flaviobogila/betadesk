@@ -33,6 +33,14 @@ export class MessageTemplatesService {
     })
   }
 
+  findByExternalId(id: string) {
+    return this.prismaService.messageTemplate.findFirst({
+      where: {
+        externalId: id,
+      },
+    })
+  }
+
   update(id: string, updateMessageTemplateDto: UpdateMessageTemplateDto) {
     
     return this.prismaService.messageTemplate.update({
@@ -41,6 +49,7 @@ export class MessageTemplatesService {
       },
       data: {
         ...updateMessageTemplateDto as any,
+        updatedAt: new Date(),
       },
     });
   }

@@ -10,7 +10,7 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import { TemplateCategory, TemplateStatus } from 'prisma/generated/prisma';
+import { TemplateCategory, TemplateParameterFormat, TemplateStatus } from 'prisma/generated/prisma';
 
 // COMPONENTES
 
@@ -40,6 +40,22 @@ export class ComponentHeader {
   @IsOptional()
   @IsString({ message: 'A URL da mídia deve ser uma string' })
   mediaUrl?: string;
+
+  @ApiProperty({
+    description: 'Id da url da midia no meta',
+    example: '1234567890',
+    required: false,
+  })
+  @IsOptional()
+  mediaId?: string;
+
+  @ApiProperty({
+    description: 'Exemplo de paramentro',
+    example: '{ nome: "João", idade: 30 } ou ["João", "30" ]',
+    required: false,
+  })
+  @IsOptional()
+  example?: string;
 }
 
 export class ComponentBody {
@@ -50,6 +66,14 @@ export class ComponentBody {
   @IsString({ message: 'O corpo do template deve ser uma string' })
   @IsNotEmpty({ message: 'O corpo do template é obrigatório' })
   text: string;
+
+  @ApiProperty({
+    description: 'Exemplo de paramentro',
+    example: '{ nome: "João", idade: 30 } ou ["João", "30" ]',
+    required: false,
+  })
+  @IsOptional()
+  example?: string;
 }
 
 export class ComponentFooter {
@@ -62,13 +86,23 @@ export class ComponentFooter {
   text: string;
 }
 
+export enum ComponentButtonType {
+  quick_reply,
+  phone_number,
+  url,
+  copy_code,
+  catalog,
+  spm,  //sigle product message
+  mpm // multiple product message
+}
+
 export class ComponentButton {
   @ApiProperty({
     description: 'Tipo do botão (quick_reply ou call_to_action)',
     example: 'quick_reply',
   })
   @IsString({ message: 'O tipo do botão deve ser uma string' })
-  type: string;
+  type: ComponentButtonType;
 
   @ApiProperty({
     description: 'Texto exibido no botão',
@@ -76,6 +110,27 @@ export class ComponentButton {
   })
   @IsString({ message: 'O texto do botão deve ser uma string' })
   text: string;
+
+  @ApiProperty({
+    description: 'Número de telefone do botão (se for do tipo phone_number)',
+    example: '+5511999999999',
+  })
+  @IsOptional()
+  phone_number: string;
+
+  @ApiProperty({
+    description: 'Url do botão (se for do tipo url)',
+    example: '+5511999999999',
+  })
+  @IsOptional()
+  url: string;
+
+  @ApiProperty({
+    description: 'Exemplo de parâmetro para o botão',
+    example: 'https://cdn.exemplo.com/ ou primeiracompra',
+  })
+  @IsOptional()
+  example: string;
 }
 
 export class TemplateComponents {
@@ -135,6 +190,7 @@ export class CreateMessageTemplateDto {
     example: '51dc48f3-7d78-4558-908a-e9e78c7ab2a4',
   })
   @IsUUID('4', { message: 'O ID do criador deve ser válido' })
+  @IsOptional()
   createdById: string;
 
   @ApiProperty({
@@ -156,7 +212,7 @@ export class CreateMessageTemplateDto {
   @ApiProperty({
     enum: TemplateCategory,
     description: 'Categoria do template',
-    example: TemplateCategory.TRANSACTIONAL,
+    example: TemplateCategory.MARKETING,
   })
   @IsEnum(TemplateCategory, { message: 'Categoria inválida' })
   category: TemplateCategory;
@@ -168,6 +224,15 @@ export class CreateMessageTemplateDto {
   @IsString({ message: 'O idioma deve ser uma string' })
   @IsNotEmpty({ message: 'O idioma é obrigatório' })
   language: string;
+
+  @ApiProperty({
+    description: 'Idioma do template no padrão da Meta',
+    example: 'pt_BR',
+  })
+  @IsString({ message: 'O formato do parametro sendo POSITIONAL ou NAMED' })
+  @IsNotEmpty({ message: 'O formato dos parametros é obrigatório' })
+  @IsEnum(TemplateParameterFormat, { message: 'Formato de parâmetro deve ser POSITIONAL ou NAMED' })
+  parameterFormat: TemplateParameterFormat;
 
   @ApiProperty({
     description: 'Componentes do template (header, body, footer, botões)',
@@ -184,7 +249,7 @@ export class CreateMessageTemplateDto {
   })
   @IsObject({ message: 'Os parâmetros devem ser um objeto JSON' })
   @IsOptional()
-  parameters?: Object;
+  parameters?: { [key: string]: any };
 
   @ApiProperty({
     enum: TemplateStatus,
@@ -207,4 +272,13 @@ export class CreateMessageTemplateDto {
   @IsOptional()
   @IsObject({ message: 'Metadata deve ser um objeto JSON' })
   metadata?: Record<string, any>;
+
+  @ApiProperty({
+    description: 'Id do template no Meta',
+    example: '1234567890',
+    required: false,
+  })
+  @IsOptional()
+  externalId?: string
+
 }

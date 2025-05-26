@@ -12,9 +12,9 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: false, //allow non-whitelisted property
-      transform: true,
+      whitelist: true, // remove campos que não estão no DTO
+      forbidNonWhitelisted: false, // lança erro se campos não estiverem no DTO
+      transform: true, // transforma para instância de classe
       exceptionFactory: (errors) => {
         const firstError = errors[0];
         const constraints = firstError?.constraints;
