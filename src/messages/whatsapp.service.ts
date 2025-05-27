@@ -55,18 +55,14 @@ export class WhatsappService {
   }
 
   async sendTemplateMessage(dto: SendTemplateMessageDto) {
-    const { to, templateName, language: languageCode, components, replyTo, channelId } = dto;
+    const { to, replyTo, channelId } = dto;
     const { externalId, token } = await this.getChannelAuth(channelId);
 
     return this.sendRequest(token, externalId, {
       messaging_product: 'whatsapp',
       to,
       type: 'template',
-      template: {
-        name: templateName,
-        language: { code: languageCode },
-        components,
-      },
+      template: this.buildSendTemplate(dto),
       context: replyTo ? { message_id: replyTo } : undefined,
     });
   }
@@ -255,30 +251,130 @@ export class WhatsappService {
 
   async createTemplate(templateDto: CreateMessageTemplateDto) {
     // try {
-      const { channelId } = templateDto;
-      const { wabaId, token } = await this.getChannelAuth(channelId);
+    const { channelId } = templateDto;
+    const { wabaId, token } = await this.getChannelAuth(channelId);
 
-      const templateData = this.buildTemplate(templateDto);
+    const templateData = this.buildCreateTemplate(templateDto);
 
-      const response = await axios.post(
-        `https://graph.facebook.com/v19.0/${wabaId}/message_templates`,
-        templateData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+    const response = await axios.post(
+      `https://graph.facebook.com/v19.0/${wabaId}/message_templates`,
+      templateData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
-      return response.data;
+    return response.data;
     // } catch (error) {
     //   this.logger.error('Erro ao criar template:', error?.response?.data || error);
     //   throw new HttpException(this.buildMetaError(error), HttpStatus.BAD_REQUEST);
     // }
   }
 
-  private buildTemplate(template: CreateMessageTemplateDto) {
+  private buildSendTemplate(template: SendTemplateMessageDto) {
+    const components = [] as any;
+
+    if (template.parameters?.header) {
+      const componentsHeader = {
+        type: 'header',
+        parameters: [] as any[]
+      }
+      const { type } = template?.components?.header?.type || 'text';
+      if (type === "text") {
+        if (template.parameters?.header) {
+          if (template.parameterFormat === 'NAMED') {
+            componentsHeader.parameters = Object.entries(template.parameters?.header).map(([key, value]) => ({
+              parameter_name: key,
+              type: "text",
+              text: value
+            }))
+          } else {
+            componentsHeader.parameters = Object.entries(template.parameters?.header).map(([key, value]) => ({
+              type: "text",
+              text: value
+            }))
+          }
+        }
+      } else if (["image", "video", "document"].includes(type)) {
+        // precisa existir um ID de exemplo de mídia para a criação do template
+        componentsHeader.parameters = [{
+          type,
+          [type]: {
+            link: template.parameters?.header.url
+          }
+        }]
+      }
+
+      components.push(componentsHeader);
+    }
+
+    if (template.parameters?.body) {
+      const componentBody: any = {
+        type: "body",
+        parameters: []
+      }
+
+      if (template.parameterFormat === 'NAMED') {
+
+        componentBody.parameters = Object.entries(template.parameters?.body).map(([key, value]) => ({
+          parameter_name: key,
+          type: "text",
+          text: value
+        }))
+
+      } else {
+        componentBody.parameters = Object.entries(template.parameters?.body).map(([, value]) => ({
+          type: "text",
+          text: value
+        }))
+      }
+
+      components.push(componentBody);
+    }
+
+    if (template.parameters?.buttons) {
+
+      const componentButtons = template?.components?.buttons?.map((button: any, index: number) => {
+
+        if (button.type === 'url' && button.example) {
+          return {
+            type: 'button',
+            sub_type: 'url',
+            index: index.toString(),
+            paramenters: [{
+              type: 'text',
+              text: button.substring(0, 25)
+            }]
+          };
+        }
+        if (button.type === 'copy_code' && button.example) {
+          return {
+            type: 'button',
+            sub_type: 'copy_code',
+            index: "0",
+            paramenters: [{
+              type: 'text',
+              text: button.substring(0, 15)
+            }]
+          };
+        }
+      })
+
+      components.push(componentButtons);
+    }
+
+    return {
+      name: template.templateName,
+      language: { code: template.language || 'pt_BR' }, // padrão pt_BR
+      components
+    };
+  }
+
+
+  private buildCreateTemplate(template: CreateMessageTemplateDto) {
     const components = [] as any;
 
     if (template.components?.header) {
@@ -321,8 +417,8 @@ export class WhatsappService {
         text: template.components.body.text
       }
 
-      if(template.components?.body?.example) {
-        if(template.parameterFormat === 'NAMED'){
+      if (template.components?.body?.example) {
+        if (template.parameterFormat === 'NAMED') {
 
           componentBody.example = {
             body_text_named_params: Object.entries(template.components?.body?.example).map(([key, value]) => ({
@@ -331,9 +427,9 @@ export class WhatsappService {
             }))
           };
 
-        }else{
+        } else {
           componentBody.example = {
-            body_handle: Object.values(template.components.body.example) 
+            body_handle: Object.values(template.components.body.example)
           };
         }
       }

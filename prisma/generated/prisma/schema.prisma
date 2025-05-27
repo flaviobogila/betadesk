@@ -209,35 +209,33 @@ enum MediaStatus {
 }
 
 model Message {
-  id               String        @id @default(uuid())
-  conversationId   String
-  conversation     Conversation  @relation(fields: [conversationId], references: [id])
-  senderType       SenderType
-  senderId         String?
-  senderName       String?
-  messageType      MessageType   @default(text)
-  content          String?
-  mediaId          String?
-  mediaUrl         String?
-  mediaCaption     String?
-  mediaMimeType    String?
-  mediaSize        Int?
-  mediaDuration    Int?
-  mediaStatus      MediaStatus? // 'pending', 'downloading', 'downloaded', 'failed'
-  componentHeader  String?
-  componentFooter  String?
-  componentButtons Json?
-  metadata         Json?
-  reaction         String?
-  isPrivate        Boolean       @default(false)
-  replyToId        String?
-  replyTo          Message?      @relation("MessageReply", fields: [replyToId], references: [id])
-  status           MessageStatus @default(pending) // 'pending', 'sent', 'failed', 'delivered', 'read'
-  externalId       String? // ID da mensagem na API externa
-  createdAt        DateTime      @default(now()) //timestamp do provedor ou data de criação
-  receivedAt       DateTime      @default(now()) //data de recebimento da mensagem
-  mentions         Mention[]
-  replies          Message[]     @relation("MessageReply")
+  id             String        @id @default(uuid())
+  conversationId String
+  conversation   Conversation  @relation(fields: [conversationId], references: [id])
+  senderType     SenderType
+  senderId       String?
+  senderName     String?
+  messageType    MessageType   @default(text)
+  content        String?
+  mediaId        String?
+  mediaUrl       String?
+  mediaCaption   String?
+  mediaMimeType  String?
+  mediaSize      Int?
+  mediaDuration  Int?
+  mediaStatus    MediaStatus? // 'pending', 'downloading', 'downloaded', 'failed'
+  components     Json? // JSON estruturado para componentes adicionais
+  metadata       Json?
+  reaction       String?
+  isPrivate      Boolean       @default(false)
+  replyToId      String?
+  replyTo        Message?      @relation("MessageReply", fields: [replyToId], references: [id])
+  status         MessageStatus @default(pending) // 'pending', 'sent', 'failed', 'delivered', 'read'
+  externalId     String? // ID da mensagem na API externa
+  createdAt      DateTime      @default(now()) //timestamp do provedor ou data de criação
+  receivedAt     DateTime      @default(now()) //data de recebimento da mensagem
+  mentions       Mention[]
+  replies        Message[]     @relation("MessageReply")
 }
 
 model Label {

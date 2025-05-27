@@ -1,17 +1,22 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Prisma } from 'prisma/generated/prisma/client';
 import { MessageFactoryService } from './message-factory.service';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
 import { WhatsAppMediaDownloadResponse } from 'src/webhook/dto/whatsapp-webhook.dto';
-import { MessageEntity } from './entities/message.entity';
-import { plainToInstance } from 'class-transformer';
 import { SendTemplateMessageDto } from './dto/send-template-message.dto';
 import { ConversationsService } from 'src/conversations/conversations.service';
+import { MessageTemplatesService } from 'src/message-templates/message-templates.service';
 
 @Injectable()
 export class MessageService {
-  constructor(private readonly prisma: PrismaService, private readonly factory: MessageFactoryService, private readonly conversationService: ConversationsService) { }
+  constructor(
+    private readonly prisma: PrismaService, 
+    private readonly factory: MessageFactoryService, 
+    private readonly conversationService: ConversationsService,
+    private readonly templateService: MessageTemplatesService
+    
+  ) { }
 
   async save(messageDto: any, user: SupabaseUser) {
     
@@ -34,17 +39,29 @@ export class MessageService {
 
   private async saveTemplate(messageDto: SendTemplateMessageDto, user: SupabaseUser) {
 
-    const { channelId, to, messageType } = messageDto;
+    const { channelId, to, messageType, templateId } = messageDto;
 
-    const conversation = await this.conversationService
-      .findOneActiveOrCreateByChannelId({
-        channelId,
-        clientPhone: to,
-        clientName: to,
-        origin: 'user'
-      });
+    const template = await this.templateService.findOne(templateId);
+    if (!template) {
+      throw new HttpException(`O template com o id ${templateId} não foi encontrado`, 404);
+    }
 
-    messageDto.conversationId = conversation!.id;
+    messageDto.templateName = template.name;
+    messageDto.language = template.language;
+    messageDto.components = template.components as any;
+    messageDto.parameterFormat = template.parameterFormat;
+
+    if(!messageDto.conversationId) {
+      const conversation = await this.conversationService
+        .findOneActiveOrCreateByChannelId({
+          channelId,
+          clientPhone: to,
+          clientName: to,
+          origin: 'user'
+        });
+
+      messageDto.conversationId = conversation!.id;
+    }
 
     const model = await this.factory.buildModelMessage(messageType, messageDto, user);
 
@@ -52,7 +69,7 @@ export class MessageService {
   }
 
   private isOutOfConversationMessageTemplate( messageDto: any){
-    return !messageDto.conversationId && messageDto.messageType == 'template';
+    return messageDto.messageType == 'template'; //&& !messageDto.conversationId ;
   }
 
   private create(data: Prisma.MessageCreateInput) {

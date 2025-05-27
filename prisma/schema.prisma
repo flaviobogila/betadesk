@@ -227,9 +227,7 @@ model Message {
   mediaSize         Int?
   mediaDuration     Int?
   mediaStatus       MediaStatus? // 'pending', 'downloading', 'downloaded', 'failed'
-  componentHeader   String?
-  componentFooter   String?
-  componentButtons  Json?
+  components        Json? // JSON estruturado para componentes adicionais
   metadata          Json?
   reaction          String?
   isPrivate         Boolean  @default(false)

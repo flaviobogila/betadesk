@@ -11,9 +11,10 @@ import { MessagesController } from './messages.controller';
 import { BullMQService } from './queues/bullmq/bullmq.service';
 import { BullMQChatService } from './queues/bullmq/conversation.bullmq.service';
 import { ConversationsModule } from 'src/conversations/conversations.module';
+import { MessageTemplatesModule } from 'src/message-templates/message-templates.module';
 
 @Module({
-  imports: [ChannelsModule, forwardRef(() => ConversationsModule)],
+  imports: [ChannelsModule, forwardRef(() => ConversationsModule), forwardRef(() => MessageTemplatesModule)],
   controllers: [WhatsappController, MessagesController],
   providers: [WhatsappService, MessageService, MessageFactoryService, PrismaService, MessageDispatcherService, MessageCommandRegistry, BullMQService, BullMQChatService],
   exports: [MessageService, WhatsappService, BullMQService, BullMQChatService],

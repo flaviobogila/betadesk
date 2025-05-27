@@ -1,53 +1,91 @@
-import { IsString, IsNotEmpty, IsUUID, IsOptional, IsArray } from 'class-validator';
+import { IsString, IsNotEmpty, IsOptional, IsArray, IsUUID } from 'class-validator';
 import { SendBaseMessageDto } from './send-base-message.dto';
-import { PartialType, PickType } from '@nestjs/mapped-types';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class TemplateComponentParameter {
   @IsString()
   @IsNotEmpty()
-  type: 'text' | 'image' | 'video' | 'document';
+  type: 'text' | 'image' | 'video' | 'document' | 'quick_reply' | 'url' | 'phone_number' | 'copy_code';
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   text?: string;
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   image?: { link: string; };
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   video?:{ link: string; };
 
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   document?: { link: string; };
+
+  @IsString()
+  @IsOptional()
+  url?: string;
+
+  @IsString()
+  @IsOptional()
+  phone_number?: string;
+
+  @IsString()
+  @IsOptional()
+  copy_code?: string;
+
+  @IsString()
+  @IsOptional()
+  example?: string;
 }
 
 export class TemplateComponent {
   @IsString()
   @IsNotEmpty()
-  type: 'body' | 'header' | 'footer' | 'button' | 'list';
+  type: 'body' | 'header' | 'footer' | 'buttons';
 
   @IsArray()
   parameters?: TemplateComponentParameter[];
 }
 
+export class TemplateNamedParameter {
+  [key: string]: string;
+}
+
+export class TemplateParameters{
+  header?: TemplateNamedParameter;
+  body?: TemplateNamedParameter;
+  buttons?: string[];
+}
+
 export class SendTemplateMessageDto extends SendBaseMessageDto {
 
-  @ApiProperty({ description: 'Nome do template', example: 'boas_vindas' })
+  @ApiProperty({ description: 'Id do template', example: 'uuid' })
   @IsString()
-  @IsNotEmpty({ message: 'Nome do template é obrigatório' })
-  templateName: string;
+  @IsUUID()
+  @IsNotEmpty({ message: 'Id do template é obrigatório' })
+  templateId: string;
 
-  @ApiProperty({ description: 'Idioma do template', example: 'pt_BR' })
-  @IsString()
-  @IsNotEmpty({ message: 'Idioma do template é obrigatório' })
-  language: 'pt_BR' | string; // Ex: 'pt_BR', 'en_US'
+  @IsOptional()
+  language?: string;
 
-  @ApiProperty({ description: 'Componentes do template', example: '{"type": "body", "parameters": [ { "type": "text", "text": "João" }]}' })
+  @IsOptional()
+  templateName?: string;
+
+  @IsOptional()
+  parameterFormat?: string;
+
+  @ApiProperty({ description: 'Parametros do template', example: '{ header: {empresa: Flaware}, body: {nome: Flavio}, buttons: [cupom123]}' })
+  @IsOptional()
+  parameters?: TemplateParameters;
+
   @IsArray()
   @IsOptional()
-  components?: TemplateComponent[]
+  components?: {
+    header?: any;
+    body?: any;
+    footer?: any;
+    buttons?: any[];
+  }
 }

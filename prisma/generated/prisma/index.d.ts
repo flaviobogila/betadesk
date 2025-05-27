@@ -11375,8 +11375,6 @@ export namespace Prisma {
     mediaSize: number | null
     mediaDuration: number | null
     mediaStatus: $Enums.MediaStatus | null
-    componentHeader: string | null
-    componentFooter: string | null
     reaction: string | null
     isPrivate: boolean | null
     replyToId: string | null
@@ -11401,8 +11399,6 @@ export namespace Prisma {
     mediaSize: number | null
     mediaDuration: number | null
     mediaStatus: $Enums.MediaStatus | null
-    componentHeader: string | null
-    componentFooter: string | null
     reaction: string | null
     isPrivate: boolean | null
     replyToId: string | null
@@ -11427,9 +11423,7 @@ export namespace Prisma {
     mediaSize: number
     mediaDuration: number
     mediaStatus: number
-    componentHeader: number
-    componentFooter: number
-    componentButtons: number
+    components: number
     metadata: number
     reaction: number
     isPrivate: number
@@ -11467,8 +11461,6 @@ export namespace Prisma {
     mediaSize?: true
     mediaDuration?: true
     mediaStatus?: true
-    componentHeader?: true
-    componentFooter?: true
     reaction?: true
     isPrivate?: true
     replyToId?: true
@@ -11493,8 +11485,6 @@ export namespace Prisma {
     mediaSize?: true
     mediaDuration?: true
     mediaStatus?: true
-    componentHeader?: true
-    componentFooter?: true
     reaction?: true
     isPrivate?: true
     replyToId?: true
@@ -11519,9 +11509,7 @@ export namespace Prisma {
     mediaSize?: true
     mediaDuration?: true
     mediaStatus?: true
-    componentHeader?: true
-    componentFooter?: true
-    componentButtons?: true
+    components?: true
     metadata?: true
     reaction?: true
     isPrivate?: true
@@ -11634,9 +11622,7 @@ export namespace Prisma {
     mediaSize: number | null
     mediaDuration: number | null
     mediaStatus: $Enums.MediaStatus | null
-    componentHeader: string | null
-    componentFooter: string | null
-    componentButtons: JsonValue | null
+    components: JsonValue | null
     metadata: JsonValue | null
     reaction: string | null
     isPrivate: boolean
@@ -11681,9 +11667,7 @@ export namespace Prisma {
     mediaSize?: boolean
     mediaDuration?: boolean
     mediaStatus?: boolean
-    componentHeader?: boolean
-    componentFooter?: boolean
-    componentButtons?: boolean
+    components?: boolean
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
@@ -11714,9 +11698,7 @@ export namespace Prisma {
     mediaSize?: boolean
     mediaDuration?: boolean
     mediaStatus?: boolean
-    componentHeader?: boolean
-    componentFooter?: boolean
-    componentButtons?: boolean
+    components?: boolean
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
@@ -11744,9 +11726,7 @@ export namespace Prisma {
     mediaSize?: boolean
     mediaDuration?: boolean
     mediaStatus?: boolean
-    componentHeader?: boolean
-    componentFooter?: boolean
-    componentButtons?: boolean
+    components?: boolean
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
@@ -11774,9 +11754,7 @@ export namespace Prisma {
     mediaSize?: boolean
     mediaDuration?: boolean
     mediaStatus?: boolean
-    componentHeader?: boolean
-    componentFooter?: boolean
-    componentButtons?: boolean
+    components?: boolean
     metadata?: boolean
     reaction?: boolean
     isPrivate?: boolean
@@ -11787,7 +11765,7 @@ export namespace Prisma {
     receivedAt?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaId" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "mediaStatus" | "componentHeader" | "componentFooter" | "componentButtons" | "metadata" | "reaction" | "isPrivate" | "replyToId" | "status" | "externalId" | "createdAt" | "receivedAt", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "conversationId" | "senderType" | "senderId" | "senderName" | "messageType" | "content" | "mediaId" | "mediaUrl" | "mediaCaption" | "mediaMimeType" | "mediaSize" | "mediaDuration" | "mediaStatus" | "components" | "metadata" | "reaction" | "isPrivate" | "replyToId" | "status" | "externalId" | "createdAt" | "receivedAt", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     conversation?: boolean | ConversationDefaultArgs<ExtArgs>
     replyTo?: boolean | Message$replyToArgs<ExtArgs>
@@ -11827,9 +11805,7 @@ export namespace Prisma {
       mediaSize: number | null
       mediaDuration: number | null
       mediaStatus: $Enums.MediaStatus | null
-      componentHeader: string | null
-      componentFooter: string | null
-      componentButtons: Prisma.JsonValue | null
+      components: Prisma.JsonValue | null
       metadata: Prisma.JsonValue | null
       reaction: string | null
       isPrivate: boolean
@@ -12279,9 +12255,7 @@ export namespace Prisma {
     readonly mediaSize: FieldRef<"Message", 'Int'>
     readonly mediaDuration: FieldRef<"Message", 'Int'>
     readonly mediaStatus: FieldRef<"Message", 'MediaStatus'>
-    readonly componentHeader: FieldRef<"Message", 'String'>
-    readonly componentFooter: FieldRef<"Message", 'String'>
-    readonly componentButtons: FieldRef<"Message", 'Json'>
+    readonly components: FieldRef<"Message", 'Json'>
     readonly metadata: FieldRef<"Message", 'Json'>
     readonly reaction: FieldRef<"Message", 'String'>
     readonly isPrivate: FieldRef<"Message", 'Boolean'>
@@ -20653,9 +20627,7 @@ export namespace Prisma {
     mediaSize: 'mediaSize',
     mediaDuration: 'mediaDuration',
     mediaStatus: 'mediaStatus',
-    componentHeader: 'componentHeader',
-    componentFooter: 'componentFooter',
-    componentButtons: 'componentButtons',
+    components: 'components',
     metadata: 'metadata',
     reaction: 'reaction',
     isPrivate: 'isPrivate',
@@ -21683,9 +21655,7 @@ export namespace Prisma {
     mediaSize?: IntNullableFilter<"Message"> | number | null
     mediaDuration?: IntNullableFilter<"Message"> | number | null
     mediaStatus?: EnumMediaStatusNullableFilter<"Message"> | $Enums.MediaStatus | null
-    componentHeader?: StringNullableFilter<"Message"> | string | null
-    componentFooter?: StringNullableFilter<"Message"> | string | null
-    componentButtons?: JsonNullableFilter<"Message">
+    components?: JsonNullableFilter<"Message">
     metadata?: JsonNullableFilter<"Message">
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
@@ -21715,9 +21685,7 @@ export namespace Prisma {
     mediaSize?: SortOrderInput | SortOrder
     mediaDuration?: SortOrderInput | SortOrder
     mediaStatus?: SortOrderInput | SortOrder
-    componentHeader?: SortOrderInput | SortOrder
-    componentFooter?: SortOrderInput | SortOrder
-    componentButtons?: SortOrderInput | SortOrder
+    components?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     reaction?: SortOrderInput | SortOrder
     isPrivate?: SortOrder
@@ -21750,9 +21718,7 @@ export namespace Prisma {
     mediaSize?: IntNullableFilter<"Message"> | number | null
     mediaDuration?: IntNullableFilter<"Message"> | number | null
     mediaStatus?: EnumMediaStatusNullableFilter<"Message"> | $Enums.MediaStatus | null
-    componentHeader?: StringNullableFilter<"Message"> | string | null
-    componentFooter?: StringNullableFilter<"Message"> | string | null
-    componentButtons?: JsonNullableFilter<"Message">
+    components?: JsonNullableFilter<"Message">
     metadata?: JsonNullableFilter<"Message">
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
@@ -21782,9 +21748,7 @@ export namespace Prisma {
     mediaSize?: SortOrderInput | SortOrder
     mediaDuration?: SortOrderInput | SortOrder
     mediaStatus?: SortOrderInput | SortOrder
-    componentHeader?: SortOrderInput | SortOrder
-    componentFooter?: SortOrderInput | SortOrder
-    componentButtons?: SortOrderInput | SortOrder
+    components?: SortOrderInput | SortOrder
     metadata?: SortOrderInput | SortOrder
     reaction?: SortOrderInput | SortOrder
     isPrivate?: SortOrder
@@ -21818,9 +21782,7 @@ export namespace Prisma {
     mediaSize?: IntNullableWithAggregatesFilter<"Message"> | number | null
     mediaDuration?: IntNullableWithAggregatesFilter<"Message"> | number | null
     mediaStatus?: EnumMediaStatusNullableWithAggregatesFilter<"Message"> | $Enums.MediaStatus | null
-    componentHeader?: StringNullableWithAggregatesFilter<"Message"> | string | null
-    componentFooter?: StringNullableWithAggregatesFilter<"Message"> | string | null
-    componentButtons?: JsonNullableWithAggregatesFilter<"Message">
+    components?: JsonNullableWithAggregatesFilter<"Message">
     metadata?: JsonNullableWithAggregatesFilter<"Message">
     reaction?: StringNullableWithAggregatesFilter<"Message"> | string | null
     isPrivate?: BoolWithAggregatesFilter<"Message"> | boolean
@@ -22962,9 +22924,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -22993,9 +22953,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -23022,9 +22980,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -23053,9 +23009,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -23083,9 +23037,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -23110,9 +23062,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -23137,9 +23087,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -24366,9 +24314,7 @@ export namespace Prisma {
     mediaSize?: SortOrder
     mediaDuration?: SortOrder
     mediaStatus?: SortOrder
-    componentHeader?: SortOrder
-    componentFooter?: SortOrder
-    componentButtons?: SortOrder
+    components?: SortOrder
     metadata?: SortOrder
     reaction?: SortOrder
     isPrivate?: SortOrder
@@ -24399,8 +24345,6 @@ export namespace Prisma {
     mediaSize?: SortOrder
     mediaDuration?: SortOrder
     mediaStatus?: SortOrder
-    componentHeader?: SortOrder
-    componentFooter?: SortOrder
     reaction?: SortOrder
     isPrivate?: SortOrder
     replyToId?: SortOrder
@@ -24425,8 +24369,6 @@ export namespace Prisma {
     mediaSize?: SortOrder
     mediaDuration?: SortOrder
     mediaStatus?: SortOrder
-    componentHeader?: SortOrder
-    componentFooter?: SortOrder
     reaction?: SortOrder
     isPrivate?: SortOrder
     replyToId?: SortOrder
@@ -29039,9 +28981,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -29068,9 +29008,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -29406,9 +29344,7 @@ export namespace Prisma {
     mediaSize?: IntNullableFilter<"Message"> | number | null
     mediaDuration?: IntNullableFilter<"Message"> | number | null
     mediaStatus?: EnumMediaStatusNullableFilter<"Message"> | $Enums.MediaStatus | null
-    componentHeader?: StringNullableFilter<"Message"> | string | null
-    componentFooter?: StringNullableFilter<"Message"> | string | null
-    componentButtons?: JsonNullableFilter<"Message">
+    components?: JsonNullableFilter<"Message">
     metadata?: JsonNullableFilter<"Message">
     reaction?: StringNullableFilter<"Message"> | string | null
     isPrivate?: BoolFilter<"Message"> | boolean
@@ -29539,9 +29475,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -29569,9 +29503,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -29624,9 +29556,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -29654,9 +29584,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -29752,9 +29680,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -29782,9 +29708,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -30396,9 +30320,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -30426,9 +30348,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -30515,9 +30435,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -30545,9 +30463,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -32220,9 +32136,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -32273,9 +32187,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -32302,9 +32214,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -32331,9 +32241,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -32443,9 +32351,7 @@ export namespace Prisma {
     mediaSize?: number | null
     mediaDuration?: number | null
     mediaStatus?: $Enums.MediaStatus | null
-    componentHeader?: string | null
-    componentFooter?: string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: string | null
     isPrivate?: boolean
@@ -32487,9 +32393,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -32517,9 +32421,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean
@@ -32546,9 +32448,7 @@ export namespace Prisma {
     mediaSize?: NullableIntFieldUpdateOperationsInput | number | null
     mediaDuration?: NullableIntFieldUpdateOperationsInput | number | null
     mediaStatus?: NullableEnumMediaStatusFieldUpdateOperationsInput | $Enums.MediaStatus | null
-    componentHeader?: NullableStringFieldUpdateOperationsInput | string | null
-    componentFooter?: NullableStringFieldUpdateOperationsInput | string | null
-    componentButtons?: NullableJsonNullValueInput | InputJsonValue
+    components?: NullableJsonNullValueInput | InputJsonValue
     metadata?: NullableJsonNullValueInput | InputJsonValue
     reaction?: NullableStringFieldUpdateOperationsInput | string | null
     isPrivate?: BoolFieldUpdateOperationsInput | boolean

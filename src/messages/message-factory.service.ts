@@ -100,15 +100,46 @@ export class MessageFactoryService {
       senderId: sender.id,
       senderName: sender?.name,
       messageType: 'template',
+      components: this.fillComponentsFromTemplateMessage(dto.parameters, dto.components),
       metadata: {
         template: {
-          templateName: dto.templateName,
-          language: dto.language,
-          components: dto.components,
+          id: dto.templateId,
+          name: dto.templateName
         }
       } as unknown as InputJsonValue,
       status: 'pending',
     };
+  }
+
+  private fillComponentsFromTemplateMessage(parameters: any, components: any) {
+    Object.entries(components).map(([componentKey, componentValue]:[string, any]) => {
+      if(parameters[componentKey] && componentKey == 'header' || componentKey == 'body') {
+        Object.entries(parameters[componentKey]).forEach(([paramKey, paramValue]) => {
+          if(componentValue?.type == 'text' || componentKey == 'body'){
+            components[componentKey]['text'] = components[componentKey]['text'].replace(`{{${paramKey}}}`, paramValue);
+            delete components[componentKey]['example'];
+          }
+          if(['image', 'video', 'document'].includes(componentValue?.type)) {
+            components[componentKey][componentValue?.type]['link'] = paramValue;
+            delete components[componentKey]['example'];
+          }
+        });
+      }
+      if(parameters[componentKey] && componentKey == 'buttons') {
+        const buttons = components[componentKey].filter((button: any) => button.example);
+        buttons.forEach((button: any, index: number) => {
+          delete button.example;
+          if(button.type == 'url'){
+            button.url = button.url.replace(`{{1}}`, parameters[componentKey][index]);
+          }
+          if(button.type == 'copy_code'){
+            button.copy_code = parameters[componentKey][index];
+          }
+        });
+      }
+    });
+
+    return components;
   }
 
   private buildAudioMessage(dto: SendAudioMessageDto, sender: SupabaseUser): Prisma.MessageCreateInput {
@@ -226,10 +257,13 @@ export class MessageFactoryService {
       senderId: sender.id,
       senderName: sender.name,
       messageType: 'component',
-      componentHeader: dto.header,
+      components: {
+        header: dto.header,
+        body: dto.body,
+        footer: dto.footer,
+        buttons: dto.buttons,
+      },
       content: dto.body,
-      componentFooter: dto.footer,
-      componentButtons: dto.buttons,
       status: 'pending',
     };
   }
