@@ -107,7 +107,7 @@ export class MessageFactoryService {
           name: dto.templateName
         }
       } as unknown as InputJsonValue,
-      status: 'pending',
+      status: 'pending'
     };
   }
 
