@@ -12,7 +12,6 @@ export class WebhookService {
 
   async handleWhatsAppWebhook(payload: WhatsAppWebhookDto) {
     this.logger.log('Recebendo webhook do WhatsApp...');
-
     const entries = payload?.entry ?? [];
 
     for (const entry of entries) {
