@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/d9798269-79a9-4609-ab65-acc7e734225f/resourceGroups/betadesk/providers/Microsoft.Web/sites/betadesk",
+    "appService.deploySubpath": "dist"
 }
