@@ -71,7 +71,7 @@ export class InboundMessageService {
     const type = message.messageType as MessageType as any;
     if ([MessageType.image, MessageType.audio, MessageType.video, MessageType.document, MessageType.sticker].includes(type)) {
       //TODO: salvar media no storage
-      const media = await this.whatsappService.downloadMediaFromMeta(message.mediaId!, message.channelId);
+      const media = await this.whatsappService.downloadMediaFromMeta(message);
       if (media) {
         await this.messageService.updateMedia(message.id, media);
       }

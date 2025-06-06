@@ -52,7 +52,7 @@ export class BullMQChatService {
       await this.messageService.updateMediaStatus(job.data.message.id, 'downloading');
 
       try {
-        const media = await this.whatsappService.downloadMediaFromMeta(job.data.message.mediaId!, job.data.message.channelId);
+        const media = await this.whatsappService.downloadMediaFromMeta(job.data.message);
         if (media) {
           await this.messageService.updateMedia(job.data.message.id, media);
         } else {

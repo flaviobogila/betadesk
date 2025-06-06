@@ -1,4 +1,4 @@
-import { Controller, Post, Body, UseGuards, Param, Get } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Param, Get, Query } from '@nestjs/common';
 import { SupabaseAuthGuard } from 'src/auth/supabase-auth.guard';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { SupabaseUser } from 'src/common/interfaces/supabase-user.interface';
@@ -13,8 +13,8 @@ export class MessagesController {
   constructor(private readonly messageService: MessageService, private readonly bullmqService: BullMQChatService) { }
 
   @Get('messages')
-  findAll(@Param('id') id: string) {
-    return this.messageService.findAll(id)
+  findAll(@Param('id') id: string, @Query('limit') limit: number = 100) {
+    return this.messageService.findAll(id, limit)
   }
 
   @Post('messages')

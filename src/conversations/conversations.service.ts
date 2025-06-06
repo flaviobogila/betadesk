@@ -54,7 +54,21 @@ export class ConversationsService {
       where: {
         tenantId
       },
-      orderBy: { createdAt: 'desc' }
+      orderBy: { createdAt: 'desc' },
+      include: {
+        contact: {
+          select: {
+            id: true,
+            name: true,
+            phone: true,
+            email: true
+          },
+        },
+        messages: {
+          orderBy: { createdAt: 'desc' },
+          take: 1 // Pega apenas a última mensagem
+        }
+      }
     });
   }
 

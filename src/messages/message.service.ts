@@ -238,7 +238,7 @@ export class MessageService {
     });
   }
 
-  updateMedia(id: string, media: WhatsAppMediaDownloadResponse) {
+  updateMedia(id: string, media: Pick<WhatsAppMediaDownloadResponse, 'mime_type' | 'file_size' | 'url' | 'caption'>) {
     const { mime_type, file_size, url, caption } = media;
     return this.prisma.message.update({
       where: { id },
@@ -246,7 +246,6 @@ export class MessageService {
         mediaMimeType: mime_type,
         mediaSize: file_size,
         mediaUrl: url,
-        mediaCaption: caption,
         mediaStatus: 'downloaded'
       },
     });
@@ -261,7 +260,7 @@ export class MessageService {
     });
   }
 
-  async findAll(conversationId: string) {
+  async findAll(conversationId: string, limit: number = 100) {
     return this.prisma.message.findMany({
       where: { conversationId },
       include: {
@@ -269,6 +268,8 @@ export class MessageService {
         mentions: true,
       },
       orderBy: { createdAt: 'desc' },
+      take: limit,
+      skip: 0,
     });
   }
 }

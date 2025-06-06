@@ -19,6 +19,14 @@ import { WhatsAppMediaDownloadResponse } from 'src/webhook/dto/whatsapp-webhook.
 import { TranslateMetaError } from 'src/common/utils/translate-meta-error.util';
 import { CreateMessageTemplateDto } from 'src/message-templates/dto/create-message-template.dto';
 
+import { extension as lookupMime } from 'mime-types'; // converte "image/jpeg" → "jpeg"
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
+
+const supabase: SupabaseClient = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
+);
+
 @Injectable()
 export class WhatsappService {
   private readonly logger = new Logger(WhatsappService.name);
@@ -541,11 +549,21 @@ export class WhatsappService {
     }
   }
 
-  async downloadMediaFromMeta(mediaId: string, channelId: string): Promise<WhatsAppMediaDownloadResponse> {
+  /**
+   * Faz o download de uma mídia do WhatsApp (via Meta Graph API) e salva no Supabase Storage.
+   * @param mediaId   ID da mídia fornecido pelo WhatsApp (Meta).
+   * @param channelId ID da conversa (usado para criar pasta em "conversations/<channelId>").
+   * @returns         Um objeto contendo a URL pública, o caminho no bucket e o tipo MIME.
+   */
+  async downloadMediaFromMeta(
+    message: any
+  ): Promise<Pick<WhatsAppMediaDownloadResponse, 'id' | 'url' | 'mime_type' | 'file_size'>> {
     try {
+      const { id: messageId, mediaId, channelId, conversationId } = message;
+      // 1. Obter token e externalId do canal (função existente)
       const { externalId, token } = await this.getChannelAuth(channelId);
 
-      // 1. Buscar a URL temporária da mídia
+      // 2. Buscar a URL temporária da mídia
       const mediaMetaUrl = `https://graph.facebook.com/v19.0/${mediaId}`;
       const mediaMetaResponse = await axios.get(mediaMetaUrl, {
         headers: {
@@ -553,25 +571,83 @@ export class WhatsappService {
         },
       });
 
-      const mediaUrl = mediaMetaResponse.data?.url;
-      if (!mediaUrl) {
-        throw new HttpException('URL da mídia não encontrada.', HttpStatus.NOT_FOUND);
+      const mediaUrl: string | undefined = mediaMetaResponse.data?.url;
+      const mimeType: string | undefined = mediaMetaResponse.data?.mime_type;
+
+      if (!mediaUrl || !mimeType) {
+        throw new HttpException(
+          'URL da mídia ou tipo MIME não encontrados.',
+          HttpStatus.NOT_FOUND
+        );
       }
 
-      // 2. Fazer o download da mídia em si
-      // const mediaResponse = await axios.get(mediaUrl, {
-      //   headers: {
-      //     Authorization: `Bearer ${token}`,
-      //   },
-      //   responseType: 'arraybuffer', // importante para binários
-      // });
+      // 3. Fazer o download da mídia (binário)
+      const mediaResponse = await axios.get<ArrayBuffer>(mediaUrl, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        responseType: 'arraybuffer',
+      });
 
-      // return Buffer.from(mediaResponse.data);
+      // Converter ArrayBuffer em Buffer do Node.js
+      const mediaBuffer = Buffer.from(mediaResponse.data);
 
-      return mediaMetaResponse.data
-    } catch (error) {
-      console.error('Erro ao baixar mídia:', error?.response?.data || error);
-      throw new HttpException('Erro ao baixar mídia do WhatsApp.', HttpStatus.BAD_GATEWAY);
+      // 4. Determinar extensão de arquivo a partir do tipo MIME
+      //    Exemplo: "image/jpeg" → "jpeg"
+      const ext = lookupMime(mimeType) || 'beta';
+
+      // 5. Montar nome de arquivo e caminho dentro da bucket
+      //    Aqui usamos <mediaId>.<ext>, mas você pode adaptar se quiser usar outro padrão.
+      const fileName = `${messageId}.${ext}`;
+      const storagePath = `${channelId}/${conversationId}/${fileName}`; // ex.: "12345abc/image12345.jpeg"
+
+      // 6. Fazer o upload para o Supabase Storage na bucket "conversations"
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from('conversations')
+        .upload(storagePath, mediaBuffer, {
+          contentType: mimeType,
+          upsert: true, // sobrescreve se já existir (opcional)
+        });
+
+      if (uploadError) {
+        console.error('Erro ao fazer upload no Supabase:', uploadError);
+        throw new HttpException(
+          'Falha ao salvar mídia no storage.',
+          HttpStatus.BAD_GATEWAY
+        );
+      }
+
+      // 7. Obter a URL pública (public URL) do arquivo
+      const {data} = supabase.storage
+        .from('conversations')
+        .getPublicUrl(storagePath);
+
+      const {publicUrl} = data;
+
+      if ( !publicUrl) {
+        console.error('Erro ao obter publicURL:', publicUrl);
+        throw new HttpException(
+          'Mídia salva, mas não foi possível obter URL pública.',
+          HttpStatus.BAD_GATEWAY
+        );
+      }
+
+      // 8. Retornar objeto contendo informações relevantes
+      return {
+        id: mediaId, // ID original da mídia
+        url: publicUrl,  
+        mime_type: mimeType,
+        file_size: mediaBuffer.length,
+      };
+    } catch (error: any) {
+      console.error(
+        'Erro ao baixar/enviar mídia:',
+        error?.response?.data || error
+      );
+      throw new HttpException(
+        'Erro ao baixar ou salvar mídia do WhatsApp.',
+        HttpStatus.BAD_GATEWAY
+      );
     }
   }
 

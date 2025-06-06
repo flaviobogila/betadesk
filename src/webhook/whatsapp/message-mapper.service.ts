@@ -64,6 +64,7 @@ export class MessageWhatsAppMapperService {
                     ...common,
                     mediaId: msg.document!.id,
                     mediaMimeType: msg.document!.mime_type,
+                    mediaCaption: msg.document!.caption,
                     metadata: {
                         filename: msg.document?.filename,
                         context

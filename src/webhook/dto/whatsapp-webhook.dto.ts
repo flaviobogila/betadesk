@@ -80,6 +80,7 @@ export interface WhatsAppMessage {
         id: string;
         filename?: string;
         mime_type?: string;
+        caption?: string;
     };
 
     sticker?: {
