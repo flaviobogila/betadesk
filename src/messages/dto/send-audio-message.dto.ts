@@ -18,4 +18,9 @@ export class SendAudioMessageDto extends SendBaseMessageDto {
   @IsOptional()
   @IsInt()
   duration?: number;
+
+  @ApiProperty({ description: 'Array de frequencia do audio', example: [0.15, 4.0], required: false })
+  @IsOptional()
+  @IsInt()
+  waveBars?: number[];
 }

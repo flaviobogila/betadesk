@@ -26,31 +26,31 @@ export class MessageFactoryService {
     switch (messageType) {
       case MessageType.text:
         return this.buildTextMessage(dto as SendTextMessageDto, sender)
-    
+
       case MessageType.image:
         return this.buildImageMessage(dto as SendImageMessageDto, sender)
-    
+
       case MessageType.audio:
         return this.buildAudioMessage(dto as SendAudioMessageDto, sender)
-    
+
       case MessageType.video:
         return this.buildVideoMessage(dto as SendVideoMessageDto, sender)
-    
+
       case MessageType.document:
         return this.buildDocumentMessage(dto as SendDocumentMessageDto, sender)
-    
+
       case MessageType.sticker:
         return this.buildStickerMessage(dto as SendStickerMessageDto, sender)
-    
+
       case MessageType.location:
         return this.buildLocationMessage(dto as SendLocationMessageDto, sender)
-    
+
       case MessageType.buttons:
         return this.buildButtonMessage(dto as SendButtonMessageDto, sender);
-    
+
       case MessageType.template:
         return this.buildTemplateMessage(dto as SendTemplateMessageDto, sender)
-    
+
       case MessageType.component:
         return this.buildComponentMessage(dto as SendComponentMessageDto, sender)
 
@@ -59,11 +59,11 @@ export class MessageFactoryService {
 
       case MessageType.contacts:
         return this.buildContactMessage(dto as SendContactMessageDto, sender)
-    
+
       default:
         throw new BadRequestException(`Tipo de mensagem não suportada: ${messageType}`);
     }
-    
+
   }
 
   private buildTextMessage(dto: SendTextMessageDto, sender: SupabaseUser): Prisma.MessageCreateInput {
@@ -74,7 +74,7 @@ export class MessageFactoryService {
       senderName: sender?.name,
       messageType: 'text',
       content: dto.content,
-      status: dto.isPrivate ? 'sent': 'pending',
+      status: dto.isPrivate ? 'sent' : 'pending',
       replyTo: dto.replyTo ? { connect: { id: dto.replyTo } } : undefined,
       isPrivate: dto.isPrivate ? true : false
     };
@@ -112,27 +112,27 @@ export class MessageFactoryService {
   }
 
   private fillComponentsFromTemplateMessage(parameters: any, components: any) {
-    Object.entries(components).map(([componentKey, componentValue]:[string, any]) => {
-      if(parameters[componentKey] && componentKey == 'header' || componentKey == 'body') {
+    Object.entries(components).map(([componentKey, componentValue]: [string, any]) => {
+      if (parameters[componentKey] && componentKey == 'header' || componentKey == 'body') {
         Object.entries(parameters[componentKey]).forEach(([paramKey, paramValue]) => {
-          if(componentValue?.type == 'text' || componentKey == 'body'){
+          if (componentValue?.type == 'text' || componentKey == 'body') {
             components[componentKey]['text'] = components[componentKey]['text'].replace(`{{${paramKey}}}`, paramValue);
             delete components[componentKey]['example'];
           }
-          if(['image', 'video', 'document'].includes(componentValue?.type)) {
+          if (['image', 'video', 'document'].includes(componentValue?.type)) {
             components[componentKey][componentValue?.type]['link'] = paramValue;
             delete components[componentKey]['example'];
           }
         });
       }
-      if(parameters[componentKey] && componentKey == 'buttons') {
+      if (parameters[componentKey] && componentKey == 'buttons') {
         const buttons = components[componentKey].filter((button: any) => button.example);
         buttons.forEach((button: any, index: number) => {
           delete button.example;
-          if(button.type == 'url'){
+          if (button.type == 'url') {
             button.url = button.url.replace(`{{1}}`, parameters[componentKey][index]);
           }
-          if(button.type == 'copy_code'){
+          if (button.type == 'copy_code') {
             button.copy_code = parameters[componentKey][index];
           }
         });
@@ -152,10 +152,13 @@ export class MessageFactoryService {
       mediaUrl: dto.audioUrl,
       mediaMimeType: dto.mimeType,
       mediaDuration: dto.duration,
+      metadata: {
+        waveBars: dto.waveBars,
+      } as unknown as InputJsonValue,
       status: 'pending',
     };
   }
-  
+
   private buildVideoMessage(dto: SendVideoMessageDto, sender: SupabaseUser): Prisma.MessageCreateInput {
     return {
       conversation: { connect: { id: dto.conversationId } },
@@ -170,7 +173,7 @@ export class MessageFactoryService {
       status: 'pending',
     };
   }
-  
+
   private buildDocumentMessage(dto: SendDocumentMessageDto, sender: SupabaseUser): Prisma.MessageCreateInput {
     return {
       conversation: { connect: { id: dto.conversationId } },
@@ -186,7 +189,7 @@ export class MessageFactoryService {
       status: 'pending',
     };
   }
-  
+
   private buildLocationMessage(dto: SendLocationMessageDto, sender: SupabaseUser): Prisma.MessageCreateInput {
     return {
       conversation: { connect: { id: dto.conversationId } },
@@ -195,15 +198,17 @@ export class MessageFactoryService {
       senderName: sender.name,
       messageType: 'location',
       metadata: {
-        latitude: dto.latitude,
-        longitude: dto.longitude,
-        name: dto.name,
-        address: dto.address,
+        location: {
+          latitude: dto.latitude,
+          longitude: dto.longitude,
+          name: dto.name,
+          address: dto.address,
+        }
       } as unknown as InputJsonValue,
       status: 'pending',
     };
   }
-  
+
   private buildStickerMessage(dto: SendStickerMessageDto, sender: SupabaseUser): Prisma.MessageCreateInput {
     return {
       conversation: { connect: { id: dto.conversationId } },
@@ -216,7 +221,7 @@ export class MessageFactoryService {
       status: 'pending',
     };
   }
-  
+
   private buildButtonMessage(dto: SendButtonMessageDto, sender: SupabaseUser): Prisma.MessageCreateInput {
     return {
       conversation: { connect: { id: dto.conversationId } },
@@ -249,7 +254,7 @@ export class MessageFactoryService {
       status: 'pending',
     };
   }
-  
+
   private buildComponentMessage(dto: SendComponentMessageDto, sender: SupabaseUser): Prisma.MessageCreateInput {
     return {
       conversation: { connect: { id: dto.conversationId } },
@@ -281,5 +286,5 @@ export class MessageFactoryService {
       status: 'pending',
     };
   }
-  
+
 }
