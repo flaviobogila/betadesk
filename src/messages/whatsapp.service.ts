@@ -119,6 +119,7 @@ export class WhatsappService {
       document: {
         link: documentUrl,
         caption,
+        filename: dto.filename || undefined
       },
       context: replyTo ? { message_id: replyTo } : undefined,
     });
