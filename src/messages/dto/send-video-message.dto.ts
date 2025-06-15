@@ -4,11 +4,11 @@ import { SendBaseMessageDto } from './send-base-message.dto';
 
 export class SendVideoMessageDto extends SendBaseMessageDto {
 
-  @ApiProperty({ description: 'URL do vídeo', example: 'https://example.com/video.mp4' , required: true })
+  @ApiProperty({ description: 'URL do vídeo', example: 'https://example.com/video.mp4', required: true })
   @IsString()
   videoUrl: string;
 
-  @ApiProperty({ description: 'Legenda do vídeo', example: 'Exemplo de leganda do vídeo' , required: false })
+  @ApiProperty({ description: 'Legenda do vídeo', example: 'Exemplo de leganda do vídeo', required: false })
   @IsOptional()
   @IsString({ message: 'A legenda do vídeo deve ser um texto' })
   @MaxLength(2000, { message: 'A legenda do vídeo deve ter no máximo 1024 caracteres' })
@@ -23,4 +23,9 @@ export class SendVideoMessageDto extends SendBaseMessageDto {
   @IsOptional()
   @IsInt()
   duration?: number;
+
+  @ApiProperty({ description: 'Tamanho do arquivo em bytes', example: 30000, required: false })
+  @IsOptional()
+  @IsInt()
+  size?: number;
 }

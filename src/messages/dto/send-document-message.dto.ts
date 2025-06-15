@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsUrl } from 'class-validator';
+import { IsInt, IsOptional, IsString, IsUrl } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { SendBaseMessageDto } from './send-base-message.dto';
 
@@ -14,8 +14,18 @@ export class SendDocumentMessageDto extends SendBaseMessageDto{
   @IsOptional()
   caption?: string;
 
+  @ApiProperty({ description: 'Tamanho do arquivo em bytes', example: 30000, required: false })
+  @IsOptional()
+  @IsInt()
+  size?: number;
+
   @ApiProperty({ description: 'O Mime-Type que descreve o tipo de conteúdo do arquivo', example: 'application/pdf', required: false })
   @IsString()
   @IsOptional()
   mimeType?: string;
+
+  @ApiProperty({ description: 'Nome do arquivo', example: 'arquivo.pdf', required: false })
+  @IsOptional()
+  @IsString()
+  filename?: string;
 }

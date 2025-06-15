@@ -89,6 +89,8 @@ export class MessageFactoryService {
       messageType: 'image',
       mediaUrl: dto.imageUrl,
       mediaCaption: dto.caption,
+      mediaSize: dto.size,
+      mediaMimeType: dto.mimeType,
       status: 'pending',
     };
   }
@@ -152,6 +154,7 @@ export class MessageFactoryService {
       mediaUrl: dto.audioUrl,
       mediaMimeType: dto.mimeType,
       mediaDuration: dto.duration,
+      mediaSize: dto.size,
       metadata: {
         waveBars: dto.waveBars,
       } as unknown as InputJsonValue,
@@ -170,6 +173,7 @@ export class MessageFactoryService {
       mediaCaption: dto.caption,
       mediaMimeType: dto.mimeType,
       mediaDuration: dto.duration,
+      mediaSize: dto.size,
       status: 'pending',
     };
   }
@@ -182,9 +186,11 @@ export class MessageFactoryService {
       senderName: sender.name,
       messageType: 'document',
       mediaUrl: dto.documentUrl,
+      mediaCaption: dto.caption,
       mediaMimeType: dto.mimeType,
+      mediaSize: dto.size,
       metadata: {
-        caption: dto.caption,
+        filename: dto.filename,
       } as unknown as InputJsonValue,
       status: 'pending',
     };

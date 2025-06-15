@@ -19,6 +19,11 @@ export class SendAudioMessageDto extends SendBaseMessageDto {
   @IsInt()
   duration?: number;
 
+  @ApiProperty({ description: 'Tamanho do arquivo em bytes', example: 30000, required: false })
+  @IsOptional()
+  @IsInt()
+  size?: number;
+
   @ApiProperty({ description: 'Array de frequencia do audio', example: [0.15, 4.0], required: false })
   @IsOptional()
   @IsArray({ message: 'waveBars deve ser uma lista de números que representa as ondas sonoradas do áudio' })
