@@ -155,6 +155,7 @@ export class MessageFactoryService {
       mediaMimeType: dto.mimeType,
       mediaDuration: dto.duration,
       mediaSize: dto.size,
+      replyTo: dto.replyTo ? { connect: { id: dto.replyTo } } : undefined,
       metadata: {
         waveBars: dto.waveBars,
       } as unknown as InputJsonValue,
